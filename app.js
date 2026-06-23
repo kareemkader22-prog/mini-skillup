@@ -2,6 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Navigation Variables ---
     const dashboardView = document.getElementById('dashboardView');
     const interviewView = document.getElementById('interviewView');
+    const searchView = document.getElementById('searchView');
+    const notificationsView = document.getElementById('notificationsView');
+    const profileView = document.getElementById('profileView');
+
     const openInterviewBtn = document.getElementById('openInterviewBtn');
     const backToHomeBtn = document.getElementById('backToHomeBtn');
     const navItems = document.querySelectorAll('.nav-item');
@@ -16,18 +20,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const hrList = document.getElementById('hrList');
     const caseList = document.getElementById('caseList');
 
+    // פונקציה שמסתירה את כל הדפים בבת אחת
+    function hideAllViews() {
+        dashboardView.classList.add('hidden');
+        interviewView.classList.add('hidden');
+        searchView.classList.add('hidden');
+        notificationsView.classList.add('hidden');
+        profileView.classList.add('hidden');
+    }
+
     // ================= APP NAVIGATION LOGIC =================
     
     // Switch to Interview Generator
     openInterviewBtn.addEventListener('click', () => {
-        dashboardView.classList.add('hidden');
+        hideAllViews();
         interviewView.classList.remove('hidden');
         updateBottomNav('none'); // clear bottom nav selection
     });
 
     // Switch back to Dashboard
     backToHomeBtn.addEventListener('click', () => {
-        interviewView.classList.add('hidden');
+        hideAllViews();
         dashboardView.classList.remove('hidden');
         updateBottomNav('home');
     });
@@ -36,18 +49,20 @@ document.addEventListener('DOMContentLoaded', () => {
     navItems.forEach(item => {
         item.addEventListener('click', () => {
             const target = item.getAttribute('data-target');
+            hideAllViews();
             
-            // Only 'home' works right now
             if (target === 'home') {
-                interviewView.classList.add('hidden');
                 dashboardView.classList.remove('hidden');
                 updateBottomNav('home');
-            } else {
-                // Just visually select it and show an alert
-                updateBottomNav(target);
-                alert('This tab is under construction!');
-                // Snap back to home selection visually
-                setTimeout(() => updateBottomNav('home'), 500); 
+            } else if (target === 'search') {
+                searchView.classList.remove('hidden');
+                updateBottomNav('search');
+            } else if (target === 'notifications') {
+                notificationsView.classList.remove('hidden');
+                updateBottomNav('notifications');
+            } else if (target === 'profile') {
+                profileView.classList.remove('hidden');
+                updateBottomNav('profile');
             }
         });
     });
@@ -61,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
 
     // ================= AI INTERVIEW LOGIC =================
 
@@ -129,4 +143,4 @@ document.addEventListener('DOMContentLoaded', () => {
         errorBox.textContent = message;
         errorBox.classList.remove('hidden');
     }
-})
+});
