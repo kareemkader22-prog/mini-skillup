@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Serve files from the 'public' folder
-app.use(express.static('public'));
+app.use(express.static(__dirname));
 app.use(express.json());
 
 // Fallback logic if API key is missing or breaks
