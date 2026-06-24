@@ -1,95 +1,349 @@
-<div id="searchView" class="view-section hidden" style="padding: 20px; font-family: 'Inter', sans-serif; background: #f8fafc; height: 100%; box-sizing: border-box; overflow-y: auto; text-align: left;">
-    
-    <h2 style="margin-top: 20px; color: #1e293b; font-size: 24px; font-weight: 700; margin-bottom: 5px;">Search Jobs</h2>
-    <p style="color: #64748b; font-size: 14px; margin-bottom: 20px; margin-top: 0;">Find your first junior tech position</p>
+<!DOCTYPE html>
 
-    <div style="position: relative; margin-bottom: 20px;">
-        <input type="text" id="searchInput" placeholder="Search jobs, companies, skills..." readonly style="width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box; background: white; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
-        <button id="searchSubmitBtn" style="position: absolute; right: 8px; top: 8px; background: #3b71f7; color: white; border: none; padding: 7px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer;">Search</button>
-    </div>
+<html lang="en">
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px;">
-        <div style="background: white; padding: 14px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border-left: 4px solid #3b71f7;">
-            <div style="font-size: 12px; color: #64748b; font-weight: 500;">Junior Jobs Open</div>
-            <div style="font-size: 20px; font-weight: 700; color: #0f172a; margin-top: 4px;">1,248</div>
-        </div>
-        <div style="background: white; padding: 14px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border-left: 4px solid #10b981;">
-            <div style="font-size: 12px; color: #64748b; font-weight: 500;">Your Match Rate</div>
-            <div style="font-size: 20px; font-weight: 700; color: #10b981; margin-top: 4px;">84%</div>
-        </div>
-    </div>
+<head>
 
-    <div id="searchResultsArea">
-        <h4 style="margin: 0 0 12px 0; color: #1e293b; font-size: 16px; font-weight: 600;">Recommended for Yosef</h4>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SKILLUP AI</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="mobile-app-wrapper">
+
         
-        <div style="background: white; border-radius: 12px; padding: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 12px; border: 1px solid #f1f5f9;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                <div>
-                    <h5 style="margin: 0; font-size: 15px; color: #0f172a; font-weight: 600;">Junior Full-Stack Developer</h5>
-                    <p style="margin: 4px 0 0 0; font-size: 13px; color: #64748b;">CyberStart Studio • Tel Aviv / Hybrid</p>
+
+        <div id="dashboardView" class="view-section">
+
+            <header class="dashboard-header">
+
+                <div class="user-info">
+
+                    <img src="https://ui-avatars.com/api/?name=Yosef+Khalil&background=3b71f7&color=fff&rounded=true" alt="Profile" class="avatar">
+
+                    <div class="user-text">
+
+                        <h2>Welcome Back, Yosef</h2>
+
+                        <p>Junior Developer</p>
+
+                    </div>
+
                 </div>
-                <span style="background: #f0fdf4; color: #16a34a; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 12px;">92% Match</span>
-            </div>
-            <div style="margin-top: 12px; display: flex; gap: 6px;">
-                <span style="background: #f1f5f9; color: #475569; font-size: 11px; padding: 3px 8px; border-radius: 6px;">JavaScript</span>
-                <span style="background: #f1f5f9; color: #475569; font-size: 11px; padding: 3px 8px; border-radius: 6px;">Node.js</span>
-                <span style="background: #f1f5f9; color: #475569; font-size: 11px; padding: 3px 8px; border-radius: 6px;">React</span>
-            </div>
+
+                <button class="icon-btn">
+
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+
+                </button>
+
+            </header>
+
+
+
+            <main class="dashboard-content">
+
+                <div class="hero-section">
+
+                    <h1>Let's improve your chances of getting hired today.</h1>
+
+                </div>
+
+
+
+                <div class="features-grid">
+
+                    <div class="feature-card">
+
+                        <div class="feature-icon">
+
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+
+                        </div>
+
+                        <h3>Portfolio Analyzer</h3>
+
+                        <p>Analyze GitHub projects and receive an AI score.</p>
+
+                        <button class="launch-btn" onclick="alert('Coming soon!')">Launch</button>
+
+                    </div>
+
+
+
+                    <div class="feature-card">
+
+                        <div class="feature-icon">
+
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+
+                        </div>
+
+                        <h3>Resume Checker</h3>
+
+                        <p>Upload your resume and receive instant AI feedback.</p>
+
+                        <button class="launch-btn" onclick="alert('Coming soon!')">Launch</button>
+
+                    </div>
+
+
+
+                    <div class="feature-card">
+
+                        <div class="feature-icon">
+
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+
+                        </div>
+
+                        <h3>Interview Generator</h3>
+
+                        <p>Generate customized interview questions.</p>
+
+                        <button id="openInterviewBtn" class="launch-btn active-feature">Launch</button>
+
+                    </div>
+
+
+
+                    <div class="feature-card">
+
+                        <div class="feature-icon">
+
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+
+                        </div>
+
+                        <h3>Assignment DB</h3>
+
+                        <p>Access real-world technical assignments.</p>
+
+                        <button class="launch-btn" onclick="alert('Coming soon!')">Launch</button>
+
+                    </div>
+
+                </div>
+
+            </main>
+
         </div>
 
-        <div style="background: white; border-radius: 12px; padding: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 12px; border: 1px solid #f1f5f9;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                <div>
-                    <h5 style="margin: 0; font-size: 15px; color: #0f172a; font-weight: 600;">Frontend Developer (No Experience)</h5>
-                    <p style="margin: 4px 0 0 0; font-size: 13px; color: #64748b;">InnoTech Solutions • Remote</p>
+
+
+        <div id="interviewView" class="view-section hidden">
+
+            <header class="app-header">
+
+                <button id="backToHomeBtn" class="icon-btn">
+
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+
+                </button>
+
+                <h1>Interview Prep</h1>
+
+                <div style="width: 24px;"></div>
+
+            </header>
+
+
+
+            <main class="app-content">
+
+                <div class="card input-card">
+
+                    <label for="jobInput" class="card-label">Job Description</label>
+
+                    <textarea id="jobInput" placeholder="Paste the job description here..."></textarea>
+
                 </div>
-                <span style="background: #fef9c3; color: #a16207; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 12px;">78% Match</span>
-            </div>
-            <div style="margin-top: 12px; display: flex; gap: 6px;">
-                <span style="background: #f1f5f9; color: #475569; font-size: 11px; padding: 3px 8px; border-radius: 6px;">HTML/CSS</span>
-                <span style="background: #f1f5f9; color: #475569; font-size: 11px; padding: 3px 8px; border-radius: 6px;">UI/UX basics</span>
-            </div>
+
+
+
+                <button id="generateBtn" class="primary-btn">Generate Questions</button>
+
+
+
+                <div id="loading" class="hidden loading-screen">
+
+                    <div class="loader-circle"></div>
+
+                    <p>Analyzing Job Requirements...</p>
+
+                </div>
+
+
+
+                <div id="errorBox" class="hidden error-box"></div>
+
+
+
+                <div id="results" class="hidden results-container">
+
+                    <div class="score-header">
+
+                        <h2>AI Recommendations</h2>
+
+                        <p>Here are your customized questions.</p>
+
+                    </div>
+
+                    
+
+                    <div class="result-card">
+
+                        <h3>Technical Questions</h3>
+
+                        <ul id="techList" class="custom-list"></ul>
+
+                    </div>
+
+
+
+                    <div class="result-card">
+
+                        <h3>Behavioral / HR</h3>
+
+                        <ul id="hrList" class="custom-list"></ul>
+
+                    </div>
+
+
+
+                    <div class="result-card">
+
+                        <h3>Case Study</h3>
+
+                        <ul id="caseList" class="custom-list"></ul>
+
+                    </div>
+
+                </div>
+
+            </main>
+
         </div>
+
+
+
+        <div id="searchView" class="view-section hidden" style="padding: 20px; text-align: center;">
+
+            <h2 style="margin-top: 40px; color: #3b71f7;">Search</h2>
+
+            <p style="color: #666; margin-top: 10px;">Search for jobs, companies, or study materials here.</p>
+
+        </div>
+
+
+
+        <div id="notificationsView" class="view-section hidden" style="padding: 20px; text-align: center;">
+
+            <h2 style="margin-top: 40px; color: #3b71f7;">Notifications</h2>
+
+            <p style="color: #666; margin-top: 10px;">You have no new notifications at the moment.</p>
+
+        </div>
+
+
+
+        <div id="profileView" class="view-section hidden" style="padding: 20px; font-family: 'Inter', sans-serif; text-align: left; background: #f8fafc; height: 100%; box-sizing: border-box; overflow-y: auto;">
+
+            
+
+            <h2 style="color: #1e293b; font-size: 24px; font-weight: 700; margin-bottom: 20px; margin-top: 20px;">My Profile</h2>
+
+            
+
+            <div style="background: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 20px; text-align: center;">
+
+                <img src="https://ui-avatars.com/api/?name=Yosef+Khalil&background=3b71f7&color=fff&rounded=true&size=128" alt="Yosef Khalil" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 12px; border: 3px solid #e2e8f0;">
+
+                <h3 style="margin: 0; color: #0f172a; font-size: 20px; font-weight: 600;">Yosef Khalil</h3>
+
+                <p style="margin: 4px 0 0 0; color: #64748b; font-size: 14px; font-weight: 500;">Junior Developer</p>
+
+                <div style="display: inline-block; background: #e0f2fe; color: #0369a1; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-top: 10px;">Active Student</div>
+
+            </div>
+
+
+
+            <div style="background: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 25px;">
+
+                <h4 style="margin: 0 0 12px 0; color: #3b71f7; font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">About Me</h4>
+
+                
+
+                <p style="margin: 0 0 16px 0; color: #334155; font-size: 14px; line-height: 1.6;">
+
+                    <strong>Age:</strong> 24<br>
+
+                    <strong>Education:</strong> Social Sciences & Tech Student.<br>
+
+                    <strong>Background:</strong> Worked for 3 years at a supermarket to self-fund and finance my academic degree. High motivation, responsible, and determined to succeed.
+
+                </p>
+
+
+
+                <h4 style="margin: 16px 0 8px 0; color: #1e293b; font-size: 15px; font-weight: 600;">Target Goal</h4>
+
+                <p style="margin: 0; color: #475569; font-size: 13.5px; line-height: 1.5;">
+
+                    Actively searching for the first entry-level Junior position in tech. Looking for practical industry guidance to bridge the gap between academic theory and real-world workplace demands.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <nav class="bottom-nav">
+
+            <div class="nav-item active" data-target="home">
+
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+
+            </div>
+
+            <div class="nav-item" data-target="search">
+
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+
+            </div>
+
+            <div class="nav-item" data-target="notifications">
+
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+
+            </div>
+
+            <div class="nav-item" data-target="profile">
+
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+
+            </div>
+
+        </nav>
+
+        
+
     </div>
 
-    <div id="virtualKeyboard" style="position: fixed; bottom: 65px; left: 50%; transform: translateX(-50%); width: 100%; max-width: 375px; background: #e2e8f0; padding: 10px 6px; box-sizing: border-box; border-top-left-radius: 16px; border-top-right-radius: 16px; box-shadow: 0 -4px 10px rgba(0,0,0,0.1); display: none; z-index: 999; direction: ltr;">
-        <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 6px;">
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">Q</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">W</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">E</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">R</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">T</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">Y</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">U</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">I</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">O</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">P</button>
-        </div>
-        <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 6px;">
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">A</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">S</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">D</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">F</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">G</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">H</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">J</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">K</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">L</button>
-        </div>
-        <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 6px;">
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">Z</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">X</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">C</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">V</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">B</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">N</button>
-            <button class="key" style="background: white; border: none; padding: 12px 0; width: 32px; border-radius: 5px; font-weight: 600; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">M</button>
-            <button id="keyDelete" style="background: #a0aec0; color: white; border: none; padding: 12px 0; width: 45px; border-radius: 5px; font-weight: bold; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">⌫</button>
-        </div>
-        <div style="display: flex; justify-content: center; gap: 6px;">
-            <button id="keySpace" style="background: white; border: none; padding: 12px 0; width: 180px; border-radius: 5px; font-weight: 600; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">Space</button>
-            <button id="keyClose" style="background: #4a5568; color: white; border: none; padding: 12px 0; width: 70px; border-radius: 5px; font-weight: bold; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); cursor: pointer;">Done</button>
-        </div>
-    </div>
+    <script src="app.js"></script>
 
-</div>
+</body>
+
+</html>
