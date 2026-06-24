@@ -20,6 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const hrList = document.getElementById('hrList');
     const caseList = document.getElementById('caseList');
 
+    // --- Search & Virtual Keyboard Variables ---
+    const searchInput = document.getElementById("searchInput");
+    const keyboard = document.getElementById("virtualKeyboard");
+    const deleteBtn = document.getElementById("keyDelete");
+    const spaceBtn = document.getElementById("keySpace");
+    const closeBtn = document.getElementById("keyClose");
+    const searchSubmitBtn = document.getElementById("searchSubmitBtn");
+
     // פונקציה שמסתירה את כל הדפים בבת אחת
     function hideAllViews() {
         dashboardView.classList.add('hidden');
@@ -74,6 +82,78 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 nav.classList.remove('active');
             }
+        });
+    }
+
+    // ================= VIRTUAL KEYBOARD LOGIC =================
+
+    // פתיחת המקלדת בלחיצה על תיבת הטקסט של החיפוש
+    if (searchInput && keyboard) {
+        searchInput.addEventListener("click", (e) => {
+            e.stopPropagation();
+            keyboard.style.display = "block";
+        });
+    }
+
+    // הוספת האותיות בלחיצה על המקשים
+    document.querySelectorAll(".key").forEach(keyBtn => {
+        // מדלגים על מקשים מיוחדים כדי שלא ידפיסו את הטקסט הפנימי שלהם
+        if (keyBtn.id === "keyDelete" || keyBtn.id === "keySpace" || keyBtn.id === "keyClose") return;
+
+        keyBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (searchInput) {
+                searchInput.value += keyBtn.innerText;
+                searchInput.focus();
+            }
+        });
+    });
+
+    // כפתור מחיקה (תו אחרון)
+    if (deleteBtn) {
+        deleteBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (searchInput) {
+                searchInput.value = searchInput.value.slice(0, -1);
+            }
+        });
+    }
+
+    // מקש רווח
+    if (spaceBtn) {
+        spaceBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (searchInput) {
+                searchInput.value += " ";
+            }
+        });
+    }
+
+    // כפתור סגירה (Done)
+    if (closeBtn) {
+        closeBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (keyboard) keyboard.style.display = "none";
+        });
+    }
+
+    // סגירת מקלדת בלחיצה מחוץ לאזור שלה בתוך המכשיר
+    document.addEventListener("click", (e) => {
+        if (keyboard && !keyboard.contains(e.target) && e.target !== searchInput) {
+            keyboard.style.display = "none";
+        }
+    });
+
+    // דימוי ביצוע חיפוש וסגירת מקלדת
+    if (searchSubmitBtn) {
+        searchSubmitBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (keyboard) keyboard.style.display = "none";
+            
+            const query = searchInput ? searchInput.value.trim() : "";
+            console.log("Searching for: ", query);
+            
+            // כאן תוכל להוסיף בעתיד לוגיקת סינון רשומות אמיתית
         });
     }
 
@@ -134,6 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         items.forEach(item => {
             const li = document.createElement('li');
+            
             li.textContent = item;
             listElement.appendChild(li);
         });
