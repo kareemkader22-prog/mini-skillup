@@ -32,16 +32,118 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // מאגר גיבוי עשיר ומקומי (Fallback) למקרה שה-API נחסם בגלל CORS בדפדפן
+    // מאגר גיבוי עשיר, מורחב ומפורט עם דרישות מלאות ומבנה של מודעות דרושים אמיתיות
     const fallbackJobs = [
-        { title: "Junior Data Analyst", company: { display_name: "Google" }, location: { display_name: "Tel Aviv-Yafo" }, description: "We are looking for a Junior Data Analyst to join our team. Proficiency in SQL, Python, and Tableau/PowerBI is required. Experience with big data technologies is a plus." },
-        { title: "IT Support Specialist", company: { display_name: "Check Point" }, location: { display_name: "Tel Aviv-Yafo" }, description: "Provide technical assistance and support for incoming queries and issues related to computer systems, software, and hardware." },
-        { title: "QA Automation Engineer", company: { display_name: "Mobileye" }, location: { display_name: "Jerusalem" }, description: "Develop and execute automated tests using Selenium/Playwright with Python or Java. Analyze test results and report bugs." },
-        { title: "Full Stack Developer (Junior)", company: { display_name: "Wix.com" }, location: { display_name: "Tel Aviv - Remote" }, description: "Join our core web engineering unit. Working with React, Node.js, and modern cloud infrastructure. Mentorship provided for juniors!" },
-        { title: "Cyber Security Analyst", company: { display_name: "CyberArk" }, location: { display_name: "Petah Tikva" }, description: "Monitor network traffic for security events, investigate potential incidents, and contribute to risk management audits." },
-        { title: "Data Scientist", company: { display_name: "Microsoft" }, location: { display_name: "Herzliya" }, description: "Apply advanced statistical and machine learning methods to extract insights from vast infrastructure datasets. Python, PyTorch, SQL expertise required." },
-        { title: "DevOps Engineer", company: { display_name: "Intel" }, location: { display_name: "Haifa" }, description: "Maintain CI/CD pipelines, manage Kubernetes clusters, and automate cloud infrastructure using Terraform and AWS/Azure." },
-        { title: "SOC Analyst Shift Leader", company: { display_name: "Palo Alto Networks" }, location: { display_name: "Tel Aviv" }, description: "Lead real-time response to security threats. Requires deep understanding of protocols, log analysis, and incident frameworks." }
+        { 
+            title: "Junior Data Analyst", 
+            company: { display_name: "Google" }, 
+            location: { display_name: "Tel Aviv-Yafo" }, 
+            description: `
+                <strong>Role Overview:</strong><br>
+                We are looking for a brilliant Junior Data Analyst to turn data into valuable business insights. You will conduct full lifecycle analysis to include requirements, activities, and design. You will develop analysis and data collection systems, optimizing statistical efficiency and quality.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • 1+ years of experience or strong academic/project portfolio in Data Analysis.<br>
+                • Advanced proficiency in SQL queries and data manipulation.<br>
+                • Hands-on experience with visualization tools: Tableau, Power BI, or Looker.<br>
+                • Basic scripting skills in Python (Pandas, NumPy) or R.<br>
+                • Strong analytical skills with the ability to collect, organize, analyze, and disseminate significant amounts of information.` 
+        },
+        { 
+            title: "IT Support Specialist", 
+            company: { display_name: "Check Point" }, 
+            location: { display_name: "Tel Aviv-Yafo" }, 
+            description: `
+                <strong>Role Overview:</strong><br>
+                Join our global IT Infrastructure team. In this role, you will be the first line of technical assistance for our employees worldwide, troubleshooting complex system issues, deploying enterprise hardware, and managing corporate software permissions.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • Deep understanding of Windows 10/11, macOS, and Linux operating systems.<br>
+                • Proven experience with Active Directory, GPO, and Office 365 administration.<br>
+                • Familiarity with basic networking concepts: TCP/IP, DNS, DHCP, VPNs, and Firewalls.<br>
+                • Excellent troubleshooting skills and high service orientation.<br>
+                • Certifications like CompTIA A+, Network+, or CCNA – a significant advantage.` 
+        },
+        { 
+            title: "QA Automation Engineer", 
+            company: { display_name: "Mobileye" }, 
+            location: { display_name: "Jerusalem" }, 
+            description: `
+                <strong>Role Overview:</strong><br>
+                We are seeking a QA Automation Engineer to design, build, and maintain our next-generation automated test suites for advanced driver-assistance systems (ADAS). You will ensure software reliability through rigorous, continuous integration testing.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • Solid programming background in Python, Java, or C#.<br>
+                • Experience building automation frameworks from scratch using Selenium, Playwright, or Appium.<br>
+                • Strong understanding of QA methodologies, test planning, and defect tracking tools (Jira).<br>
+                • Familiarity with CI/CD systems, especially Jenkins or GitHub Actions.<br>
+                • Passion for quality, detail-oriented mindset, and strong problem-solving capabilities.` 
+        },
+        { 
+            title: "Full Stack Developer (Junior)", 
+            company: { display_name: "Wix.com" }, 
+            location: { display_name: "Tel Aviv - Remote" }, 
+            description: `
+                <strong>Role Overview:</strong><br>
+                Wix is looking for a talented Junior Full Stack Developer to join our core web engineering group. You will write high-quality, scalable code, participate in code reviews, and build user-facing web applications utilized by millions globally.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • Strong fundamentals in JavaScript / TypeScript and modern HTML/CSS.<br>
+                • Practical experience with modern frontend frameworks, preferably React or Vue.js.<br>
+                • Server-side development experience using Node.js, Express, or NestJS.<br>
+                • Understanding of relational and non-relational databases (MongoDB, PostgreSQL).<br>
+                • Highly motivated, self-learner, with an impressive GitHub repository showing clean code layout.` 
+        },
+        { 
+            title: "Cyber Security Analyst", 
+            company: { display_name: "CyberArk" }, 
+            location: { display_name: "Petah Tikva" }, 
+            description: `
+                <strong>Role Overview:</strong><br>
+                We are looking for a Cyber Security Analyst to join our enterprise defence division. You will analyze infrastructure logs, conduct security audits, identify code vulnerabilities, and participate in deploying secure privileged access management systems.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • Thorough understanding of the OWASP Top 10 vulnerabilities and secure coding principles.<br>
+                • Experience with network security monitoring, vulnerability scanners, and dynamic testing tools.<br>
+                • Familiarity with cloud security practices in AWS or Microsoft Azure.<br>
+                • Understanding of operating system security controls (Linux/Windows).<br>
+                • Ability to write simple automation scripts using Bash or Python.` 
+        },
+        { 
+            title: "Data Scientist", 
+            company: { display_name: "Microsoft" }, 
+            location: { display_name: "Herzliya" }, 
+            description: `
+                <strong>Role Overview:</strong><br>
+                Microsoft's R&D center is looking for a Data Scientist to construct advanced machine learning architectures. You will collaborate with engineering teams to deploy AI models into production, optimizing algorithms based on live traffic patterns.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • B.Sc./M.Sc. in Computer Science, Statistics, Mathematics, or a related quantitative field.<br>
+                • Strong coding standards in Python, including libraries like PyTorch, TensorFlow, Scikit-Learn.<br>
+                • Solid grasp of machine learning algorithms: clustering, regression, classification, and neural networks.<br>
+                • Practical knowledge of relational and distributed databases (SQL, Spark).` 
+        },
+        { 
+            title: "DevOps Engineer", 
+            company: { display_name: "Intel" }, 
+            location: { display_name: "Haifa" }, 
+            description: `
+                <strong>Role Overview:</strong><br>
+                Intel is recruiting a DevOps Engineer to handle scaling, deployment, and optimization of compute clouds. You will automate delivery cycles, manage large hardware server allocations, and support development pipelines globally.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • Excellent knowledge of Linux System Administration.<br>
+                • Hands-on experience with Infrastructure as Code (IaC) tools, primarily Terraform or Ansible.<br>
+                • Solid containerization skills with Docker and orchestrators like Kubernetes (K8s).<br>
+                • Background setting up CI/CD workflows using Git, GitHub Actions, or GitLab CI.` 
+        },
+        { 
+            title: "SOC Analyst Shift Leader", 
+            company: { display_name: "Palo Alto Networks" }, 
+            location: { display_name: "Tel Aviv" }, 
+            description: `
+                <strong>Role Overview:</strong><br>
+                As a SOC Shift Leader at Palo Alto Networks, you will direct real-time security operational monitoring and handle critical incident escalation. You will lead a shift of security technicians tracking active network attacks and malware propagation across complex cloud systems.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • 2+ years of prior experience working inside a Security Operations Center (SOC).<br>
+                • Deep technical understanding of underlying network protocols (TCP/IP, HTTP, TLS, SSH).<br>
+                • Expert knowledge using SIEM platforms like Splunk, QRadar, or Cortex XSOAR.<br>
+                • Experience identifying indicators of compromise (IOCs) and utilizing advanced incident frameworks (MITRE ATT&CK).<br>
+                • Excellent leadership skills under pressure and clear communication capabilities.` 
+        }
     ];
 
     // פונקציית החיפוש הכללית - תומכת בכל מקצועות ההייטק והחברות בשוק
@@ -77,13 +179,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 renderJobCards(jobs);
             }
         } catch (error) {
-            console.warn("External API failed or blocked by CORS. Switching to intelligent local data backup instantly.", error);
+            console.warn("External API blocked by CORS or Network error. Switching to highly detailed local fallback data instantly.", error);
             // מפעיל את הגיבוי באופן שקוף לחלוטין למשתמש!
             useFallbackSearch(query);
         }
     }
 
-    // פונקציית סינון חכמה מתוך מאגר הגיבוי המקומי
+    // פונקציית סינון חכמה מתוך מאגר הגיבוי המקומי המורחב
     function useFallbackSearch(query) {
         const lowerQuery = query.toLowerCase();
         
@@ -167,8 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         modalJobDetails.innerHTML = `
             <p style="margin-bottom: 12px; font-size:13px; color:#475569; text-align: left;"><strong>Location:</strong> ${job.location?.display_name || "Israel"}</p>
-            <p style="margin-bottom: 8px; font-weight: 700; color: #1e293b; font-size:14px; text-align: left;">Requirements & Scope:</p>
-            <div style="font-size: 13px; color: #334155; line-height: 1.6; margin-bottom: 20px; max-height:200px; overflow-y:auto; padding-right:5px; text-align: left;">
+            <div style="font-size: 13px; color: #334155; line-height: 1.6; margin-bottom: 20px; max-height:260px; overflow-y:auto; padding-right:5px; text-align: left;">
                 ${job.description}
             </div>
             ${externalLinkBtn}
