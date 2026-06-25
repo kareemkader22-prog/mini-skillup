@@ -10,25 +10,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const backToHomeBtn = document.getElementById('backToHomeBtn');
     const navItems = document.querySelectorAll('.nav-item');
 
-    // --- Interview Feature Variables ---
-    const generateBtn = document.getElementById('generateBtn');
-    const jobInput = document.getElementById('jobInput');
-    const loadingDiv = document.getElementById('loading');
-    const resultsDiv = document.getElementById('results');
-    const errorBox = document.getElementById('errorBox');
-    const techList = document.getElementById('techList');
-    const hrList = document.getElementById('hrList');
-    const caseList = document.getElementById('caseList');
+    // --- Menu Variables ---
+    const menuBtn = document.getElementById('menuBtn');
+    const sideMenu = document.getElementById('sideMenu');
+    const closeMenuBtn = document.getElementById('closeMenuBtn');
+    const menuOverlay = document.getElementById('menuOverlay');
 
     // --- Search & Virtual Keyboard Variables ---
     const searchInput = document.getElementById("searchInput");
     const keyboard = document.getElementById("virtualKeyboard");
     const deleteBtn = document.getElementById("keyDelete");
     const spaceBtn = document.getElementById("keySpace");
-    const closeBtn = document.getElementById("keyClose");
+    const closeKeyboardBtn = document.getElementById("keyClose");
     const searchSubmitBtn = document.getElementById("searchSubmitBtn");
+    const searchResultsArea = document.getElementById('searchResultsArea');
 
-    // פונקציה שמסתירה את כל הדפים בבת אחת
+    // ================= APP NAVIGATION LOGIC =================
+
+    // Hide all views function
     function hideAllViews() {
         dashboardView.classList.add('hidden');
         interviewView.classList.add('hidden');
@@ -37,28 +36,30 @@ document.addEventListener('DOMContentLoaded', () => {
         profileView.classList.add('hidden');
     }
 
-    // ================= APP NAVIGATION LOGIC =================
-    
     // Switch to Interview Generator
-    openInterviewBtn.addEventListener('click', () => {
-        hideAllViews();
-        interviewView.classList.remove('hidden');
-        updateBottomNav('none'); // clear bottom nav selection
-    });
+    if (openInterviewBtn) {
+        openInterviewBtn.addEventListener('click', () => {
+            hideAllViews();
+            interviewView.classList.remove('hidden');
+            updateBottomNav('none'); // Clear bottom nav selection
+        });
+    }
 
     // Switch back to Dashboard
-    backToHomeBtn.addEventListener('click', () => {
-        hideAllViews();
-        dashboardView.classList.remove('hidden');
-        updateBottomNav('home');
-    });
+    if (backToHomeBtn) {
+        backToHomeBtn.addEventListener('click', () => {
+            hideAllViews();
+            dashboardView.classList.remove('hidden');
+            updateBottomNav('home');
+        });
+    }
 
     // Bottom Navigation Clicks
     navItems.forEach(item => {
         item.addEventListener('click', () => {
             const target = item.getAttribute('data-target');
             hideAllViews();
-            
+
             if (target === 'home') {
                 dashboardView.classList.remove('hidden');
                 updateBottomNav('home');
@@ -77,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateBottomNav(targetId) {
         navItems.forEach(nav => {
-            if(nav.getAttribute('data-target') === targetId) {
+            if (nav.getAttribute('data-target') === targetId) {
                 nav.classList.add('active');
             } else {
                 nav.classList.remove('active');
@@ -85,41 +86,91 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ================= VIRTUAL KEYBOARD LOGIC =================
+    // ================= MENU LOGIC =================
 
-    // פתיחת המקלדת בלחיצה על תיבת הטקסט של החיפוש
-    if (searchInput && keyboard) {
-        searchInput.addEventListener("click", (e) => {
-            e.stopPropagation();
-            keyboard.style.display = "block";
+    // Open Menu
+    if (menuBtn) {
+        menuBtn.addEventListener('click', () => {
+            sideMenu.classList.add('open');
+            menuOverlay.classList.add('open');
         });
     }
 
-    // הוספת האותיות בלחיצה על המקשים
+    // Close Menu (Cross button, Overlay, or Escape key)
+    function closeMenu() {
+        sideMenu.classList.remove('open');
+        menuOverlay.classList.remove('open');
+    }
+
+    if (closeMenuBtn) {
+        closeMenuBtn.addEventListener('click', closeMenu);
+    }
+
+    if (menuOverlay) {
+        menuOverlay.addEventListener('click', closeMenu);
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === "Escape" && sideMenu.classList.contains('open')) {
+            closeMenu();
+        }
+    });
+
+    // Close menu when clicking outside (not the menu or menu button)
+    document.addEventListener("click", (e) => {
+        if (sideMenu.classList.contains('open') && !sideMenu.contains(e.target) && e.target !== menuBtn && !menuBtn.contains(e.target)) {
+            closeMenu();
+        }
+    });
+
+    // ================= VIRTUAL KEYBOARD LOGIC =================
+
+    // Open Keyboard
+    if (searchInput && keyboard) {
+        searchInput.addEventListener("click", (e) => {
+            e.stopPropagation(); // Prevent closing when clicking the input
+            keyboard.classList.add("visible");
+            keyboard.style.display = "block"; // Required for initial visibility
+        });
+    }
+
+    // Close Keyboard
+    function closeKeyboard() {
+        if (keyboard) {
+            keyboard.classList.remove("visible");
+            keyboard.style.display = "none";
+        }
+    }
+
+    if (closeKeyboardBtn) {
+        closeKeyboardBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            closeKeyboard();
+        });
+    }
+
+    // Close Keyboard on outside click
+    document.addEventListener("click", (e) => {
+        if (keyboard.classList.contains('visible') && !keyboard.contains(e.target) && e.target !== searchInput) {
+            closeKeyboard();
+        }
+    });
+
+    // Handle character input
     document.querySelectorAll(".key").forEach(keyBtn => {
-        // מדלגים על מקשים מיוחדים כדי שלא ידפיסו את הטקסט הפנימי שלהם
-        if (keyBtn.id === "keyDelete" || keyBtn.id === "keySpace" || keyBtn.id === "keyClose") return;
+        // Skip special keys (handled separately)
+        if (["keyDelete", "keySpace", "keyClose"].includes(keyBtn.id)) return;
 
         keyBtn.addEventListener("click", (e) => {
             e.stopPropagation();
             if (searchInput) {
                 searchInput.value += keyBtn.innerText;
-                searchInput.focus();
+                searchInput.focus(); // Keep focus for smoother typing
             }
         });
     });
 
-    // כפתור מחיקה (תו אחרון)
-    if (deleteBtn) {
-        deleteBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            if (searchInput) {
-                searchInput.value = searchInput.value.slice(0, -1);
-            }
-        });
-    }
-
-    // מקש רווח
+    // Handle space key
     if (spaceBtn) {
         spaceBtn.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -129,99 +180,77 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // כפתור סגירה (Done)
-    if (closeBtn) {
-        closeBtn.addEventListener("click", (e) => {
+    // Handle delete key (backspace)
+    if (deleteBtn) {
+        deleteBtn.addEventListener("click", (e) => {
             e.stopPropagation();
-            if (keyboard) keyboard.style.display = "none";
-        });
-    }
-
-    // סגירת מקלדת בלחיצה מחוץ לאזור שלה בתוך המכשיר
-    document.addEventListener("click", (e) => {
-        if (keyboard && !keyboard.contains(e.target) && e.target !== searchInput) {
-            keyboard.style.display = "none";
-        }
-    });
-
-    // דימוי ביצוע חיפוש וסגירת מקלדת
-    if (searchSubmitBtn) {
-        searchSubmitBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            if (keyboard) keyboard.style.display = "none";
-            
-            const query = searchInput ? searchInput.value.trim() : "";
-            console.log("Searching for: ", query);
-            
-            // כאן תוכל להוסיף בעתיד לוגיקת סינון רשומות אמיתית
-        });
-    }
-
-    // ================= AI INTERVIEW LOGIC =================
-
-    generateBtn.addEventListener('click', async () => {
-        const jobDescription = jobInput.value.trim();
-        
-        if (!jobDescription) {
-            showError("Please paste a job description first.");
-            return;
-        }
-
-        // Reset UI
-        errorBox.classList.add('hidden');
-        resultsDiv.classList.add('hidden');
-        loadingDiv.classList.remove('hidden');
-        generateBtn.disabled = true;
-
-        try {
-            const response = await fetch('/api/generate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ jobDescription })
-            });
-
-            if (!response.ok) {
-                throw new Error("Server failed to generate questions.");
+            if (searchInput) {
+                searchInput.value = searchInput.value.slice(0, -1);
             }
-
-            const data = await response.json();
-            
-            // Populate lists
-            populateList(techList, data.technical);
-            populateList(hrList, data.behavioral);
-            populateList(caseList, data.caseStudy);
-
-            // Show results
-            loadingDiv.classList.add('hidden');
-            resultsDiv.classList.remove('hidden');
-
-        } catch (error) {
-            console.error(error);
-            loadingDiv.classList.add('hidden');
-            showError("An error occurred while connecting to the AI. Please try again.");
-        } finally {
-            generateBtn.disabled = false;
-        }
-    });
-
-    function populateList(listElement, items) {
-        listElement.innerHTML = '';
-        if (!items || items.length === 0) {
-            listElement.innerHTML = '<li>No questions generated.</li>';
-            return;
-        }
-        items.forEach(item => {
-            const li = document.createElement('li');
-            
-            li.textContent = item;
-            listElement.appendChild(li);
         });
     }
 
-    function showError(message) {
-        errorBox.textContent = message;
-        errorBox.classList.remove('hidden');
+    // ================= SEARCH RESULTS LOGIC =================
+
+    // Real-time Search Input Handling
+    if (searchInput) {
+        searchInput.addEventListener('input', showSearchResults);
+    }
+
+    if (searchSubmitBtn) {
+        searchSubmitBtn.addEventListener('click', showSearchResults);
+    }
+
+    function showSearchResults() {
+        // Use real input value, or fallback to an empty string.
+        const query = (searchInput ? searchInput.value.trim() : "").toLowerCase();
+        
+        // Always close keyboard on search submission
+        closeKeyboard();
+
+        if (query === "") {
+            searchResultsArea.innerHTML = "";
+            return;
+        }
+
+        // Simulating result logic - replace this with real API calls if available.
+        let resultsHTML = "";
+        const resultsData = {
+            "dev": [
+                { title: "Junior Front-End Developer", company: "TechCorp", description: "Build modern web interfaces with React." },
+                { title: "Node.js Back-End Engineer", company: "DataFlow", description: "Design scalable back-end solutions." }
+            ],
+            "data": [
+                { title: "Data Analyst Internship", company: "Insight Solutions", description: "Analyze customer data and create reports." }
+            ],
+            "amdocs": [
+                { title: "Network Quality Assurance", company: "Amdocs", description: "Ensure quality for Amdocs networking products." },
+                { title: "Technical Support", company: "Amdocs", description: "Handle technical issues for global clients." },
+            ],
+            // More generalized cases
+            "python": [
+              {title: "Junior Python Backend", company: "Amdocs", description: "Amdocs is hiring junior devs"},
+            ]
+        };
+
+        // Create results
+        if (query in resultsData) {
+            resultsData[query].forEach(job => {
+                resultsHTML += `
+                    <div class="search-result-card" style="margin-bottom: 12px; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                        <h4 style="color: #0f172a; margin-top: 0; margin-bottom: 5px; font-weight: 600;">${job.title}</h4>
+                        <p style="color: #64748b; font-size: 13px; margin: 0;">${job.company}</p>
+                        <p style="color: #475569; font-size: 14px; margin-top: 8px; margin-bottom: 0;">${job.description}</p>
+                    </div>
+                `;
+            });
+        } else {
+            resultsHTML = `<p style="text-align: center; color: #666; margin-top: 20px;">No results found for "${query}". Try 'dev', 'data', or 'amdocs'.</p>`;
+        }
+
+        // Add to DOM
+        if (searchResultsArea) {
+            searchResultsArea.innerHTML = resultsHTML;
+        }
     }
 });
