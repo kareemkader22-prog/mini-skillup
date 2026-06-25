@@ -10,139 +10,179 @@
 <body>
     <div class="mobile-app-wrapper">
         
+        <!-- ================= DASHBOARD VIEW (HOME) ================= -->
         <div id="dashboardView" class="view-section">
             <header class="dashboard-header">
                 <div class="user-info">
-                    <img src="https://ui-avatars.com/api/?name=Yosef+Khalil&background=3b71f7&color=fff&rounded=true" alt="Profile" class="avatar">
+                    <img src="https://ui-avatars.com/api/?name=Yosef+Khalil&background=c5272a&color=fff&rounded=true" alt="Profile" class="avatar">
                     <div class="user-text">
-                        <h2>Welcome Back, Yosefהבנתי לגמרי. נחזיר את הסדר על כנו: שלושת הקווים (התפריט) יופיעו **רק** בפינת מסך הבית כמו בהתחלה, ובלחיצה עליהם ייפתח תפריט צידי חבוי ויוקרתי.
+                        <h2>Welcome Back, Yosef</h2>
+                        <p>Junior Developer</p>
+                    </div>
+                </div>
+                <button id="menuBtn" class="icon-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </header>
 
-מבחינת העיצוב, לקחנו את ההשראה מאמדוקס והפכנו את כל ה-UI לכהה ודרמטי: **רקע שחור עמוק** עם נגיעות חזקות של **אדום-גוון-אמדוקס** בלחצנים ובאיקונים הפעילים, מה שנותן מראה מיוחד, יוקרתי וטכנולוגי, כפי שביקשת.
+            <main class="dashboard-content">
+                <!-- שורת חיפוש עליונה יוקרתית -->
+                <div class="search-bar-container">
+                    <input type="text" id="mainSearchInput" placeholder="Search jobs, companies, skills..." readonly>
+                    <button class="search-action-btn">Search</button>
+                </div>
 
-הנה התמונה של מסך הבית המעודכן, ואחריה הקודים הנדרשים.
+                <div class="hero-section">
+                    <h1>Let's improve your chances of getting hired today.</h1>
+                </div>
 
----
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                        </div>
+                        <h3>Resume Checker (AI)</h3>
+                        <p>Analyze GitHub projects and receive an AI score.</p>
+                        <button class="launch-btn">Launch</button>
+                    </div>
 
-### `app.js`
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                        </div>
+                        <h3>Portfolio Grader</h3>
+                        <p>Upload your resume and receive instant AI feedback.</p>
+                        <button class="launch-btn">Launch</button>
+                    </div>
 
-```javascript
-document.addEventListener('DOMContentLoaded', () => {
-    // --- Navigation Variables ---
-    const dashboardView = document.getElementById('dashboardView');
-    const interviewView = document.getElementById('interviewView');
-    const searchView = document.getElementById('searchView');
-    const notificationsView = document.getElementById('notificationsView');
-    const profileView = document.getElementById('profileView');
+                    <div class="feature-card highlighted-card">
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line></svg>
+                        </div>
+                        <h3>Interview Gen</h3>
+                        <p>Generate customized interview questions.</p>
+                        <button id="openInterviewBtn" class="launch-btn active-feature">Launch</button>
+                    </div>
 
-    const openInterviewBtn = document.getElementById('openInterviewBtn');
-    const backToHomeBtn = document.getElementById('backToHomeBtn');
-    const navItems = document.querySelectorAll('.nav-item');
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                        </div>
+                        <h3>Assignment DB</h3>
+                        <p>Access real-world technical assignments.</p>
+                        <button class="launch-btn">Launch</button>
+                    </div>
+                </div>
+            </main>
+        </div>
 
-    // --- NEW: Side Menu Variables ---
-    const menuBtn = document.getElementById('menuBtn');
-    const sideMenu = document.getElementById('sideMenu');
-    const closeMenuBtn = document.getElementById('closeMenuBtn');
-    const menuOverlay = document.getElementById('menuOverlay');
+        <!-- ================= SEARCH VIEW ================= -->
+        <div id="searchView" class="view-section hidden">
+            <header class="view-header">
+                <h1>Search</h1>
+                <p>Search for jobs, companies, or study materials here.</p>
+            </header>
+            <main class="view-content">
+                <div class="search-bar-container">
+                    <input type="text" id="innerSearchInput" placeholder="Search jobs, companies, skills..." readonly>
+                    <button class="search-action-btn">Search</button>
+                </div>
+            </main>
+        </div>
 
-    // ... Interview Feature Variables ... (as before)
-    // ...
+        <!-- ================= NOTIFICATIONS VIEW ================= -->
+        <div id="notificationsView" class="view-section hidden">
+            <header class="view-header">
+                <h1>Notifications</h1>
+            </header>
+            <main class="view-content placeholder-content">
+                <p>No new notifications at this time.</p>
+            </main>
+        </div>
 
-    // Hide all views function
-    function hideAllViews() {
-        dashboardView.classList.add('hidden');
-        interviewView.classList.add('hidden');
-        searchView.classList.add('hidden');
-        notificationsView.classList.add('hidden');
-        profileView.classList.add('hidden');
-        // NEW: Always close the side menu when navigating
-        closeSideMenu();
-    }
+        <!-- ================= PROFILE VIEW ================= -->
+        <div id="profileView" class="view-section hidden">
+            <header class="view-header">
+                <h1>Profile</h1>
+            </header>
+            <main class="view-content placeholder-content">
+                <p>User profile details and settings.</p>
+            </main>
+        </div>
 
-    // ================= APP NAVIGATION LOGIC =================
+        <!-- ================= INTERVIEW GENERATOR VIEW ================= -->
+        <div id="interviewView" class="view-section hidden">
+            <header class="view-header-with-back">
+                <button id="backToHomeBtn" class="icon-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                </button>
+                <h1>Interview Prep</h1>
+                <div style="width: 24px;"></div>
+            </header>
+            <main class="view-content">
+                <div class="card input-card">
+                    <label for="jobInput" class="card-label">Job Description</label>
+                    <textarea id="jobInput" placeholder="Paste the job description here..." readonly></textarea>
+                </div>
+                <button id="generateBtn" class="primary-btn">Generate Questions</button>
+            </main>
+        </div>
 
-    // Switch to Interview Generator
-    if (openInterviewBtn) {
-        openInterviewBtn.addEventListener('click', () => {
-            hideAllViews();
-            interviewView.classList.remove('hidden');
-            updateBottomNav('none'); // Clear bottom nav selection
-        });
-    }
+        <!-- ================= VIRTUAL KEYBOARD ================= -->
+        <div id="virtualKeyboard" class="virtual-keyboard hidden">
+            <div class="keyboard-row">
+                <button class="key">Q</button><button class="key">W</button><button class="key">E</button><button class="key">R</button><button class="key">T</button><button class="key">Y</button><button class="key">U</button><button class="key">I</button><button class="key">O</button><button class="key">P</button>
+            </div>
+            <div class="keyboard-row">
+                <button class="key">A</button><button class="key">S</button><button class="key">D</button><button class="key">F</button><button class="key">G</button><button class="key">H</button><button class="key">J</button><button class="key">K</button><button class="key">L</button>
+            </div>
+            <div class="keyboard-row">
+                <button class="key fn-key">↑</button><button class="key">Z</button><button class="key">X</button><button class="key">C</button><button class="key">V</button><button class="key">B</button><button class="key">N</button><button class="key">M</button><button class="key fn-key" data-action="delete">Del</button>
+            </div>
+            <div class="keyboard-row">
+                <button class="key fn-key action-key" data-action="done">Done</button>
+                <button class="key space-key" data-action="space">Space</button>
+            </div>
+        </div>
 
-    // Switch back to Dashboard
-    if (backToHomeBtn) {
-        backToHomeBtn.addEventListener('click', () => {
-            hideAllViews();
-            dashboardView.classList.remove('hidden');
-            updateBottomNav('home');
-        });
-    }
+        <!-- ================= SIDE MENU ================= -->
+        <div id="sideMenu" class="side-menu">
+            <div class="side-menu-header">
+                <h3>Features Menu</h3>
+                <button id="closeMenuBtn" class="close-menu-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <ul class="side-menu-list">
+                <li class="menu-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                    Resume Checker (AI)
+                </li>
+                <li class="menu-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line></svg>
+                    Portfolio Grader
+                </li>
+                <li class="menu-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5z"></path></svg>
+                    Interview Gen
+                </li>
+                <li class="menu-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline></svg>
+                    Assignment DB
+                </li>
+            </ul>
+        </div>
+        <div id="menuOverlay" class="menu-overlay"></div>
 
-    // Bottom Navigation Clicks
-    navItems.forEach(item => {
-        item.addEventListener('click', () => {
-            const target = item.getAttribute('data-target');
-            hideAllViews();
-
-            if (target === 'home') {
-                dashboardView.classList.remove('hidden');
-                updateBottomNav('home');
-            } else if (target === 'search') {
-                searchView.classList.remove('hidden');
-                updateBottomNav('search');
-            } else if (target === 'notifications') {
-                notificationsView.classList.remove('hidden');
-                updateBottomNav('notifications');
-            } else if (target === 'profile') {
-                profileView.classList.remove('hidden');
-                updateBottomNav('profile');
-            }
-        });
-    });
-
-    function updateBottomNav(targetId) {
-        navItems.forEach(nav => {
-            if (nav.getAttribute('data-target') === targetId) {
-                nav.classList.add('active');
-            } else {
-                nav.classList.remove('active');
-            }
-        });
-    }
-
-    // ================= NEW: SIDE MENU LOGIC =================
-    // Function to close menu
-    function closeSideMenu() {
-        if(sideMenu) sideMenu.classList.remove('open');
-        if(menuOverlay) menuOverlay.classList.remove('open');
-    }
-
-    // Open Menu
-    if (menuBtn) {
-        menuBtn.addEventListener('click', () => {
-            sideMenu.classList.add('open');
-            menuOverlay.classList.add('open');
-        });
-    }
-
-    // Close Menu (with X button)
-    if (closeMenuBtn) {
-        closeMenuBtn.addEventListener('click', closeSideMenu);
-    }
-
-    // Close Menu (clicking outside)
-    if (menuOverlay) {
-        menuOverlay.addEventListener('click', closeSideMenu);
-    }
-
-    // Close on Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === "Escape" && sideMenu && sideMenu.classList.contains('open')) {
-            closeSideMenu();
-        }
-    });
-
-    // ... Rest of your existing interview logic ...
-    // ... VIRTUAL KEYBOARD LOGIC ... (keep as before)
-    // ... AI INTERVIEW LOGIC ... (keep as before)
-});
+        <!-- ================= BOTTOM NAVIGATION ================= -->
+        <nav class="bottom-nav">
+            <div class="nav-item active" data-target="home"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></div>
+            <div class="nav-item" data-target="search"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
+            <div class="nav-item" data-target="notifications"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg></div>
+            <div class="nav-item" data-target="profile"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+        </nav>
+        
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
