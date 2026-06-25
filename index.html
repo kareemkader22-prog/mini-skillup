@@ -11,7 +11,7 @@
     <div class="mobile-app-wrapper">
         
         <div id="dashboardView" class="view-section">
-            <header class="dashboard-header">
+            <header class="dashboard-header" style="position: relative;">
                 <div class="user-info">
                     <img src="https://ui-avatars.com/api/?name=Yosef+Khalil&background=3b71f7&color=fff&rounded=true" alt="Profile" class="avatar">
                     <div class="user-text">
@@ -19,9 +19,18 @@
                         <p>Junior Developer</p>
                     </div>
                 </div>
-                <button class="icon-btn">
+                <button id="menuBtn" class="icon-btn" style="cursor: pointer;">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                 </button>
+
+                <div id="dropdownMenu" style="display: none; position: absolute; top: 65px; right: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); width: 170px; z-index: 1000; overflow: hidden; font-family: 'Inter', sans-serif;">
+                    <ul style="list-style: none; margin: 0; padding: 0; direction: ltr;">
+                        <li class="menu-item" data-target="portfolio" style="padding: 12px 16px; font-size: 13px; color: #334155; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 500; text-align: left;">💻 Portfolio Analyzer</li>
+                        <li class="menu-item" data-target="resume" style="padding: 12px 16px; font-size: 13px; color: #334155; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 500; text-align: left;">📄 Resume Checker</li>
+                        <li class="menu-item" data-target="interview" style="padding: 12px 16px; font-size: 13px; color: #334155; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 500; text-align: left;">🎙️ Interview Prep</li>
+                        <li class="menu-item" data-target="assignment" style="padding: 12px 16px; font-size: 13px; color: #334155; cursor: pointer; font-weight: 500; text-align: left;">🗄️ Assignment DB</li>
+                    </ul>
+                </div>
             </header>
 
             <main class="dashboard-content">
