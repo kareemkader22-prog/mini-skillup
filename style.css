@@ -36,16 +36,15 @@ body {
     height: 100%;
     overflow-y: auto;
     padding-bottom: 80px; /* Space for bottom nav */
-    background-color: #111827; /* מבטיח שכל העמודים הפנימיים יהיו כהים */
 }
 
 /* Header Styles */
-.dashboard-header, .app-header, [class*="header"] {
+.dashboard-header, .app-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 30px 20px 20px;
-    background: #111827 !important;
+    background: #111827;
 }
 
 .app-header {
@@ -81,13 +80,9 @@ body {
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); /* הילה כחולה עדינה */
 }
 
-/* כותרות לבנות בכל האפליקציה (פותר את My Profile ו-Search Jobs) */
-h1, h2, h3, h4, h5, h6, [class*="title"], [class*="heading"] {
-    color: #ffffff !important;
-}
-
 .user-text h2 {
     font-size: 16px;
+    color: #ffffff;
     font-weight: 700;
 }
 
@@ -96,11 +91,10 @@ h1, h2, h3, h4, h5, h6, [class*="title"], [class*="heading"] {
     color: #9ca3af;
 }
 
-/* Content Containers */
-.dashboard-content, .app-content, [class*="content"], [class*="container"] {
+/* Dashboard Content */
+.dashboard-content, .app-content {
     padding: 0 20px;
     flex: 1;
-    background-color: #111827 !important;
 }
 
 .hero-section {
@@ -109,6 +103,7 @@ h1, h2, h3, h4, h5, h6, [class*="title"], [class*="heading"] {
 
 .hero-section h1 {
     font-size: 22px;
+    color: #ffffff;
     line-height: 1.3;
     font-weight: 700;
 }
@@ -119,53 +114,108 @@ h1, h2, h3, h4, h5, h6, [class*="title"], [class*="heading"] {
     gap: 15px;
 }
 
-/* תיקון גלובלי לכל הקארדים באפליקציה (הופך את הקארדים הלבנים בפרופיל ובמשרות לאפור-כהה) */
-.card, .feature-card, [class*="card"], [class*="section"] > div {
-    background: #1f2937 !important;
-    border-radius: 20px !important;
+/* === עיצוב מחדש למסך הבית (הריבועים) === */
+.dashboard-content .feature-card {
+    background: #1e3a8a !important; /* רקע כחול כהה עמוק למרובעים */
+    border-radius: 20px;
     padding: 20px 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2) !important;
-    border: 1px solid #374151 !important;
-    color: #ffffff !important;
-}
-
-/* מוודא שכל אלמנט גריד מקבל התנהגות נכונה */
-.features-grid .feature-card {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    border: 1px solid #2563eb !important; /* מסגרת כחולה עדינה שתתאים לרקע */
 }
 
-/* תיקון צבעי טקסט ופסקאות בתוך קארדים (כמו תיאור הפרופיל והמשרות) */
-p, span, li, strong, [class*="text"] {
-    color: #cbd5e1; /* אפור בהיר קריא ל-Dark Mode */
-}
-
-/* כותרות כחולות בולטות (כמו ABOUT ME או אחוזי התאמה למשרה) */
-[class*="section-tag"], [class*="subtitle"], [class*="blue"], h3[class*="ABOUT"], [style*="color"] {
-    color: #3b82f6 !important; 
-}
-
-.feature-icon {
+/* האייקון בתוך הריבוע של מסך הבית */
+.dashboard-content .feature-icon {
     margin-bottom: 12px;
-    background: rgba(37, 99, 235, 0.15); /* רקע כחול שקוף עדין לאייקון */
+    background: rgba(255, 255, 255, 0.1); /* רקע לבן שקוף עדין לאייקון */
     width: 44px;
     height: 44px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 12px;
-    color: #3b82f6; /* אייקון כחול בוהק */
+    color: #ffffff !important; /* אייקון לבן נקי */
+}
+
+/* המילים והכותרות בתוך הריבועים של מסך הבית - כולם בלבן */
+.dashboard-content .feature-card h3 {
+    font-size: 14px;
+    color: #ffffff !important; /* מילים לבנות */
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.dashboard-content .feature-card p {
+    font-size: 11px;
+    color: #e2e8f0 !important; /* טקסט תיאור באפור בהיר מאוד (כמעט לבן) */
+    line-height: 1.4;
+    margin-bottom: 15px;
+    flex: 1;
+}
+
+/* כפתורי ה-Launch בתוך הריבועים של מסך הבית */
+.dashboard-content .launch-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.dashboard-content .launch-btn:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+.dashboard-content .active-feature {
+    background-color: #ffffff !important; /* כפתור פעיל הופך ללבן */
+    color: #1e3a8a !important; /* טקסט כחול כהה בפנים */
+}
+
+.dashboard-content .active-feature:hover {
+    background-color: #f3f4f6 !important;
+}
+
+/* ====== שאר חלקי האפליקציה (פיצ'רים פנימיים) ====== */
+.feature-card {
+    background: #1f2937;
+    border-radius: 20px;
+    padding: 20px 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid #374151;
+}
+
+.feature-icon {
+    margin-bottom: 12px;
+    background: rgba(37, 99, 235, 0.15);
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    color: #3b82f6;
 }
 
 .feature-card h3 {
     font-size: 14px;
+    color: #ffffff;
     margin-bottom: 8px;
     font-weight: 700;
 }
 
 .feature-card p {
     font-size: 11px;
+    color: #9ca3af;
     line-height: 1.4;
     margin-bottom: 15px;
     flex: 1;
@@ -189,15 +239,24 @@ p, span, li, strong, [class*="text"] {
 }
 
 .active-feature {
-    background-color: #2563eb; /* כפתור כחול מלא לפעיל */
+    background-color: #2563eb;
     color: #ffffff;
 }
 
 .active-feature:hover {
-    background-color: #1d4ed8; /* כחול כהה יותר בריחוף */
+    background-color: #1d4ed8;
 }
 
 /* Feature View Styles */
+.card {
+    background: #1f2937;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+    border: 1px solid #374151;
+}
+
 .card-label {
     display: block;
     font-size: 14px;
@@ -206,41 +265,40 @@ p, span, li, strong, [class*="text"] {
     margin-bottom: 10px;
 }
 
-textarea, input[type="text"] {
+textarea {
     width: 100%;
+    height: 120px;
     border: 1px solid #374151;
     border-radius: 8px;
     padding: 12px;
     font-size: 14px;
+    resize: none;
     background-color: #111827;
     color: #ffffff;
 }
 
-textarea {
-    height: 120px;
-    resize: none;
-}
-
-textarea:focus, input:focus {
+textarea:focus {
     outline: none;
-    border-color: #2563eb; /* פוקוס כחול */
+    border-color: #2563eb;
+    background-color: #111827;
 }
 
-/* כפתורי חיפוש וכפתורים ראשיים */
-.primary-btn, button[class*="search"], button[class*="btn-primary"] {
-    background-color: #2563eb !important;
-    color: #ffffff !important;
+.primary-btn {
+    background-color: #2563eb;
+    color: #ffffff;
     border: none;
     border-radius: 12px;
-    padding: 14px;
+    padding: 16px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
+    width: 100%;
+    margin-bottom: 20px;
     transition: background 0.2s;
 }
 
-.primary-btn:hover, button[class*="search"]:hover {
-    background-color: #1d4ed8 !important;
+.primary-btn:hover {
+    background-color: #1d4ed8;
 }
 
 .loading-screen {
@@ -253,7 +311,7 @@ textarea:focus, input:focus {
     width: 40px;
     height: 40px;
     border: 4px solid #374151;
-    border-top: 4px solid #2563eb; /* לואדר כחול רץ */
+    border-top: 4px solid #2563eb;
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin: 0 auto 15px;
@@ -262,34 +320,37 @@ textarea:focus, input:focus {
 @keyframes spin { 100% { transform: rotate(360deg); } }
 
 .result-card {
-    background: #1f2937 !important;
+    background: #1f2937;
     border-radius: 16px;
     padding: 16px;
     margin-bottom: 15px;
-    border-left: 4px solid #2563eb !important; /* פס דגש כחול משמאל */
+    border-left: 4px solid #2563eb;
+    color: #ffffff;
+    border-top: 1px solid #374151;
+    border-right: 1px solid #374151;
+    border-bottom: 1px solid #374151;
+}
+
+.result-card h3 {
+    font-size: 15px;
+    margin-bottom: 12px;
     color: #ffffff;
 }
 
 .custom-list { list-style-type: none; }
 .custom-list li {
     font-size: 13px;
+    color: #d1d5db;
     padding-left: 20px;
     position: relative;
     margin-bottom: 10px;
 }
 .custom-list li::before {
     content: "✓";
-    color: #3b82f6; /* ה-V הוחלף גם הוא לכחול ניאון כדי לשמור על קו עיצובי אחיד */
+    color: #3b82f6;
     position: absolute;
     left: 0;
     font-weight: bold;
-}
-
-/* תגיות טכנולוגיה קטנות (כמו JavaScript, React) */
-[class*="tag"], [class*="badge"], .card span[style*="background"] {
-    background-color: #374151 !important;
-    color: #e2e8f0 !important;
-    border: 1px solid #4b5563 !important;
 }
 
 /* Bottom Navigation */
@@ -304,7 +365,6 @@ textarea:focus, input:focus {
     align-items: center;
     border-top: 1px solid #374151;
     border-radius: 0 0 32px 32px;
-    z-index: 10;
 }
 
 .nav-item {
@@ -317,7 +377,7 @@ textarea:focus, input:focus {
 }
 
 .nav-item.active {
-    color: #2563eb; /* אייטם פעיל בניווט בצבע כחול */
+    color: #2563eb;
 }
 
 .hidden { display: none !important; }
