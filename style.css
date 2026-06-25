@@ -30,6 +30,7 @@ flex: 1;
 height: 100%;
 overflow-y: auto;
 padding-bottom: 80px; /* Space for bottom nav */
+background-color: #111827; /* תיקון: הגדרת רקע שחור קבוע לכל המסכים הפנימיים */
 }/* Header Styles */.dashboard-header, .app-header {
 display: flex;
 justify-content: space-between;
@@ -129,12 +130,15 @@ color: #ffffff;
 }.active-feature:hover {
 background-color: #1d4ed8; /* כחול כהה יותר בריחוף */
 }/* Feature View Styles */.card {
-background: #1f2937;
+background: #ffffff; /* מרובעים לבנים כברירת מחדל כמו במסכים ששלחת */
 border-radius: 16px;
 padding: 20px;
 box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 margin-bottom: 20px;
-border: 1px solid #374151;
+border: 1px solid #e5e7eb;
+color: #111827; /* טקסט כהה בתוך המרובעים */
+}.card h2, .card h3, .card p, .card span {
+color: #111827; /* מוודא שכל המילים בתוך המרובעים הלבנים יהיו כהות */
 }.card-label {
 display: block;
 font-size: 14px;
@@ -229,27 +233,8 @@ justify-content: center;
 color: #2563eb; /* אייטם פעיל בניווט בצבע כחול */
 }.hidden { display: none !important; }
 
-/* ================================================================= */
-/* תיקון סופי ואגרסיבי למסך הפרופיל בלבד (צבע רקע שחור, מרובעים לבנים) */
-/* ================================================================= */
-/* צובע את כל תוכן אזור הפרופיל ואת כותרת ה-H1/H2 של העמוד */
-.view-section:has(.profile-card), 
-.view-section:has(#profile-page),
-.view-section:has(h2:contains("My Profile")),
-.view-section:has(h1:contains("My Profile")) {
-    background-color: #111827 !important;
-}
-
-.view-section:has(h2:contains("My Profile")) h2,
-.view-section:has(h1:contains("My Profile")) h1 {
+/* דגש מיוחד לכותרות עמודים שיופיעו בלבן על הרקע השחור */
+.view-section > h2, .view-section > h1 {
     color: #ffffff !important;
-    padding: 25px 20px 10px !important;
-}
-
-/* מוודא שהמרובעים הלבנים יישארו לבנים כמו שהם */
-.view-section:has(h2:contains("My Profile")) .card,
-.view-section:has(h2:contains("My Profile")) div[class*="card"] {
-    background-color: #ffffff !important;
-    color: #111827 !important;
-    border: 1px solid #e5e7eb !important;
+    padding: 20px;
 }
