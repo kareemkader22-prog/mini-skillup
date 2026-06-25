@@ -36,15 +36,17 @@ body {
     height: 100%;
     overflow-y: auto;
     padding-bottom: 80px; /* Space for bottom nav */
+    background-color: #111827; /* מבטיח שכל התוכן שנטען פנימה יהיה כהה */
 }
 
 /* Header Styles */
-.dashboard-header, .app-header {
+.dashboard-header, .app-header, [class*="header"] {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 30px 20px 20px;
-    background: #111827;
+    background: #111827 !important;
+    color: #ffffff;
 }
 
 .app-header {
@@ -80,9 +82,13 @@ body {
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); /* הילה כחולה עדינה */
 }
 
+/* כותרות גלובליות בתוך האפליקציה */
+h1, h2, h3, h4, h5, h6 {
+    color: #ffffff !important;
+}
+
 .user-text h2 {
     font-size: 16px;
-    color: #ffffff;
     font-weight: 700;
 }
 
@@ -91,10 +97,12 @@ body {
     color: #9ca3af;
 }
 
-/* Dashboard Content */
-.dashboard-content, .app-content {
+/* Dashboard Content & Global Containers */
+.dashboard-content, .app-content, [class*="content"], [class*="container"] {
     padding: 0 20px;
     flex: 1;
+    background-color: #111827;
+    color: #ffffff;
 }
 
 .hero-section {
@@ -103,7 +111,6 @@ body {
 
 .hero-section h1 {
     font-size: 22px;
-    color: #ffffff;
     line-height: 1.3;
     font-weight: 700;
 }
@@ -114,15 +121,22 @@ body {
     gap: 15px;
 }
 
-.feature-card {
-    background: #1f2937; /* קארד אפור-כהה נקי */
-    border-radius: 20px;
+/* תמיכה גלובלית בכל סוגי הקארדים (כולל של הפרופיל) */
+.card, .feature-card, [class*="card"] {
+    background: #1f2937 !important; /* הופך את כל הקארדים הלבנים לאפור-כהה */
+    border-radius: 20px !important;
     padding: 20px 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2) !important;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    border: 1px solid #374151;
+    border: 1px solid #374151 !important;
+    color: #ffffff !important;
+}
+
+/* תיקון טקסטים קטנים/פסקאות בתוך קארדים שיהיו בהירים */
+.card p, .feature-card p, [class*="card"] p, [class*="card"] span, [class*="card"] div {
+    color: #d1d5db; 
 }
 
 .feature-icon {
@@ -139,14 +153,12 @@ body {
 
 .feature-card h3 {
     font-size: 14px;
-    color: #ffffff;
     margin-bottom: 8px;
     font-weight: 700;
 }
 
 .feature-card p {
     font-size: 11px;
-    color: #9ca3af;
     line-height: 1.4;
     margin-bottom: 15px;
     flex: 1;
@@ -179,15 +191,6 @@ body {
 }
 
 /* Feature View Styles */
-.card {
-    background: #1f2937;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    margin-bottom: 20px;
-    border: 1px solid #374151;
-}
-
 .card-label {
     display: block;
     font-size: 14px;
@@ -265,7 +268,6 @@ textarea:focus {
 .result-card h3 {
     font-size: 15px;
     margin-bottom: 12px;
-    color: #ffffff;
 }
 
 .custom-list { list-style-type: none; }
@@ -282,6 +284,11 @@ textarea:focus {
     position: absolute;
     left: 0;
     font-weight: bold;
+}
+
+/* כותרות פנימיות קטנות בצבע כחול בוהק (כמו ABOUT ME) שיישארו בולטות */
+[class*="title-blue"], [class*="section-title"], h3[class*="blue"], .profile-content h3 {
+    color: #3b82f6 !important;
 }
 
 /* Bottom Navigation */
