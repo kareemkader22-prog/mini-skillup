@@ -128,37 +128,13 @@ background-color: #2563eb; /* כפתור כחול מלא לפעיל */
 color: #ffffff;
 }.active-feature:hover {
 background-color: #1d4ed8; /* כחול כהה יותר בריחוף */
-}
-
-/* === עיצוב מיוחד למסך הפרופיל בלבד (קארדים לבנים ומילים שחורות) === */
-/* מוודא שאם הקארד נמצא בתוך אזור הפרופיל הוא יהפוך ללבן */
-[id*="profile"] .card, [class*="profile"] .card, .card:has(h3:contains("ABOUT")) {
-    background: #ffffff !important;
-    border: 1px solid #e5e7eb !important;
-    color: #111827 !important;
-}
-
-/* הפיכת המילים והטקסטים בתוך קארד הפרופיל לשחור */
-[id*="profile"] .card *, [class*="profile"] .card *, .card:has(h3:contains("ABOUT")) * {
-    color: #111827 !important;
-}
-
-/* שמירה על כותרות ה-ABOUT ME או כותרת הפרופיל הראשיות בצבע כחול/כהה מתאים */
-[id*="profile"] h3, [class*="profile"] h3 {
-    color: #2563eb !important; /* כותרת כחולה יפה לפרופיל */
-}
-
-/* ================================================================== */
-
-/* Feature View Styles (ברירת המחדל הכהה לשאר העמודים) */
-.card {
+}/* Feature View Styles */.card {
 background: #1f2937;
 border-radius: 16px;
 padding: 20px;
 box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 margin-bottom: 20px;
 border: 1px solid #374151;
-color: #ffffff;
 }.card-label {
 display: block;
 font-size: 14px;
@@ -252,3 +228,28 @@ justify-content: center;
 }.nav-item.active {
 color: #2563eb; /* אייטם פעיל בניווט בצבע כחול */
 }.hidden { display: none !important; }
+
+/* ================================================================= */
+/* תיקון ממוקד למסך הפרופיל בלבד: רקע שחור, מרובעים נשארים לבנים בדיוק כמו שהם */
+/* ================================================================= */
+.profile-content, [class*="profile"] {
+    background-color: #111827 !important; /* הופך את הרקע של מסך הפרופיל לשחור */
+}
+
+.profile-content h2, [class*="profile"] > h2 {
+    color: #ffffff !important; /* כותרת My Profile הופכת ללבנה על הרקע השחור */
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+/* מוודא שהמרובעים (הקארדים) בתוך מסך הפרופיל שומרים על העיצוב הלבן המקורי שלהם */
+.profile-content .card, [class*="profile"] .card {
+    background: #ffffff !important;
+    color: #111827 !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+/* שומר על המילים בתוך המרובעים הלבנים של הפרופיל בצבע שחור/כהה מקורי */
+.profile-content .card *, [class*="profile"] .card * {
+    color: inherit; 
+}
