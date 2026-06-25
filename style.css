@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* --- General Resets & Typography --- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -9,27 +8,26 @@
 }
 
 body {
-    background-color: #010101; /* DARK: Amdocs black */
+    background-color: #050505;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
 }
 
-/* --- Main App Wrapper (Mobile View) --- */
+/* המעטפת של המובייל - שחור עמוק סטייל אמדוקס */
 .mobile-app-wrapper {
     width: 100%;
     max-width: 390px;
     height: 844px;
-    background-color: #010101; /* DARK: Inside app black */
+    background-color: #0a0a0c;
     border-radius: 40px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
     overflow: hidden;
     position: relative;
-    color: #f8fafc; /* Standard light text */
+    color: #f8fafc;
 }
 
-/* --- View Section --- */
 .view-section {
     width: 100%;
     height: 100%;
@@ -42,14 +40,13 @@ body {
     display: none;
 }
 
-/* --- Dashboard Specific (Original structure, DARK theme) --- */
+/* ראש עמוד דף הבית */
 .dashboard-header {
     padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #010101;
-    color: #f8fafc;
+    background-color: #0a0a0c;
 }
 
 .user-info {
@@ -62,7 +59,6 @@ body {
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .user-text h2 {
@@ -72,14 +68,18 @@ body {
 
 .user-text p {
     font-size: 13px;
-    color: #cbd5e1;
+    color: #94a3b8;
 }
 
 .icon-btn {
     background: none;
     border: none;
     cursor: pointer;
-    color: #cbd5e1; /* Replaced blue with slate */
+    color: #f8fafc;
+}
+
+.icon-btn.dark-text {
+    color: #0a0a0c;
 }
 
 .hero-section {
@@ -87,12 +87,12 @@ body {
 }
 
 .hero-section h1 {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 700;
-    line-height: 1.25;
-    color: #f8fafc;
+    line-height: 1.3;
 }
 
+/* גריד הפיצ'רים */
 .features-grid {
     padding: 20px;
     display: grid;
@@ -101,11 +101,10 @@ body {
 }
 
 .feature-card {
-    background-color: #1a1a20; /* Slate card background */
-    padding: 20px;
+    background-color: #141418;
+    padding: 18px;
     border-radius: 16px;
-    text-align: left;
-    border: 1px solid rgba(255,255,255,0.03);
+    border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .feature-icon {
@@ -113,19 +112,20 @@ body {
 }
 
 .feature-card svg {
-  color: #c5272a; /* RED: Amdocs accent */
+    color: #c5272a; /* נגיעה אדומה של אמדוקס */
 }
 
 .feature-card h3 {
     font-size: 15px;
     font-weight: 600;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
 
 .feature-card p {
-    font-size: 13px;
-    color: #cbd5e1;
+    font-size: 12px;
+    color: #94a3b8;
     margin-bottom: 15px;
+    line-height: 1.4;
 }
 
 .launch-btn {
@@ -133,60 +133,114 @@ body {
     padding: 10px;
     border-radius: 8px;
     border: none;
-    background-color: #475569;
-    color: white;
-    font-size: 14px;
+    background-color: #2e2e38;
+    color: #94a3b8;
+    font-size: 13px;
     font-weight: 600;
     cursor: pointer;
 }
 
 .launch-btn.active-feature {
-    background-color: #c5272a; /* RED: Active Amdocs button */
+    background-color: #c5272a; /* כפתור אדום בולט ל-Launch */
+    color: white;
 }
 
-/* ... existing interview, input card, primary btn styles ... */
+/* מסך פנימי של הפיצ'ר - נשאר נקי וקלאסי */
+.app-header {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    color: black;
+}
 
-/* --- Primary Button and RED accents --- */
+.app-content {
+    padding: 20px;
+    background: #f1f5f9;
+    flex: 1;
+}
+
+.input-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.card-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #0a0a0c;
+}
+
+#jobInput {
+    width: 100%;
+    height: 150px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px;
+    resize: none;
+}
+
 .primary-btn {
-    background-color: #c5272a; /* RED */
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    background-color: #c5272a; /* אדום אמדוקס */
+    color: white;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
 }
 
-/* --- BOTTOM NAV (Dark theme) --- */
+/* הניווט התחתון בשחור */
 .bottom-nav {
-    background-color: #1a1a20;
-    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    background-color: #141418;
+    border-top: 1px solid rgba(255, 255, 255, 0.02);
 }
 
 .nav-item {
-    color: #94a3b8;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #4b5563;
+    cursor: pointer;
 }
 
 .nav-item.active {
-    color: #c5272a; /* RED Active item */
+    color: #c5272a; /* איקון תחתון פעיל באדום */
 }
 
-/* ================= NEW: SIDE MENU (The core added structure) ================= */
+/* ================= תפריט הצד הצידי החבוי ================= */
 .side-menu {
     position: absolute;
     top: 0;
-    right: -280px; /* Start hidden off-screen */
+    right: -280px; 
     width: 280px;
     height: 100%;
-    background-color: #1a1a20; /* Slate menu background */
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
-    transition: right 0.3s ease-in-out; /* Smooth open animation */
-    z-index: 20; /* Above overlay and content */
+    background-color: #0f0f12;
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s ease-in-out;
+    z-index: 20;
     display: flex;
     flex-direction: column;
 }
 
 .side-menu.open {
-    right: 0; /* Move into view */
+    right: 0;
 }
 
 .side-menu-header {
     padding: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -194,7 +248,6 @@ body {
 
 .side-menu-header h3 {
     font-size: 18px;
-    font-weight: 600;
     color: #f8fafc;
 }
 
@@ -211,45 +264,40 @@ body {
 }
 
 .menu-item {
-    padding: 15px;
+    padding: 14px;
     border-radius: 10px;
-    margin-bottom: 10px;
-    color: #f1f5f9;
+    margin-bottom: 8px;
+    color: #cbd5e1;
     font-size: 15px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
 .menu-item svg {
-  color: #cbd5e1; /* Muted contrast icon */
+    color: #c5272a; /* איקונים בתפריט באדום אמדוקס */
 }
 
-.menu-item:hover, .menu-item.active {
-    background-color: rgba(255, 255, 255, 0.03); /* Faint hover */
-    font-weight: 600;
+.menu-item:hover {
+    background-color: rgba(197, 39, 42, 0.1);
+    color: white;
 }
 
-.menu-item:hover svg, .menu-item.active svg {
-    color: #c5272a; /* RED: Active item accent */
-}
-
-/* Overlay that covers other views when menu is open */
 .menu-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Transparent grey overlay */
+    background: rgba(0, 0, 0, 0.6);
     opacity: 0;
-    pointer-events: none; /* Let clicks pass through when hidden */
+    pointer-events: none;
     transition: opacity 0.3s;
-    z-index: 15; /* Above content, below side menu */
+    z-index: 15;
 }
 
 .menu-overlay.open {
     opacity: 1;
-    pointer-events: auto; /* Block interactions when open */
+    pointer-events: auto;
 }
