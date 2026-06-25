@@ -8,7 +8,7 @@
 }
 
 body {
-    background-color: #0f1115; /* רקע כהה מאוד מסביב למכשיר */
+    background-color: #0b0f19; /* רקע כהה מאוד מסביב למכשיר */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,7 +18,7 @@ body {
 .mobile-app-wrapper {
     width: 100%;
     max-width: 390px;
-    background-color: #14161c; /* השחור המוביל של האפליקציה */
+    background-color: #111827; /* רקע שחור-כחלחל מוביל של האפליקציה */
     height: 844px;
     border-radius: 40px;
     box-shadow: 0 25px 50px rgba(0,0,0,0.5);
@@ -26,7 +26,7 @@ body {
     display: flex;
     flex-direction: column;
     position: relative;
-    border: 8px solid #22252d; /* מסגרת המכשיר מותאמת ל-Dark Mode */
+    border: 8px solid #1f2937; /* מסגרת מכשיר חלקה ונקייה */
 }
 
 .view-section {
@@ -44,11 +44,11 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 30px 20px 20px;
-    background: #14161c;
+    background: #111827;
 }
 
 .app-header {
-    border-bottom: 1px solid #22252d;
+    border-bottom: 1px solid #1f2937;
     padding: 20px;
 }
 
@@ -59,7 +59,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #ffffff; /* אייקונים לבנים */
+    color: #9ca3af; /* אייקונים באפור בהיר */
+    transition: color 0.2s;
+}
+
+.icon-btn:hover {
+    color: #3b82f6; /* נגיעת כחול בריחוף */
 }
 
 .user-info {
@@ -72,18 +77,18 @@ body {
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    box-shadow: 0 4px 10px rgba(237, 28, 36, 0.2); /* הילה אדומה עדינה */
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); /* הילה כחולה עדינה */
 }
 
 .user-text h2 {
     font-size: 16px;
-    color: #ffffff; /* טקסט לבן */
+    color: #ffffff;
     font-weight: 700;
 }
 
 .user-text p {
     font-size: 12px;
-    color: #94a3b8; /* טקסט משני אפור בהיר */
+    color: #9ca3af;
 }
 
 /* Dashboard Content */
@@ -110,25 +115,26 @@ body {
 }
 
 .feature-card {
-    background: #1e222b; /* קארד בגוון אפור-שחור בולט */
+    background: #1f2937; /* קארד אפור-כהה נקי */
     border-radius: 20px;
     padding: 20px 15px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    border: 1px solid #374151;
 }
 
 .feature-icon {
     margin-bottom: 12px;
-    background: #2c1a1d; /* רקע כהה עם נגיעה אדומה לאייקון */
+    background: rgba(37, 99, 235, 0.15); /* רקע כחול שקוף עדין לאייקון */
     width: 44px;
     height: 44px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 12px;
-    color: #ed1c24; /* אייקון בצבע אדום אמדוקס */
+    color: #3b82f6; /* אייקון כחול בוהק */
 }
 
 .feature-card h3 {
@@ -140,7 +146,7 @@ body {
 
 .feature-card p {
     font-size: 11px;
-    color: #94a3b8;
+    color: #9ca3af;
     line-height: 1.4;
     margin-bottom: 15px;
     flex: 1;
@@ -149,32 +155,37 @@ body {
 .launch-btn {
     width: 100%;
     padding: 10px;
-    background-color: #2c313d;
-    color: #cbd5e1;
+    background-color: #374151;
+    color: #d1d5db;
     border: none;
     border-radius: 10px;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.2s;
+}
+
+.launch-btn:hover {
+    background-color: #4b5563;
 }
 
 .active-feature {
-    background-color: #ed1c24; /* אדום אמדוקס מלא לכפתור פעיל */
-    color: white;
+    background-color: #2563eb; /* כפתור כחול מלא לפעיל */
+    color: #ffffff;
 }
 
 .active-feature:hover {
-    background-color: #cc141b; /* אדום כהה יותר בריחופית */
+    background-color: #1d4ed8; /* כחול כהה יותר בריחוף */
 }
 
 /* Feature View Styles */
 .card {
-    background: #1e222b;
+    background: #1f2937;
     border-radius: 16px;
     padding: 20px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     margin-bottom: 20px;
+    border: 1px solid #374151;
 }
 
 .card-label {
@@ -188,23 +199,23 @@ body {
 textarea {
     width: 100%;
     height: 120px;
-    border: 1px solid #333946;
+    border: 1px solid #374151;
     border-radius: 8px;
     padding: 12px;
     font-size: 14px;
     resize: none;
-    background-color: #14161c;
+    background-color: #111827;
     color: #ffffff;
 }
 
 textarea:focus {
     outline: none;
-    border-color: #ed1c24; /* פוקוס אדום */
-    background-color: #14161c;
+    border-color: #2563eb; /* פוקוס כחול */
+    background-color: #111827;
 }
 
 .primary-btn {
-    background-color: #ed1c24; /* כפתור ראשי אדום */
+    background-color: #2563eb; /* כפתור ראשי כחול */
     color: #ffffff;
     border: none;
     border-radius: 12px;
@@ -218,7 +229,7 @@ textarea:focus {
 }
 
 .primary-btn:hover {
-    background-color: #cc141b;
+    background-color: #1d4ed8;
 }
 
 .loading-screen {
@@ -230,8 +241,8 @@ textarea:focus {
 .loader-circle {
     width: 40px;
     height: 40px;
-    border: 4px solid #2c313d;
-    border-top: 4px solid #ed1c24; /* לואדר אדום */
+    border: 4px solid #374151;
+    border-top: 4px solid #2563eb; /* לואדר כחול רץ */
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin: 0 auto 15px;
@@ -240,12 +251,15 @@ textarea:focus {
 @keyframes spin { 100% { transform: rotate(360deg); } }
 
 .result-card {
-    background: #1e222b;
+    background: #1f2937;
     border-radius: 16px;
     padding: 16px;
     margin-bottom: 15px;
-    border-left: 4px solid #ed1c24; /* פס הדגשה אדום */
+    border-left: 4px solid #2563eb; /* פס דגש כחול משמאל */
     color: #ffffff;
+    border-top: 1px solid #374151;
+    border-right: 1px solid #374151;
+    border-bottom: 1px solid #374151;
 }
 
 .result-card h3 {
@@ -257,14 +271,14 @@ textarea:focus {
 .custom-list { list-style-type: none; }
 .custom-list li {
     font-size: 13px;
-    color: #cbd5e1;
+    color: #d1d5db;
     padding-left: 20px;
     position: relative;
     margin-bottom: 10px;
 }
 .custom-list li::before {
     content: "✓";
-    color: #10b981; /* משאיר את ה-V בירוק להצלחה, אפשר להחליף לאדום אם מעדיפים */
+    color: #3b82f6; /* ה-V הוחלף גם הוא לכחול ניאון כדי לשמור על קו עיצובי אחיד */
     position: absolute;
     left: 0;
     font-weight: bold;
@@ -276,16 +290,16 @@ textarea:focus {
     bottom: 0;
     width: 100%;
     height: 70px;
-    background: #1e222b; /* תפריט תחתון כהה */
+    background: #1f2937;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-top: 1px solid #22252d;
+    border-top: 1px solid #374151;
     border-radius: 0 0 32px 32px;
 }
 
 .nav-item {
-    color: #64748b;
+    color: #6b7280;
     cursor: pointer;
     transition: color 0.3s ease;
     display: flex;
@@ -294,7 +308,7 @@ textarea:focus {
 }
 
 .nav-item.active {
-    color: #ed1c24; /* אייטם פעיל באדום */
+    color: #2563eb; /* אייטם פעיל בניווט בצבע כחול */
 }
 
 .hidden { display: none !important; }
