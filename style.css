@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+/* --- General Resets & Typography --- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -8,57 +9,47 @@
 }
 
 body {
-    background-color: #dbe4f3;
+    background-color: #010101; /* DARK: Amdocs black */
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
 }
 
+/* --- Main App Wrapper (Mobile View) --- */
 .mobile-app-wrapper {
     width: 100%;
     max-width: 390px;
-    background-color: #f8fbff;
     height: 844px;
+    background-color: #010101; /* DARK: Inside app black */
     border-radius: 40px;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
     position: relative;
-    border: 8px solid #ffffff;
+    color: #f8fafc; /* Standard light text */
 }
 
+/* --- View Section --- */
 .view-section {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    flex: 1;
-    height: 100%;
-    overflow-y: auto;
-    padding-bottom: 80px; /* Space for bottom nav */
+    padding-bottom: 70px;
 }
 
-/* Header Styles */
-.dashboard-header, .app-header {
+.view-section.hidden {
+    display: none;
+}
+
+/* --- Dashboard Specific (Original structure, DARK theme) --- */
+.dashboard-header {
+    padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 20px 20px;
-    background: #f8fbff;
-}
-
-.app-header {
-    border-bottom: 1px solid #eaeaea;
-    padding: 20px;
-}
-
-.icon-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background-color: #010101;
+    color: #f8fafc;
 }
 
 .user-info {
@@ -68,222 +59,197 @@ body {
 }
 
 .avatar {
-    width: 45px;
-    height: 45px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    box-shadow: 0 4px 10px rgba(59, 113, 247, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .user-text h2 {
     font-size: 16px;
-    color: #1e293b;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .user-text p {
-    font-size: 12px;
-    color: #64748b;
+    font-size: 13px;
+    color: #cbd5e1;
 }
 
-/* Dashboard Content */
-.dashboard-content, .app-content {
-    padding: 0 20px;
-    flex: 1;
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #cbd5e1; /* Replaced blue with slate */
 }
 
 .hero-section {
-    margin-bottom: 25px;
+    padding: 25px 20px 20px 20px;
 }
 
 .hero-section h1 {
-    font-size: 22px;
-    color: #0f172a;
-    line-height: 1.3;
+    font-size: 28px;
     font-weight: 700;
+    line-height: 1.25;
+    color: #f8fafc;
 }
 
 .features-grid {
+    padding: 20px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
 }
 
 .feature-card {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 20px 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.04);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    background-color: #1a1a20; /* Slate card background */
+    padding: 20px;
+    border-radius: 16px;
+    text-align: left;
+    border: 1px solid rgba(255,255,255,0.03);
 }
 
 .feature-icon {
     margin-bottom: 12px;
-    background: #eef2ff;
-    width: 44px;
-    height: 44px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 12px;
+}
+
+.feature-card svg {
+  color: #c5272a; /* RED: Amdocs accent */
 }
 
 .feature-card h3 {
-    font-size: 14px;
-    color: #1e293b;
-    margin-bottom: 8px;
-    font-weight: 700;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 5px;
 }
 
 .feature-card p {
-    font-size: 11px;
-    color: #64748b;
-    line-height: 1.4;
+    font-size: 13px;
+    color: #cbd5e1;
     margin-bottom: 15px;
-    flex: 1;
 }
 
 .launch-btn {
     width: 100%;
     padding: 10px;
-    background-color: #f1f5f9;
-    color: #475569;
-    border: none;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.active-feature {
-    background-color: #3b71f7;
-    color: white;
-}
-
-.active-feature:hover {
-    background-color: #2563eb;
-}
-
-/* Feature View Styles */
-.card {
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-    margin-bottom: 20px;
-}
-
-.card-label {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-textarea {
-    width: 100%;
-    height: 120px;
-    border: 1px solid #e0e0e0;
     border-radius: 8px;
-    padding: 12px;
-    font-size: 14px;
-    resize: none;
-    background-color: #fafafa;
-}
-
-textarea:focus {
-    outline: none;
-    border-color: #3b71f7;
-    background-color: #fff;
-}
-
-.primary-btn {
-    background-color: #3b71f7;
-    color: #ffffff;
     border: none;
-    border-radius: 12px;
-    padding: 16px;
-    font-size: 16px;
+    background-color: #475569;
+    color: white;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    width: 100%;
-    margin-bottom: 20px;
 }
 
-.loading-screen {
-    text-align: center;
-    padding: 20px;
+.launch-btn.active-feature {
+    background-color: #c5272a; /* RED: Active Amdocs button */
 }
 
-.loader-circle {
-    width: 40px;
-    height: 40px;
-    border: 4px solid #e0e8ff;
-    border-top: 4px solid #3b71f7;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin: 0 auto 15px;
+/* ... existing interview, input card, primary btn styles ... */
+
+/* --- Primary Button and RED accents --- */
+.primary-btn {
+    background-color: #c5272a; /* RED */
 }
 
-@keyframes spin { 100% { transform: rotate(360deg); } }
-
-.result-card {
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 16px;
-    margin-bottom: 15px;
-    border-left: 4px solid #3b71f7;
-}
-
-.result-card h3 {
-    font-size: 15px;
-    margin-bottom: 12px;
-}
-
-.custom-list { list-style-type: none; }
-.custom-list li {
-    font-size: 13px;
-    color: #444;
-    padding-left: 20px;
-    position: relative;
-    margin-bottom: 10px;
-}
-.custom-list li::before {
-    content: "✓";
-    color: #10b981;
-    position: absolute;
-    left: 0;
-    font-weight: bold;
-}
-
-/* Bottom Navigation */
+/* --- BOTTOM NAV (Dark theme) --- */
 .bottom-nav {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 70px;
-    background: #ffffff;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border-top: 1px solid #f1f5f9;
-    border-radius: 0 0 32px 32px;
+    background-color: #1a1a20;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .nav-item {
     color: #94a3b8;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .nav-item.active {
-    color: #3b71f7;
+    color: #c5272a; /* RED Active item */
 }
 
-.hidden { display: none !important; }
+/* ================= NEW: SIDE MENU (The core added structure) ================= */
+.side-menu {
+    position: absolute;
+    top: 0;
+    right: -280px; /* Start hidden off-screen */
+    width: 280px;
+    height: 100%;
+    background-color: #1a1a20; /* Slate menu background */
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+    transition: right 0.3s ease-in-out; /* Smooth open animation */
+    z-index: 20; /* Above overlay and content */
+    display: flex;
+    flex-direction: column;
+}
+
+.side-menu.open {
+    right: 0; /* Move into view */
+}
+
+.side-menu-header {
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.side-menu-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #f8fafc;
+}
+
+.close-menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #f8fafc;
+}
+
+.side-menu-list {
+    list-style: none;
+    padding: 20px;
+}
+
+.menu-item {
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    color: #f1f5f9;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.menu-item svg {
+  color: #cbd5e1; /* Muted contrast icon */
+}
+
+.menu-item:hover, .menu-item.active {
+    background-color: rgba(255, 255, 255, 0.03); /* Faint hover */
+    font-weight: 600;
+}
+
+.menu-item:hover svg, .menu-item.active svg {
+    color: #c5272a; /* RED: Active item accent */
+}
+
+/* Overlay that covers other views when menu is open */
+.menu-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Transparent grey overlay */
+    opacity: 0;
+    pointer-events: none; /* Let clicks pass through when hidden */
+    transition: opacity 0.3s;
+    z-index: 15; /* Above content, below side menu */
+}
+
+.menu-overlay.open {
+    opacity: 1;
+    pointer-events: auto; /* Block interactions when open */
+}
