@@ -5,15 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SKILLUP AI</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="app-container">
+    <div class="mobile-app-wrapper">
         
         <div id="dashboardView" class="view-section">
-            <header class="dashboard-header" style="position: relative;">
+            <header class="dashboard-header">
                 <div class="user-info">
                     <img src="https://ui-avatars.com/api/?name=Yosef+Khalil&background=3b71f7&color=fff&rounded=true" alt="Profile" class="avatar">
                     <div class="user-text">
@@ -21,132 +19,204 @@
                         <p>Junior Developer</p>
                     </div>
                 </div>
-                <button id="menuBtn" class="icon-btn" style="cursor: pointer;">
+                <button class="icon-btn">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                 </button>
-
-                <div id="dropdownMenu" style="display: none; position: absolute; top: 65px; right: 20px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); width: 170px; z-index: 1000; overflow: hidden; font-family: 'Inter', sans-serif;">
-                    <ul style="list-style: none; margin: 0; padding: 0; direction: ltr;">
-                        <li class="menu-item" data-target="portfolio" style="padding: 12px 16px; font-size: 13px; color: #334155; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 500; text-align: left;">💻 Portfolio Analyzer</li>
-                        <li class="menu-item" data-target="resume" style="padding: 12px 16px; font-size: 13px; color: #334155; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 500; text-align: left;">📄 Resume Checker</li>
-                        <li class="menu-item" data-target="interview" style="padding: 12px 16px; font-size: 13px; color: #334155; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 500; text-align: left;">🎙️ Interview Prep</li>
-                        <li class="menu-item" data-target="assignment" style="padding: 12px 16px; font-size: 13px; color: #334155; cursor: pointer; font-weight: 500; text-align: left;">🗄️ Assignment DB</li>
-                    </ul>
-                </div>
             </header>
 
             <main class="dashboard-content">
-                <h1 class="main-title">Let's improve your chances of getting hired today.</h1>
-                
+                <div class="hero-section">
+                    <h1>Let's improve your chances of getting hired today.</h1>
+                </div>
+
                 <div class="features-grid">
                     <div class="feature-card">
-                        <div class="icon-wrapper blue-bg">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
                         </div>
                         <h3>Portfolio Analyzer</h3>
                         <p>Analyze GitHub projects and receive an AI score.</p>
-                        <button class="launch-btn">Launch</button>
+                        <button class="launch-btn" onclick="alert('Coming soon!')">Launch</button>
                     </div>
 
                     <div class="feature-card">
-                        <div class="icon-wrapper indigo-bg">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                         </div>
                         <h3>Resume Checker</h3>
                         <p>Upload your resume and receive instant AI feedback.</p>
-                        <button class="launch-btn">Launch</button>
+                        <button class="launch-btn" onclick="alert('Coming soon!')">Launch</button>
                     </div>
 
                     <div class="feature-card">
-                        <div class="icon-wrapper purple-bg">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v1a7 7 0 0 1-14 0v-1"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
                         </div>
                         <h3>Interview Generator</h3>
                         <p>Generate customized interview questions.</p>
-                        <button id="openInterviewBtn" class="launch-btn active-btn">Launch</button>
+                        <button id="openInterviewBtn" class="launch-btn active-feature">Launch</button>
                     </div>
 
                     <div class="feature-card">
-                        <div class="icon-wrapper pink-bg">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
                         </div>
                         <h3>Assignment DB</h3>
                         <p>Access real-world technical assignments.</p>
-                        <button class="launch-btn">Launch</button>
+                        <button class="launch-btn" onclick="alert('Coming soon!')">Launch</button>
                     </div>
                 </div>
             </main>
         </div>
 
         <div id="interviewView" class="view-section hidden">
-            <header class="view-header">
-                <button id="backToHomeBtn" class="back-btn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <header class="app-header">
+                <button id="backToHomeBtn" class="icon-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
                 </button>
-                <h2>Interview Prep</h2>
+                <h1>Interview Prep</h1>
+                <div style="width: 24px;"></div>
             </header>
 
-            <main class="view-content">
-                <div class="input-card">
-                    <label for="jobInput">Job Description</label>
+            <main class="app-content">
+                <div class="card input-card">
+                    <label for="jobInput" class="card-label">Job Description</label>
                     <textarea id="jobInput" placeholder="Paste the job description here..."></textarea>
                 </div>
 
                 <button id="generateBtn" class="primary-btn">Generate Questions</button>
 
-                <div id="loading" class="loading-container hidden">
-                    <div class="spinner"></div>
-                    <p>AI is analyzing the job description...</p>
+                <div id="loading" class="hidden loading-screen">
+                    <div class="loader-circle"></div>
+                    <p>Analyzing Job Requirements...</p>
                 </div>
 
-                <div id="errorBox" class="error-container hidden"></div>
+                <div id="errorBox" class="hidden error-box"></div>
 
-                <div id="results" class="results-container hidden">
-                    <h3>AI Recommendations</h3>
-                    <p class="subtitle">Here are your customized questions.</p>
-
-                    <div class="category-block">
-                        <h4 class="tech-title">Technical Questions</h4>
-                        <ul id="techList" class="q-list"></ul>
+                <div id="results" class="hidden results-container">
+                    <div class="score-header">
+                        <h2>AI Recommendations</h2>
+                        <p>Here are your customized questions.</p>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3>Technical Questions</h3>
+                        <ul id="techList" class="custom-list"></ul>
                     </div>
 
-                    <div class="category-block">
-                        <h4 class="hr-title">Behavioral / HR</h4>
-                        <ul id="hrList" class="q-list"></ul>
+                    <div class="result-card">
+                        <h3>Behavioral / HR</h3>
+                        <ul id="hrList" class="custom-list"></ul>
                     </div>
 
-                    <div class="category-block">
-                        <h4 class="case-title">Case Study</h4>
-                        <ul id="caseList" class="q-list"></ul>
+                    <div class="result-card">
+                        <h3>Case Study</h3>
+                        <ul id="caseList" class="custom-list"></ul>
                     </div>
                 </div>
             </main>
         </div>
 
-        <div id="searchView" class="view-section hidden">
-            <header class="view-header-center">
-                <h2>Search</h2>
-                <p>Search for jobs, companies, or study materials here.</p>
-            </header>
-            <main class="view-content" style="padding-top: 10px;">
-                <div style="display: flex; gap: 8px; margin-bottom: 15px;">
-                    <input type="text" id="searchInput" placeholder="Search jobs, companies, skills..." style="flex: 1; padding: 12px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 14px; outline: none; background: #f8fafc;" readonly>
-                    <button id="searchSubmitBtn" style="background: #3b82f6; color: white; border: none; padding: 0 16px; border-radius: 10px; font-weight: 500; cursor: pointer;">Search</button>
+        <div id="searchView" class="view-section hidden" style="padding: 20px; font-family: 'Inter', sans-serif; box-sizing: border-box; display: flex; flex-direction: column; height: 100%;">
+            <h2 style="margin-top: 20px; color: #3b71f7; text-align: center;">Search</h2>
+            <p style="color: #666; margin-top: 5px; margin-bottom: 20px; text-align: center; font-size: 14px;">Search for jobs, companies, or study materials here.</p>
+            
+            <div style="display: flex; gap: 8px; margin-bottom: 15px; direction: ltr;">
+                <input type="text" id="searchInput" placeholder="Search jobs, companies, skills..." 
+                       style="flex: 1; padding: 12px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 14px; outline: none; background-color: #f8fafc; font-family: 'Inter', sans-serif;">
+                <button id="searchSubmitBtn" style="padding: 12px 16px; background-color: #3b71f7; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 14px;">
+                    Search
+                </button>
+            </div>
+
+            <div id="virtualKeyboard" style="display: none; background-color: #f1f5f9; padding: 8px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); direction: ltr; margin-top: auto; margin-bottom: 20px;">
+                <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 6px;">
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Q</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">W</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">E</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">R</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">T</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Y</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">U</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">I</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">O</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">P</button>
                 </div>
+                <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 6px; padding: 0 8px;">
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">A</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">S</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">D</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">F</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">G</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">H</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">J</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">K</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">L</button>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 6px;">
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Z</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">X</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">C</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">V</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">B</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">N</button>
+                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">M</button>
+                    <button id="keyDelete" style="flex: 1.5; padding: 12px 0; background-color: #cbd5e1; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Del</button>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 4px;">
+                    <button id="keyClose" style="flex: 2; padding: 12px 0; background-color: #94a3b8; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px;">Done</button>
+                    <button id="keySpace" style="flex: 5; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Space</button>
+                </div>
+            </div>
+            
+            <div id="searchResultsArea" style="margin-top: 10px;"></div>
+        </div>
 
-                <div id="searchResultsArea" style="margin-bottom: 20px;"></div>
+        <div id="notificationsView" class="view-section hidden" style="padding: 20px; text-align: center;">
+            <h2 style="margin-top: 40px; color: #3b71f7;">Notifications</h2>
+            <p style="color: #666; margin-top: 10px;">You have no new notifications at the moment.</p>
+        </div>
 
-                <div id="virtualKeyboard" style="display: none; background: #f1f5f9; border-radius: 16px; padding: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-top: 10px;">
-                    <div style="display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; margin-bottom: 5px;">
-                        <button class="key" style="background: white; border: none; padding: 12px 0; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; color: #334155;">Q</button>
-                        <button class="key" style="background: white; border: none; padding: 12px 0; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; color: #334155;">W</button>
-                        <button class="key" style="background: white; border: none; padding: 12px 0; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; color: #334155;">E</button>
-                        <button class="key" style="background: white; border: none; padding: 12px 0; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; color: #334155;">R</button>
-                        <button class="key" style="background: white; border: none; padding: 12px 0; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; color: #334155;">T</button>
-                        <button class="key" style="background: white; border: none; padding: 12px 0; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; color: #334155;">Y</button>
-                        <button class="key" style="background: white; border: none; padding: 12px 0; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; color: #334155;">U</button>
-                        <button class="key" style="background: white; border: none; padding: 12px 0; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; color: #334155;">I</button>
-                        <button class="key" style="background: white; border: none; padding: 12px 0; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; color: #334155;">O</button>
-                        <button class="key" style="background: white; border: none; padding: 12px 0; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; color: #334155;">P</button>
-                    </div>
-                    <div style="display: grid; grid-template-columns: repeat(9, 1fr
+        <div id="profileView" class="view-section hidden" style="padding: 20px; font-family: 'Inter', sans-serif; text-align: left; background: #f8fafc; height: 100%; box-sizing: border-box; overflow-y: auto;">
+            <h2 style="color: #1e293b; font-size: 24px; font-weight: 700; margin-bottom: 20px; margin-top: 20px;">My Profile</h2>
+            
+            <div style="background: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 20px; text-align: center;">
+                <img src="https://ui-avatars.com/api/?name=Yosef+Khalil&background=3b71f7&color=fff&rounded=true&size=128" alt="Yosef Khalil" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 12px; border: 3px solid #e2e8f0;">
+                <h3 style="margin: 0; color: #0f172a; font-size: 20px; font-weight: 600;">Yosef Khalil</h3>
+                <p style="margin: 4px 0 0 0; color: #64748b; font-size: 14px; font-weight: 500;">Junior Developer</p>
+                <div style="display: inline-block; background: #e0f2fe; color: #0369a1; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-top: 10px;">Active Student</div>
+            </div>
+
+            <div style="background: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 25px;">
+                <h4 style="margin: 0 0 12px 0; color: #3b71f7; font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">About Me</h4>
+                <p style="margin: 0 0 16px 0; color: #334155; font-size: 14px; line-height: 1.6;">
+                    <strong>Age:</strong> 24<br>
+                    <strong>Education:</strong> Social Sciences & Tech Student.<br>
+                    <strong>Background:</strong> Worked for 3 years at a supermarket to self-fund and finance my academic degree. High motivation, responsible, and determined to succeed.
+                </p>
+                <h4 style="margin: 16px 0 8px 0; color: #1e293b; font-size: 15px; font-weight: 600;">Target Goal</h4>
+                <p style="margin: 0; color: #475569; font-size: 13.5px; line-height: 1.5;">
+                    Actively searching for the first entry-level Junior position in tech. Looking for practical industry guidance to bridge the gap between academic theory and real-world workplace demands.
+                </p>
+            </div>
+        </div>
+
+        <nav class="bottom-nav">
+            <div class="nav-item active" data-target="home">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            </div>
+            <div class="nav-item" data-target="search">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+            <div class="nav-item" data-target="notifications">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            </div>
+            <div class="nav-item" data-target="profile">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+        </nav>
+        
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
