@@ -27,6 +27,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const spaceBtn = document.getElementById("keySpace");
     const closeBtn = document.getElementById("keyClose");
     const searchSubmitBtn = document.getElementById("searchSubmitBtn");
+    const searchResultsArea = document.getElementById("searchResultsArea");
+
+    // ================= DATA: MOCK JOBS DATABASE =================
+    // מאגר משרות דמו כדי שיהיה מה לחפש ולהציג
+    const jobsDatabase = [
+        { title: "Machine Learning Developer", company: "Google", location: "Tel Aviv", tags: ["Python", "AI", "TensorFlow"] },
+        { title: "Data Scientist", company: "Meta", location: "Remote", tags: ["Python", "SQL", "Machine Learning"] },
+        { title: "Data Engineer", company: "Microsoft", location: "Herzliya", tags: ["SQL", "Big Data", "Spark"] },
+        { title: "AI Research Engineer", company: "OpenAI", location: "Tel Aviv", tags: ["PyTorch", "NLP", "LLM"] },
+        { title: "Junior Full Stack Developer", company: "Mobileye", location: "Jerusalem", tags: ["JavaScript", "React", "Node.js"] }
+    ];
 
     // פונקציה שמסתירה את כל הדפים בבת אחת
     function hideAllViews() {
@@ -65,6 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (target === 'search') {
                 searchView.classList.remove('hidden');
                 updateBottomNav('search');
+                // כשנכנסים למסך, נציג את כל המשרות כברירת מחדל
+                renderJobs(jobsDatabase);
             } else if (target === 'notifications') {
                 notificationsView.classList.remove('hidden');
                 updateBottomNav('notifications');
@@ -85,6 +98,72 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ================= SEARCH & FILTER LOGIC =================
+
+    // פונקציה שמקבלת רשימת משרות ומציירת אותן יפה על המסך בעיצוב מובייל נקי
+    function renderJobs(jobsToRender) {
+        if (!searchResultsArea) return;
+        
+        searchResultsArea.innerHTML = ""; // מנקים את התוצאות הקודמות
+
+        if (jobsToRender.length === 0) {
+            searchResultsArea.innerHTML = `
+                <p style="color: #94a3b8; text-align: center; margin-top: 20px; font-size: 14px;">
+                    No jobs found matching your search.
+                </p>`;
+            return;
+        }
+
+        // יוצרים כרטיס לכל משרה
+        jobsToRender.forEach(job => {
+            const card = document.createElement("div");
+            card.style.cssText = `
+                background: white;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                padding: 14px;
+                margin-bottom: 12px;
+                text-align: left;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+                direction: ltr;
+            `;
+
+            // יצירת תגיות טכנולוגיה קטנות
+            const tagsHTML = job.tags.map(tag => `
+                <span style="background: #eff6ff; color: #1d4ed8; font-size: 11px; padding: 4px 8px; border-radius: 6px; font-weight: 500;">${tag}</span>
+            `).join("");
+
+            card.innerHTML = `
+                <h4 style="margin: 0; color: #1e293b; font-size: 16px; font-weight: 600;">${job.title}</h4>
+                <p style="margin: 4px 0; color: #64748b; font-size: 13px;">${job.company} • <span style="color: #94a3b8;">${job.location}</span></p>
+                <div style="display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap;">
+                    ${tagsHTML}
+                </div>
+            `;
+            searchResultsArea.appendChild(card);
+        });
+    }
+
+    // פונקציית הסינון בפועל לפי מה שכתוב בתיבת הטקסט
+    function handleSearch() {
+        const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
+        
+        // אם התיבה ריקה, נציג את כל המשרות
+        if (query === "") {
+            renderJobs(jobsDatabase);
+            return;
+        }
+
+        // סינון המערך - בודק אם המילה קיימת בכותרת, בחברה או בתגיות
+        const filteredJobs = jobsDatabase.filter(job => {
+            return job.title.toLowerCase().includes(query) || 
+                   job.company.toLowerCase().includes(query) ||
+                   job.tags.some(tag => tag.toLowerCase().includes(query));
+        });
+
+        renderJobs(filteredJobs);
+    }
+
     // ================= VIRTUAL KEYBOARD LOGIC =================
 
     // פתיחת המקלדת בלחיצה על תיבת הטקסט של החיפוש
@@ -97,7 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // הוספת האותיות בלחיצה על המקשים
     document.querySelectorAll(".key").forEach(keyBtn => {
-        // מדלגים על מקשים מיוחדים כדי שלא ידפיסו את הטקסט הפנימי שלהם
         if (keyBtn.id === "keyDelete" || keyBtn.id === "keySpace" || keyBtn.id === "keyClose") return;
 
         keyBtn.addEventListener("click", (e) => {
@@ -105,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (searchInput) {
                 searchInput.value += keyBtn.innerText;
                 searchInput.focus();
+                handleSearch(); // מריץ סינון מיידי תוך כדי הקלדה!
             }
         });
     });
@@ -115,6 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.stopPropagation();
             if (searchInput) {
                 searchInput.value = searchInput.value.slice(0, -1);
+                handleSearch(); // מעדכן את החיפוש אחרי המחיקה
             }
         });
     }
@@ -125,6 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.stopPropagation();
             if (searchInput) {
                 searchInput.value += " ";
+                handleSearch();
             }
         });
     }
@@ -137,25 +218,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // סגירת מקלדת בלחיצה מחוץ לאזור שלה בתוך המכשיר
+    // סגירת מקלדת בלחיצה מחוץ לאזור שלה
     document.addEventListener("click", (e) => {
         if (keyboard && !keyboard.contains(e.target) && e.target !== searchInput) {
             keyboard.style.display = "none";
         }
     });
 
-    // דימוי ביצוע חיפוש וסגירת מקלדת
+    // לחיצה על כפתור החיפוש הראשי (Search)
     if (searchSubmitBtn) {
         searchSubmitBtn.addEventListener("click", (e) => {
             e.stopPropagation();
             if (keyboard) keyboard.style.display = "none";
-            
-            const query = searchInput ? searchInput.value.trim() : "";
-            console.log("Searching for: ", query);
-            
-            // כאן תוכל להוסיף בעתיד לוגיקת סינון רשומות אמיתית
+            handleSearch(); // מריץ סינון אחרון וסוגר מקלדת
         });
     }
+
+    // תמיכה גם בהקלדה רגילה מהמקלדת של המחשב למי שמפתח בדפדפן
+    if (searchInput) {
+        searchInput.addEventListener("input", handleSearch);
+    }
+
 
     // ================= AI INTERVIEW LOGIC =================
 
@@ -170,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Reset UI
         errorBox.classList.add('hidden');
         resultsDiv.classList.add('hidden');
-        loadingDiv.classList.remove('hidden');
+        loadingDiv.remove('hidden');
         generateBtn.disabled = true;
 
         try {
@@ -214,7 +297,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         items.forEach(item => {
             const li = document.createElement('li');
-            
             li.textContent = item;
             listElement.appendChild(li);
         });
