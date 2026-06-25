@@ -80,29 +80,8 @@ font-weight: 700;
 display: grid;
 grid-template-columns: 1fr 1fr;
 gap: 15px;
-}
-
-/* === התאמה אישית למרובעים של מסך הבית בלבד === */
-.dashboard-content .feature-card {
-background: #ffffff !important; /* המרובעים במסך הבית יהיו לבנים */
-border: 1px solid #e5e7eb !important;
-box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}.dashboard-content .feature-card h3 {
-color: #111827 !important; /* מילים (כותרות) בשחר */
-}.dashboard-content .feature-card p {
-color: #374151 !important; /* תיאור בשחור/אפור כהה */
-}.dashboard-content .launch-btn {
-background-color: #f3f4f6 !important; /* כפתור פנימי אפור בהיר שמתאים לרקע הלבן */
-color: #111827 !important; /* טקסט הכפתור בשחור */
-}.dashboard-content .launch-btn:hover {
-background-color: #e5e7eb !important;
-}.dashboard-content .active-feature {
-background-color: #2563eb !important; /* כפתור פעיל נשאר כחול בולט */
-color: #ffffff !important; /* טקסט לבן בכפתור הפעיל */
-}/* ============================================= */
-
-.feature-card {
-background: #1f2937; /* קארד אפור-כהה נקי (לשאר המסכים) */
+}.feature-card {
+background: #1f2937; /* קארד אפור-כהה נקי */
 border-radius: 20px;
 padding: 20px 15px;
 box-shadow: 0 10px 25px rgba(0,0,0,0.2);
@@ -149,13 +128,37 @@ background-color: #2563eb; /* כפתור כחול מלא לפעיל */
 color: #ffffff;
 }.active-feature:hover {
 background-color: #1d4ed8; /* כחול כהה יותר בריחוף */
-}/* Feature View Styles */.card {
+}
+
+/* === עיצוב מיוחד למסך הפרופיל בלבד (קארדים לבנים ומילים שחורות) === */
+/* מוודא שאם הקארד נמצא בתוך אזור הפרופיל הוא יהפוך ללבן */
+[id*="profile"] .card, [class*="profile"] .card, .card:has(h3:contains("ABOUT")) {
+    background: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
+    color: #111827 !important;
+}
+
+/* הפיכת המילים והטקסטים בתוך קארד הפרופיל לשחור */
+[id*="profile"] .card *, [class*="profile"] .card *, .card:has(h3:contains("ABOUT")) * {
+    color: #111827 !important;
+}
+
+/* שמירה על כותרות ה-ABOUT ME או כותרת הפרופיל הראשיות בצבע כחול/כהה מתאים */
+[id*="profile"] h3, [class*="profile"] h3 {
+    color: #2563eb !important; /* כותרת כחולה יפה לפרופיל */
+}
+
+/* ================================================================== */
+
+/* Feature View Styles (ברירת המחדל הכהה לשאר העמודים) */
+.card {
 background: #1f2937;
 border-radius: 16px;
 padding: 20px;
 box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 margin-bottom: 20px;
 border: 1px solid #374151;
+color: #ffffff;
 }.card-label {
 display: block;
 font-size: 14px;
