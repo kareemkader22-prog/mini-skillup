@@ -15,17 +15,18 @@ body {
     min-height: 100vh;
 }
 
-/* המעטפת של המובייל - שחור עמוק סטייל אמדוקס */
+/* מעטפת המכשיר - סגנון אמדוקס כהה */
 .mobile-app-wrapper {
     width: 100%;
     max-width: 390px;
     height: 844px;
     background-color: #0a0a0c;
     border-radius: 40px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
     overflow: hidden;
     position: relative;
     color: #f8fafc;
+    border: 4px solid #1e1e24;
 }
 
 .view-section {
@@ -33,22 +34,59 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding-bottom: 70px;
+    padding-bottom: 75px;
+    overflow-y: auto;
 }
 
 .view-section.hidden {
     display: none;
 }
 
-/* ראש עמוד דף הבית */
-.dashboard-header {
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* כותרות ומבנה כללי של דפים */
+.dashboard-header, .view-header, .view-header-with-back {
+    padding: 24px 20px;
     background-color: #0a0a0c;
 }
 
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.view-header h1, .view-header-with-back h1 {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.view-header p {
+    font-size: 13px;
+    color: #94a3b8;
+    text-align: center;
+    margin-top: 4px;
+}
+
+.view-header-with-back {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.view-content {
+    padding: 0 20px;
+    flex: 1;
+}
+
+.placeholder-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #64748b;
+    font-size: 14px;
+}
+
+/* פרופיל משתמש עליון */
 .user-info {
     display: flex;
     align-items: center;
@@ -56,18 +94,18 @@ body {
 }
 
 .avatar {
-    width: 44px;
-    height: 44px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
 }
 
 .user-text h2 {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
 }
 
 .user-text p {
-    font-size: 13px;
+    font-size: 12px;
     color: #94a3b8;
 }
 
@@ -76,134 +114,164 @@ body {
     border: none;
     cursor: pointer;
     color: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.icon-btn.dark-text {
-    color: #0a0a0c;
+/* שורת חיפוש עליונה */
+.search-bar-container {
+    padding: 0 20px;
+    margin: 10px 0 15px 0;
+    display: flex;
+    gap: 10px;
+}
+
+#mainSearchInput, #innerSearchInput {
+    flex: 1;
+    background-color: #141418;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 12px 16px;
+    border-radius: 12px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.search-action-btn {
+    background-color: #c5272a;
+    color: white;
+    border: none;
+    padding: 0 16px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
 }
 
 .hero-section {
-    padding: 25px 20px 20px 20px;
+    padding: 10px 20px;
 }
 
 .hero-section h1 {
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 700;
     line-height: 1.3;
 }
 
-/* גריד הפיצ'רים */
+/* גריד כרטיסיות הפיצ'רים */
 .features-grid {
     padding: 20px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    gap: 14px;
 }
 
 .feature-card {
     background-color: #141418;
-    padding: 18px;
+    padding: 16px;
     border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    display: flex;
+    flex-direction: column;
 }
 
-.feature-icon {
-    margin-bottom: 12px;
+.feature-icon svg {
+    color: #00b4d8;
+    margin-bottom: 10px;
 }
 
-.feature-card svg {
-    color: #c5272a; /* נגיעה אדומה של אמדוקס */
+/* הדגשת כרטיסיית הראיונות הפעילה באדום עמוק */
+.feature-card.highlighted-card {
+    border: 1px solid rgba(197, 39, 42, 0.4);
+}
+
+.feature-card.highlighted-card .feature-icon svg {
+    color: #c5272a;
 }
 
 .feature-card h3 {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }
 
 .feature-card p {
-    font-size: 12px;
+    font-size: 11px;
     color: #94a3b8;
-    margin-bottom: 15px;
     line-height: 1.4;
+    margin-bottom: 14px;
+    flex: 1;
 }
 
 .launch-btn {
     width: 100%;
-    padding: 10px;
+    padding: 9px;
     border-radius: 8px;
     border: none;
-    background-color: #2e2e38;
+    background-color: #22222a;
     color: #94a3b8;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
 }
 
 .launch-btn.active-feature {
-    background-color: #c5272a; /* כפתור אדום בולט ל-Launch */
+    background-color: #c5272a;
     color: white;
 }
 
-/* מסך פנימי של הפיצ'ר - נשאר נקי וקלאסי */
-.app-header {
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: white;
-    color: black;
-}
-
-.app-content {
-    padding: 20px;
-    background: #f1f5f9;
-    flex: 1;
-}
-
+/* מסך פנימי - יצירת ראיון */
 .input-card {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
+    background-color: #141418;
+    padding: 16px;
+    border-radius: 16px;
     margin-bottom: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.02);
 }
 
 .card-label {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
-    color: #0a0a0c;
+    font-size: 14px;
 }
 
 #jobInput {
     width: 100%;
-    height: 150px;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 10px;
+    height: 140px;
+    background-color: #0a0a0c;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 12px;
+    color: white;
     resize: none;
+    font-size: 13px;
+    cursor: pointer;
 }
 
 .primary-btn {
     width: 100%;
     padding: 14px;
     border-radius: 12px;
-    background-color: #c5272a; /* אדום אמדוקס */
+    background-color: #c5272a;
     color: white;
     border: none;
     font-weight: 700;
+    font-size: 15px;
     cursor: pointer;
 }
 
-/* הניווט התחתון בשחור */
+/* ניווט תחתון קבוע */
 .bottom-nav {
     position: absolute;
     bottom: 0;
     width: 100%;
     height: 70px;
     display: flex;
-    background-color: #141418;
-    border-top: 1px solid rgba(255, 255, 255, 0.02);
+    background-color: #0e0e12;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    z-index: 10;
 }
 
 .nav-item {
@@ -213,23 +281,79 @@ body {
     align-items: center;
     color: #4b5563;
     cursor: pointer;
+    transition: color 0.2s;
 }
 
 .nav-item.active {
-    color: #c5272a; /* איקון תחתון פעיל באדום */
+    color: #c5272a;
 }
 
-/* ================= תפריט הצד הצידי החבוי ================= */
+/* מקלדת וירטואלית מובנית בגוון האפליקציה */
+.virtual-keyboard {
+    position: absolute;
+    bottom: 70px;
+    width: 100%;
+    background-color: #0e0e12;
+    padding: 8px 4px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: transform 0.3s ease-out;
+}
+
+.virtual-keyboard.hidden {
+    transform: translateY(100%);
+    display: none;
+}
+
+.keyboard-row {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    width: 100%;
+}
+
+.key {
+    flex: 1;
+    max-width: 34px;
+    height: 40px;
+    background-color: #1e1e24;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.key.fn-key {
+    background-color: #2a2a32;
+    max-width: 48px;
+    font-size: 12px;
+}
+
+.key.space-key {
+    flex: 3;
+    max-width: 160px;
+}
+
+.key.action-key {
+    background-color: #c5272a;
+}
+
+/* תפריט צדדי חבוי ויוקרתי */
 .side-menu {
     position: absolute;
     top: 0;
-    right: -280px; 
+    right: -280px;
     width: 280px;
     height: 100%;
-    background-color: #0f0f12;
-    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+    background-color: #0b0b0e;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.7);
     transition: right 0.3s ease-in-out;
-    z-index: 20;
+    z-index: 50;
     display: flex;
     flex-direction: column;
 }
@@ -239,48 +363,48 @@ body {
 }
 
 .side-menu-header {
-    padding: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 24px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.side-menu-header h3 {
-    font-size: 18px;
-    color: #f8fafc;
-}
-
 .close-menu-btn {
     background: none;
     border: none;
+    color: white;
     cursor: pointer;
-    color: #f8fafc;
 }
 
 .side-menu-list {
     list-style: none;
-    padding: 20px;
+    padding: 20px 10px;
 }
 
 .menu-item {
-    padding: 14px;
-    border-radius: 10px;
-    margin-bottom: 8px;
+    padding: 14px 16px;
+    border-radius: 12px;
     color: #cbd5e1;
-    font-size: 15px;
+    font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 12px;
+    margin-bottom: 6px;
 }
 
 .menu-item svg {
-    color: #c5272a; /* איקונים בתפריט באדום אמדוקס */
+    color: #00b4d8;
+}
+
+.menu-item:nth-child(3) svg {
+    color: #c5272a;
 }
 
 .menu-item:hover {
-    background-color: rgba(197, 39, 42, 0.1);
+    background-color: rgba(255, 255, 255, 0.03);
     color: white;
 }
 
@@ -294,7 +418,7 @@ body {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s;
-    z-index: 15;
+    z-index: 40;
 }
 
 .menu-overlay.open {
