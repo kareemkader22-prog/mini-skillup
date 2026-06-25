@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ================= MENU DROPDOWN LOGIC =================
     
-    // פתיחה וסגירה של תפריט ההמבורגר העליון
+    // פתיחה וסגירה של ה-list בלחיצה על שלושת הקווים
     if (menuBtn && dropdownMenu) {
         menuBtn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // הקשבה ללחיצה על פריט בתוך תפריט ההמבורגר
+    // הקשבה ללחיצה על פריט בתוך ה-list
     menuItems.forEach(item => {
         item.addEventListener('click', () => {
             const target = item.getAttribute('data-target');
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // סגירת התפריט בלחיצה מחוץ אליו
+    // סגירת ה-list אם לוחצים במקום אחר במסך
     document.addEventListener('click', (e) => {
         if (dropdownMenu && !dropdownMenu.contains(e.target) && e.target !== menuBtn) {
             dropdownMenu.style.display = 'none';
@@ -89,21 +89,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ================= APP NAVIGATION LOGIC =================
     
-    // מעבר לסימולטור ראיונות ממסך הבית
     openInterviewBtn.addEventListener('click', () => {
         hideAllViews();
         interviewView.classList.remove('hidden');
         updateBottomNav('none');
     });
 
-    // חזרה למסך הבית
     backToHomeBtn.addEventListener('click', () => {
         hideAllViews();
         dashboardView.classList.remove('hidden');
         updateBottomNav('home');
     });
 
-    // ניווט תחתון
     navItems.forEach(item => {
         item.addEventListener('click', () => {
             const target = item.getAttribute('data-target');
@@ -115,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (target === 'search') {
                 searchView.classList.remove('hidden');
                 updateBottomNav('search');
-                renderJobs(jobsDatabase); // מציג את כל המשרות כברירת מחדל
+                renderJobs(jobsDatabase);
             } else if (target === 'notifications') {
                 notificationsView.classList.remove('hidden');
                 updateBottomNav('notifications');
@@ -179,6 +176,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ================= VIRTUAL KEYBOARD LOGIC =================
+
     function handleSearch() {
         const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
         
@@ -195,8 +194,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         renderJobs(filteredJobs);
     }
-
-    // ================= VIRTUAL KEYBOARD LOGIC =================
 
     if (searchInput && keyboard) {
         searchInput.addEventListener("click", (e) => {
@@ -262,7 +259,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (searchInput) {
         searchInput.addEventListener("input", handleSearch);
     }
-
 
     // ================= AI INTERVIEW LOGIC =================
 
