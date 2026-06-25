@@ -1,315 +1,180 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // --- Navigation Variables ---
-    const dashboardView = document.getElementById('dashboardView');
-    const interviewView = document.getElementById('interviewView');
-    const searchView = document.getElementById('searchView');
-    const notificationsView = document.getElementById('notificationsView');
-    const profileView = document.getElementById('profileView');
-
-    const openInterviewBtn = document.getElementById('openInterviewBtn');
-    const backToHomeBtn = document.getElementById('backToHomeBtn');
-    const navItems = document.querySelectorAll('.nav-item');
-
-    // --- Interview Feature Variables ---
-    const generateBtn = document.getElementById('generateBtn');
-    const jobInput = document.getElementById('jobInput');
-    const loadingDiv = document.getElementById('loading');
-    const resultsDiv = document.getElementById('results');
-    const errorBox = document.getElementById('errorBox');
-    const techList = document.getElementById('techList');
-    const hrList = document.getElementById('hrList');
-    const caseList = document.getElementById('caseList');
-
-    // --- Search & Virtual Keyboard Variables ---
-    const searchInput = document.getElementById("searchInput");
-    const keyboard = document.getElementById("virtualKeyboard");
-    const deleteBtn = document.getElementById("keyDelete");
-    const spaceBtn = document.getElementById("keySpace");
-    const closeBtn = document.getElementById("keyClose");
+document.addEventListener("DOMContentLoaded", () => {
+    // אלמנטים לניווט וחיפוש
     const searchSubmitBtn = document.getElementById("searchSubmitBtn");
+    const searchInput = document.getElementById("searchInput");
     const searchResultsArea = document.getElementById("searchResultsArea");
+    const virtualKeyboard = document.getElementById("virtualKeyboard");
 
-    // --- Hamburger Menu Variables ---
-    const menuBtn = document.getElementById('menuBtn');
-    const dropdownMenu = document.getElementById('dropdownMenu');
-    const menuItems = document.querySelectorAll('.menu-item');
+    // אלמנטים של חלון המודל (הדרישות המלאות)
+    const jobDetailModal = document.getElementById("jobDetailModal");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+    const modalJobTitle = document.getElementById("modalJobTitle");
+    const modalJobCompany = document.getElementById("modalJobCompany");
+    const modalJobDetails = document.getElementById("modalJobDetails");
 
-    // ================= DATA: MOCK JOBS DATABASE =================
-    const jobsDatabase = [
-        { title: "Machine Learning Developer", company: "Google", location: "Tel Aviv", tags: ["Python", "AI", "TensorFlow"] },
-        { title: "Data Scientist", company: "Meta", location: "Remote", tags: ["Python", "SQL", "Machine Learning"] },
-        { title: "Data Engineer", company: "Microsoft", location: "Herzliya", tags: ["SQL", "Big Data", "Spark"] },
-        { title: "AI Research Engineer", company: "OpenAI", location: "Tel Aviv", tags: ["PyTorch", "NLP", "LLM"] },
-        { title: "Junior Full Stack Developer", company: "Mobileye", location: "Jerusalem", tags: ["JavaScript", "React", "Node.js"] }
-    ];
+    let currentFetchedJobs = [];
 
-    // פונקציה שמסתירה את כל הדפים בבת אחת
-    function hideAllViews() {
-        dashboardView.classList.add('hidden');
-        interviewView.classList.add('hidden');
-        searchView.classList.add('hidden');
-        notificationsView.classList.add('hidden');
-        profileView.classList.add('hidden');
-    }
-
-    // ================= MENU DROPDOWN LOGIC =================
-    
-    // פתיחה וסגירה של תפריט ה-list בלחיצה על שלושת הקווים
-    if (menuBtn && dropdownMenu) {
-        menuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const isHidden = dropdownMenu.style.display === 'none';
-            dropdownMenu.style.display = isHidden ? 'block' : 'none';
-        });
-    }
-
-    // הקשבה ללחיצה על פריט בתוך ה-list
-    menuItems.forEach(item => {
-        item.addEventListener('click', () => {
-            const target = item.getAttribute('data-target');
-            
-            if (dropdownMenu) dropdownMenu.style.display = 'none';
-
-            if (target === 'interview') {
-                hideAllViews();
-                interviewView.classList.remove('hidden');
-                updateBottomNav('none');
-            } else {
-                alert(`${item.innerText} is coming soon!`);
-            }
-        });
-    });
-
-    // סגירת ה-list בלחיצה במקום אחר כלשהו על המסך
-    document.addEventListener('click', (e) => {
-        if (dropdownMenu && !dropdownMenu.contains(e.target) && e.target !== menuBtn) {
-            dropdownMenu.style.display = 'none';
-        }
-    });
-
-    // ================= APP NAVIGATION LOGIC =================
-    
-    // Switch to Interview Generator
-    openInterviewBtn.addEventListener('click', () => {
-        hideAllViews();
-        interviewView.classList.remove('hidden');
-        updateBottomNav('none'); // clear bottom nav selection
-    });
-
-    // Switch back to Dashboard
-    backToHomeBtn.addEventListener('click', () => {
-        hideAllViews();
-        dashboardView.classList.remove('hidden');
-        updateBottomNav('home');
-    });
-
-    // Bottom Navigation Clicks
-    navItems.forEach(item => {
-        item.addEventListener('click', () => {
-            const target = item.getAttribute('data-target');
-            hideAllViews();
-            
-            if (target === 'home') {
-                dashboardView.classList.remove('hidden');
-                updateBottomNav('home');
-            } else if (target === 'search') {
-                searchView.classList.remove('hidden');
-                updateBottomNav('search');
-                renderJobs(jobsDatabase);
-            } else if (target === 'notifications') {
-                notificationsView.classList.remove('hidden');
-                updateBottomNav('notifications');
-            } else if (target === 'profile') {
-                profileView.classList.remove('hidden');
-                updateBottomNav('profile');
-            }
-        });
-    });
-
-    function updateBottomNav(targetId) {
-        navItems.forEach(nav => {
-            if(nav.getAttribute('data-target') === targetId) {
-                nav.classList.add('active');
-            } else {
-                nav.classList.remove('active');
-            }
-        });
-    }
-
-    // ================= SEARCH & FILTER LOGIC =================
-
-    function renderJobs(jobsToRender) {
-        if (!searchResultsArea) return;
+    // פונקציית החיפוש הכללית - תומכת בכל מקצועות ההייטק (מפתחים, IT, QA וכו')
+    async function handleSearch() {
+        let query = searchInput.value.trim();
         
-        searchResultsArea.innerHTML = ""; 
+        // אם השדה ריק, נחפש ברירת מחדל של משרות הייטק כלליות בישראל
+        if (!query) {
+            query = "Developer IT Tech QA Cyber";
+        }
 
-        if (jobsToRender.length === 0) {
-            searchResultsArea.innerHTML = `
-                <p style="color: #94a3b8; text-align: center; margin-top: 20px; font-size: 14px;">
-                    No jobs found matching your search.
-                </p>`;
+        searchResultsArea.innerHTML = `
+            <div class="loading-screen">
+                <div class="loader-circle"></div>
+                <p style="color: #ffffff;">Searching for jobs in Israel...</p>
+            </div>`;
+
+        try {
+            // קריאה ל-API שמביא את כל סוגי המשרות לפי מילת המפתח שהוקלדה
+            const url = `https://api.adzuna.com/v1/api/jobs/il/search/1?app_id=c49747cb&app_key=9b83bba0ba50b070bc064a787cd04052&what=${encodeURIComponent(query)}`;
+            
+            const response = await fetch(url);
+            if (!response.ok) throw new Error("API network failure");
+            
+            const data = await response.json();
+            currentFetchedJobs = data.results || [];
+            
+            renderJobCards(currentFetchedJobs);
+        } catch (error) {
+            console.error(error);
+            searchResultsArea.innerHTML = '<p style="color: #ef4444; text-align: center;">Error fetching live data. Please try again.</p>';
+        }
+    }
+
+    // יצירת קארדים לבנים ונקיים על גבי הרקע השחור
+    function renderJobCards(jobs) {
+        searchResultsArea.innerHTML = "";
+        
+        if (jobs.length === 0) {
+            searchResultsArea.innerHTML = '<p style="color: #94a3b8; text-align: center;">No jobs found matching your request.</p>';
             return;
         }
 
-        jobsToRender.forEach(job => {
+        jobs.forEach((job, index) => {
             const card = document.createElement("div");
-            card.style.cssText = `
-                background: white;
-                border: 1px solid #e2e8f0;
-                border-radius: 12px;
-                padding: 14px;
-                margin-bottom: 12px;
-                text-align: left;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-                direction: ltr;
-            `;
-
-            const tagsHTML = job.tags.map(tag => `
-                <span style="background: #eff6ff; color: #1d4ed8; font-size: 11px; padding: 4px 8px; border-radius: 6px; font-weight: 500;">${tag}</span>
-            `).join("");
-
+            card.className = "card clickable-job-card";
+            card.setAttribute("data-index", index);
+            
+            const companyName = job.company?.display_name || "Unknown Company";
+            const locationName = job.location?.display_name || "Israel";
+            
             card.innerHTML = `
-                <h4 style="margin: 0; color: #1e293b; font-size: 16px; font-weight: 600;">${job.title}</h4>
-                <p style="margin: 4px 0; color: #64748b; font-size: 13px;">${job.company} • <span style="color: #94a3b8;">${job.location}</span></p>
-                <div style="display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap;">
-                    ${tagsHTML}
+                <h3 style="margin: 0 0 5px 0; color: #1e293b; font-size: 16px; font-weight:700;">${job.title}</h3>
+                <p style="margin: 0 0 10px 0; color: #3b71f7; font-weight: 600; font-size: 14px;">${companyName}</p>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 12px; color: #64748b;">📍 ${locationName}</span>
+                    <span style="font-size: 12px; background: #e0f2fe; color: #0369a1; padding: 2px 8px; border-radius: 12px; font-weight: 500;">View Details</span>
                 </div>
             `;
+            
+            // לחיצה על קארד המשרה פותחת את המודל עם הדרישות המלאות
+            card.addEventListener("click", () => {
+                openJobModal(job);
+            });
+
             searchResultsArea.appendChild(card);
         });
     }
 
-    function handleSearch() {
-        const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
+    function openJobModal(job) {
+        modalJobTitle.textContent = job.title;
+        modalJobCompany.textContent = job.company?.display_name || "Unknown Company";
         
-        if (query === "") {
-            renderJobs(jobsDatabase);
-            return;
-        }
-
-        const filteredJobs = jobsDatabase.filter(job => {
-            return job.title.toLowerCase().includes(query) || 
-                   job.company.toLowerCase().includes(query) ||
-                   job.tags.some(tag => tag.toLowerCase().includes(query));
-        });
-
-        renderJobs(filteredJobs);
+        modalJobDetails.innerHTML = `
+            <p style="margin-bottom: 12px;"><strong>Location:</strong> ${job.location?.display_name || "Israel"}</p>
+            <p style="margin-bottom: 15px; font-weight: 600; color: #1e293b;">Job Description & Requirements:</p>
+            <div style="font-size: 14px; color: #334155; line-height: 1.6; margin-bottom: 20px;">
+                ${job.description}
+            </div>
+            <a href="${job.redirect_url}" target="_blank" class="primary-btn" style="display: block; text-align: center; text-decoration: none; margin-bottom: 0;">Apply for this Job</a>
+        `;
+        
+        jobDetailModal.classList.remove("hidden");
     }
 
-    // ================= VIRTUAL KEYBOARD LOGIC =================
-
-    if (searchInput && keyboard) {
-        searchInput.addEventListener("click", (e) => {
-            e.stopPropagation();
-            keyboard.style.display = "block";
+    // סגירת חלון המודל
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener("click", () => {
+            jobDetailModal.classList.add("hidden");
         });
     }
 
-    document.querySelectorAll(".key").forEach(keyBtn => {
-        if (keyBtn.id === "keyDelete" || keyBtn.id === "keySpace" || keyBtn.id === "keyClose") return;
-
-        keyBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            if (searchInput) {
-                searchInput.value += keyBtn.innerText;
-                searchInput.focus();
-                handleSearch(); 
-            }
-        });
-    });
-
-    if (deleteBtn) {
-        deleteBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            if (searchInput) {
-                searchInput.value = searchInput.value.slice(0, -1);
-                handleSearch();
-            }
-        });
-    }
-
-    if (spaceBtn) {
-        spaceBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            if (searchInput) {
-                searchInput.value += " ";
-                handleSearch();
-            }
-        });
-    }
-
-    if (closeBtn) {
-        closeBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            if (keyboard) keyboard.style.display = "none";
-        });
-    }
-
-    document.addEventListener("click", (e) => {
-        if (keyboard && !keyboard.contains(e.target) && e.target !== searchInput) {
-            keyboard.style.display = "none";
-        }
-    });
-
+    // האזנה ללחצני החיפוש
     if (searchSubmitBtn) {
         searchSubmitBtn.addEventListener("click", (e) => {
             e.stopPropagation();
-            if (keyboard) keyboard.style.display = "none";
+            if (virtualKeyboard) virtualKeyboard.style.display = "none";
             handleSearch();
         });
     }
 
     if (searchInput) {
-        searchInput.addEventListener("input", handleSearch);
+        searchInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                handleSearch();
+            }
+        });
     }
 
     // ================= AI INTERVIEW LOGIC =================
+    const generateBtn = document.getElementById('generateBtn');
+    const jobInput = document.getElementById('jobInput');
+    const errorBox = document.getElementById('errorBox');
+    const resultsDiv = document.getElementById('results');
+    const loadingDiv = document.getElementById('loading');
+    const techList = document.getElementById('techList');
+    const hrList = document.getElementById('hrList');
+    const caseList = document.getElementById('caseList');
 
-    generateBtn.addEventListener('click', async () => {
-        const jobDescription = jobInput.value.trim();
-        
-        if (!jobDescription) {
-            showError("Please paste a job description first.");
-            return;
-        }
-
-        errorBox.classList.add('hidden');
-        resultsDiv.classList.add('hidden');
-        loadingDiv.classList.remove('hidden');
-        generateBtn.disabled = true;
-
-        try {
-            const response = await fetch('/api/generate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ jobDescription })
-            });
-
-            if (!response.ok) {
-                throw new Error("Server failed to generate questions.");
+    if (generateBtn) {
+        generateBtn.addEventListener('click', async () => {
+            const jobDescription = jobInput.value.trim();
+            
+            if (!jobDescription) {
+                showError("Please paste a job description first.");
+                return;
             }
 
-            const data = await response.json();
-            
-            populateList(techList, data.technical);
-            populateList(hrList, data.behavioral);
-            populateList(caseList, data.caseStudy);
+            errorBox.classList.add('hidden');
+            resultsDiv.classList.add('hidden');
+            loadingDiv.classList.remove('hidden');
+            generateBtn.disabled = true;
 
-            loadingDiv.classList.add('hidden');
-            resultsDiv.classList.remove('hidden');
+            try {
+                const response = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ jobDescription })
+                });
 
-        } catch (error) {
-            console.error(error);
-            loadingDiv.classList.add('hidden');
-            showError("An error occurred while connecting to the AI. Please try again.");
-        } finally {
-            generateBtn.disabled = false;
-        }
-    });
+                if (!response.ok) throw new Error("Server failed to generate questions.");
+
+                const data = await response.json();
+                
+                populateList(techList, data.technical);
+                populateList(hrList, data.behavioral);
+                populateList(caseList, data.caseStudy);
+
+                loadingDiv.classList.add('hidden');
+                resultsDiv.classList.remove('hidden');
+
+            } catch (error) {
+                console.error(error);
+                loadingDiv.classList.add('hidden');
+                showError("An error occurred while connecting to the AI. Please try again.");
+            } finally {
+                generateBtn.disabled = false;
+            }
+        });
+    }
 
     function populateList(listElement, items) {
+        if (!listElement) return;
         listElement.innerHTML = '';
         if (!items || items.length === 0) {
             listElement.innerHTML = '<li>No questions generated.</li>';
@@ -323,7 +188,47 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showError(message) {
+        if (!errorBox) return;
         errorBox.textContent = message;
         errorBox.classList.remove('hidden');
+    }
+
+    // מערכת ניווט מובנית בין מסכים
+    const navItems = document.querySelectorAll(".nav-item");
+    const views = document.querySelectorAll(".view-section");
+
+    navItems.forEach(item => {
+        item.addEventListener("click", () => {
+            const target = item.getAttribute("data-target");
+            
+            navItems.forEach(i => i.classList.remove("active"));
+            item.classList.add("active");
+
+            views.forEach(v => v.classList.add("hidden"));
+            
+            if (target === "home") document.getElementById("dashboardView").classList.remove("hidden");
+            if (target === "search") {
+                document.getElementById("searchView").classList.remove("hidden");
+                // טעינה אוטומטית של משרות ברגע שנכנסים למסך החיפוש
+                handleSearch();
+            }
+            if (target === "notifications") document.getElementById("notificationsView").classList.remove("hidden");
+            if (target === "profile") document.getElementById("profileView").classList.remove("hidden");
+        });
+    });
+
+    const openInterviewBtn = document.getElementById("openInterviewBtn");
+    if (openInterviewBtn) {
+        openInterviewBtn.addEventListener("click", () => {
+            views.forEach(v => v.classList.add("hidden"));
+            document.getElementById("interviewView").classList.remove("hidden");
+        });
+    }
+    const backToHomeBtn = document.getElementById("backToHomeBtn");
+    if (backToHomeBtn) {
+        backToHomeBtn.addEventListener("click", () => {
+            views.forEach(v => v.classList.add("hidden"));
+            document.getElementById("dashboardView").classList.remove("hidden");
+        });
     }
 });
