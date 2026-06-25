@@ -32,35 +32,70 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // מאגר גיבוי עשיר, מורחב ומפורט עם דרישות מלאות ומבנה של מודעות דרושים אמיתיות
+    // מאגר מורחב הכולל משרות פייתון, פיתוח תוכנה, למידת מכונה וסינון לפי חברות מובילות
     const fallbackJobs = [
         { 
-            title: "Junior Data Analyst", 
+            title: "Machine Learning Engineer", 
             company: { display_name: "Google" }, 
             location: { display_name: "Tel Aviv-Yafo" }, 
             description: `
                 <strong>Role Overview:</strong><br>
-                We are looking for a brilliant Junior Data Analyst to turn data into valuable business insights. You will conduct full lifecycle analysis to include requirements, activities, and design. You will develop analysis and data collection systems, optimizing statistical efficiency and quality.<br><br>
+                We are looking for an ML Engineer to build scalable infrastructure for training and deploying deep learning models. You will optimize neural networks and work alongside researchers to implement production-grade AI solution ecosystem frameworks.<br><br>
                 <strong>Key Requirements:</strong><br>
-                • 1+ years of experience or strong academic/project portfolio in Data Analysis.<br>
-                • Advanced proficiency in SQL queries and data manipulation.<br>
-                • Hands-on experience with visualization tools: Tableau, Power BI, or Looker.<br>
-                • Basic scripting skills in Python (Pandas, NumPy) or R.<br>
-                • Strong analytical skills with the ability to collect, organize, analyze, and disseminate significant amounts of information.` 
+                • 2+ years of professional experience with Machine Learning systems or computer vision.<br>
+                • Advanced knowledge of Python and deep learning frameworks (PyTorch, TensorFlow).<br>
+                • Experience with data engineering tools and frameworks (Spark, Kafka, BigQuery).<br>
+                • Background in cloud deployments using Kubernetes and MLOps principles.` 
         },
         { 
-            title: "IT Support Specialist", 
+            title: "Python Software Developer", 
             company: { display_name: "Check Point" }, 
             location: { display_name: "Tel Aviv-Yafo" }, 
             description: `
                 <strong>Role Overview:</strong><br>
-                Join our global IT Infrastructure team. In this role, you will be the first line of technical assistance for our employees worldwide, troubleshooting complex system issues, deploying enterprise hardware, and managing corporate software permissions.<br><br>
+                Join our backend infrastructure security team. You will build high-performance distributed systems, microservices, and specialized internal security automation systems completely written in Python.<br><br>
                 <strong>Key Requirements:</strong><br>
-                • Deep understanding of Windows 10/11, macOS, and Linux operating systems.<br>
-                • Proven experience with Active Directory, GPO, and Office 365 administration.<br>
-                • Familiarity with basic networking concepts: TCP/IP, DNS, DHCP, VPNs, and Firewalls.<br>
-                • Excellent troubleshooting skills and high service orientation.<br>
-                • Certifications like CompTIA A+, Network+, or CCNA – a significant advantage.` 
+                • 3+ years of enterprise object-oriented development backend experience with Python.<br>
+                • Strong experience with asynchronous programming (Asyncio) and frameworks like FastAPI or Django.<br>
+                • Expert knowledge in relational databases (PostgreSQL/MySQL) and caching layers (Redis).<br>
+                • Familiarity with containerized execution platforms (Docker, Linux architecture).` 
+        },
+        { 
+            title: "Software Engineer (Core Systems)", 
+            company: { display_name: "Intel" }, 
+            location: { display_name: "Haifa" }, 
+            description: `
+                <strong>Role Overview:</strong><br>
+                Intel's core platform team is seeking a Software Engineer to develop internal system software, compilers, and hardware optimization tools. You will handle complex memory architectures and high-throughput low-latency systems.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • Deep conceptual understanding of Software Engineering, Operating Systems, and memory management.<br>
+                • Proficiency in Python, C/C++, or Java.<br>
+                • Experience developing tools for multi-threaded applications and hardware acceleration layers.<br>
+                • B.Sc. in Computer Science or Computer Engineering.`
+        },
+        { 
+            title: "Senior Machine Learning Architect", 
+            company: { display_name: "Microsoft" }, 
+            location: { display_name: "Herzliya" }, 
+            description: `
+                <strong>Role Overview:</strong><br>
+                Design modern large-scale machine learning and NLP pipelines for next-generation intelligence tools. You will oversee AI architecture design from raw telemetry ingestion up to final live feature engineering.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • Extensive hands-on background running production AI pipelines.<br>
+                • Expert-level programming using Python, Scikit-Learn, and PyTorch ecosystem libraries.<br>
+                • Proven experience designing distributed systems or high-performance GPU clustering environments.`
+        },
+        { 
+            title: "Backend Software Developer (Python & Go)", 
+            company: { display_name: "CyberArk" }, 
+            location: { display_name: "Petah Tikva" }, 
+            description: `
+                <strong>Role Overview:</strong><br>
+                We are hiring a Software Developer to engineer advanced privileged access monitoring services. You'll code secure REST endpoints, build encryption integrations, and write automated threat detection plugins.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • Proficiency inside a backend landscape with either Python or Go language layouts.<br>
+                • Strong understanding of RESTful API design, OAuth2, and microservice engineering protocols.<br>
+                • Experience implementing secure coding practices against OWASP vulnerability benchmarks.`
         },
         { 
             title: "QA Automation Engineer", 
@@ -72,9 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <strong>Key Requirements:</strong><br>
                 • Solid programming background in Python, Java, or C#.<br>
                 • Experience building automation frameworks from scratch using Selenium, Playwright, or Appium.<br>
-                • Strong understanding of QA methodologies, test planning, and defect tracking tools (Jira).<br>
-                • Familiarity with CI/CD systems, especially Jenkins or GitHub Actions.<br>
-                • Passion for quality, detail-oriented mindset, and strong problem-solving capabilities.` 
+                • Strong understanding of QA methodologies, test planning, and defect tracking tools (Jira).` 
         },
         { 
             title: "Full Stack Developer (Junior)", 
@@ -86,63 +119,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 <strong>Key Requirements:</strong><br>
                 • Strong fundamentals in JavaScript / TypeScript and modern HTML/CSS.<br>
                 • Practical experience with modern frontend frameworks, preferably React or Vue.js.<br>
-                • Server-side development experience using Node.js, Express, or NestJS.<br>
-                • Understanding of relational and non-relational databases (MongoDB, PostgreSQL).<br>
-                • Highly motivated, self-learner, with an impressive GitHub repository showing clean code layout.` 
+                • Server-side development experience using Node.js, Express, or NestJS.` 
         },
         { 
-            title: "Cyber Security Analyst", 
-            company: { display_name: "CyberArk" }, 
-            location: { display_name: "Petah Tikva" }, 
+            title: "Junior Data Analyst", 
+            company: { display_name: "Google" }, 
+            location: { display_name: "Tel Aviv-Yafo" }, 
             description: `
                 <strong>Role Overview:</strong><br>
-                We are looking for a Cyber Security Analyst to join our enterprise defence division. You will analyze infrastructure logs, conduct security audits, identify code vulnerabilities, and participate in deploying secure privileged access management systems.<br><br>
+                We are looking for a brilliant Junior Data Analyst to turn data into valuable business insights. You will conduct full lifecycle analysis to include requirements, activities, and design.<br><br>
                 <strong>Key Requirements:</strong><br>
-                • Thorough understanding of the OWASP Top 10 vulnerabilities and secure coding principles.<br>
-                • Experience with network security monitoring, vulnerability scanners, and dynamic testing tools.<br>
-                • Familiarity with cloud security practices in AWS or Microsoft Azure.<br>
-                • Understanding of operating system security controls (Linux/Windows).<br>
-                • Ability to write simple automation scripts using Bash or Python.` 
-        },
-        { 
-            title: "Data Scientist", 
-            company: { display_name: "Microsoft" }, 
-            location: { display_name: "Herzliya" }, 
-            description: `
-                <strong>Role Overview:</strong><br>
-                Microsoft's R&D center is looking for a Data Scientist to construct advanced machine learning architectures. You will collaborate with engineering teams to deploy AI models into production, optimizing algorithms based on live traffic patterns.<br><br>
-                <strong>Key Requirements:</strong><br>
-                • B.Sc./M.Sc. in Computer Science, Statistics, Mathematics, or a related quantitative field.<br>
-                • Strong coding standards in Python, including libraries like PyTorch, TensorFlow, Scikit-Learn.<br>
-                • Solid grasp of machine learning algorithms: clustering, regression, classification, and neural networks.<br>
-                • Practical knowledge of relational and distributed databases (SQL, Spark).` 
-        },
-        { 
-            title: "DevOps Engineer", 
-            company: { display_name: "Intel" }, 
-            location: { display_name: "Haifa" }, 
-            description: `
-                <strong>Role Overview:</strong><br>
-                Intel is recruiting a DevOps Engineer to handle scaling, deployment, and optimization of compute clouds. You will automate delivery cycles, manage large hardware server allocations, and support development pipelines globally.<br><br>
-                <strong>Key Requirements:</strong><br>
-                • Excellent knowledge of Linux System Administration.<br>
-                • Hands-on experience with Infrastructure as Code (IaC) tools, primarily Terraform or Ansible.<br>
-                • Solid containerization skills with Docker and orchestrators like Kubernetes (K8s).<br>
-                • Background setting up CI/CD workflows using Git, GitHub Actions, or GitLab CI.` 
-        },
-        { 
-            title: "SOC Analyst Shift Leader", 
-            company: { display_name: "Palo Alto Networks" }, 
-            location: { display_name: "Tel Aviv" }, 
-            description: `
-                <strong>Role Overview:</strong><br>
-                As a SOC Shift Leader at Palo Alto Networks, you will direct real-time security operational monitoring and handle critical incident escalation. You will lead a shift of security technicians tracking active network attacks and malware propagation across complex cloud systems.<br><br>
-                <strong>Key Requirements:</strong><br>
-                • 2+ years of prior experience working inside a Security Operations Center (SOC).<br>
-                • Deep technical understanding of underlying network protocols (TCP/IP, HTTP, TLS, SSH).<br>
-                • Expert knowledge using SIEM platforms like Splunk, QRadar, or Cortex XSOAR.<br>
-                • Experience identifying indicators of compromise (IOCs) and utilizing advanced incident frameworks (MITRE ATT&CK).<br>
-                • Excellent leadership skills under pressure and clear communication capabilities.` 
+                • 1+ years of experience or strong academic/project portfolio in Data Analysis.<br>
+                • Advanced proficiency in SQL queries and data manipulation.<br>
+                • Hands-on experience with visualization tools: Tableau, Power BI, or Looker.` 
         }
     ];
 
@@ -150,9 +139,8 @@ document.addEventListener("DOMContentLoaded", () => {
     async function handleSearch() {
         let query = searchInput.value.trim();
         
-        // אם השדה ריק, נשתמש במילת ברירת מחדל
         if (!query) {
-            query = "Developer";
+            query = "Software";
         }
 
         searchResultsArea.innerHTML = `
@@ -172,31 +160,28 @@ document.addEventListener("DOMContentLoaded", () => {
             const jobs = data.results || [];
             
             if (jobs.length === 0) {
-                // אם ה-API החזיר רשימה ריקה, נשתמש בסינון המקומי
                 useFallbackSearch(query);
             } else {
                 updateKPIMetrics(query, jobs);
                 renderJobCards(jobs);
             }
         } catch (error) {
-            console.warn("External API blocked by CORS or Network error. Switching to highly detailed local fallback data instantly.", error);
-            // מפעיל את הגיבוי באופן שקוף לחלוטין למשתמש!
+            console.warn("External API blocked. Switching to highly specialized company and role local search fallback data.", error);
             useFallbackSearch(query);
         }
     }
 
-    // פונקציית סינון חכמה מתוך מאגר הגיבוי המקומי המורחב
+    // פונקציית סינון חכמה מתוך מאגר הגיבוי - תומכת כעת בשם חברה, סוג משרה ושפות תכנות
     function useFallbackSearch(query) {
         const lowerQuery = query.toLowerCase();
         
-        // מסנן משרות לפי כותרת, חברה או תיאור המשרה
         const filteredJobs = fallbackJobs.filter(job => 
             job.title.toLowerCase().includes(lowerQuery) || 
             job.company.display_name.toLowerCase().includes(lowerQuery) || 
             job.description.toLowerCase().includes(lowerQuery)
         );
 
-        // אם החיפוש ספציפי מדי ולא מצא כלום, נציג את כל המאגר כדי שהמסך לעולם לא יישאר ריק
+        // אם לא נמצאה התאמה מדויקת, נציג את כל המאגר על מנת לשמור על רציפות ה-UI
         const finalJobs = filteredJobs.length > 0 ? filteredJobs : fallbackJobs;
 
         updateKPIMetrics(query, finalJobs);
@@ -210,18 +195,17 @@ document.addEventListener("DOMContentLoaded", () => {
         kpiDashboard.classList.remove("hidden");
         kpiCount.textContent = `${jobs.length} openings found`;
         
-        // סימולציה חכמה של טווח שכר ממוצע לפי סוג המשרה החיצונית שנכתבה
         const lowerQuery = query.toLowerCase();
-        if (lowerQuery.includes("it") || lowerQuery.includes("support")) {
-            kpiSalary.textContent = "₪13,000 - ₪18,000 / mo";
-        } else if (lowerQuery.includes("qa") || lowerQuery.includes("test")) {
-            kpiSalary.textContent = "₪14,000 - ₪21,000 / mo";
-        } else if (lowerQuery.includes("cyber") || lowerQuery.includes("security")) {
+        if (lowerQuery.includes("machine") || lowerQuery.includes("ml") || lowerQuery.includes("learning")) {
+            kpiSalary.textContent = "₪28,000 - ₪42,000 / mo";
+        } else if (lowerQuery.includes("python") || lowerQuery.includes("developer") || lowerQuery.includes("software")) {
             kpiSalary.textContent = "₪22,000 - ₪34,000 / mo";
-        } else if (lowerQuery.includes("data")) {
-            kpiSalary.textContent = "₪19,000 - ₪28,000 / mo";
+        } else if (lowerQuery.includes("intel")) {
+            kpiSalary.textContent = "₪20,000 - ₪32,000 / mo";
+        } else if (lowerQuery.includes("google")) {
+            kpiSalary.textContent = "₪26,000 - ₪45,000 / mo";
         } else {
-            kpiSalary.textContent = "₪18,500 - ₪26,000 / mo";
+            kpiSalary.textContent = "₪19,000 - ₪28,000 / mo";
         }
     }
 
@@ -248,7 +232,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             `;
             
-            // לחיצה על כרטיס המשרה תפתח חלון מודל עשיר עם כל הנתונים
             card.addEventListener("click", () => {
                 openJobModal(job);
             });
@@ -278,14 +261,12 @@ document.addEventListener("DOMContentLoaded", () => {
         jobDetailModal.classList.remove("hidden");
     }
 
-    // סגירת חלון המודל
     function closeJobModal() {
         if (jobDetailModal) jobDetailModal.classList.add("hidden");
     }
     if (closeModalBtn) closeModalBtn.addEventListener("click", closeJobModal);
     if (modalBarClose) modalBarClose.addEventListener("click", closeJobModal);
 
-    // האזנה לאירועי החיפוש (בזמן אמת ובלחיצה)
     if (searchSubmitBtn) {
         searchSubmitBtn.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -386,7 +367,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (target === "home") document.getElementById("dashboardView").classList.remove("hidden");
             if (target === "search") {
                 document.getElementById("searchView").classList.remove("hidden");
-                handleSearch(); // טעינה אוטומטית בכניסה
+                handleSearch(); 
             }
             if (target === "notifications") document.getElementById("notificationsView").classList.remove("hidden");
             if (target === "profile") document.getElementById("profileView").classList.remove("hidden");
