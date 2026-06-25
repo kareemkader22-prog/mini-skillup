@@ -32,87 +32,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // מאגר מורחב הכולל משרות פייתון, פיתוח תוכנה, למידת מכונה וסינון לפי חברות מובילות
+    // מאגר משרות מורחב ומלא הכולל את המשרות החדשות: Java, UI/UX, ו-NOC
     const fallbackJobs = [
         { 
-            title: "Machine Learning Engineer", 
-            company: { display_name: "Google" }, 
-            location: { display_name: "Tel Aviv-Yafo" }, 
-            description: `
-                <strong>Role Overview:</strong><br>
-                We are looking for an ML Engineer to build scalable infrastructure for training and deploying deep learning models. You will optimize neural networks and work alongside researchers to implement production-grade AI solution ecosystem frameworks.<br><br>
-                <strong>Key Requirements:</strong><br>
-                • 2+ years of professional experience with Machine Learning systems or computer vision.<br>
-                • Advanced knowledge of Python and deep learning frameworks (PyTorch, TensorFlow).<br>
-                • Experience with data engineering tools and frameworks (Spark, Kafka, BigQuery).<br>
-                • Background in cloud deployments using Kubernetes and MLOps principles.` 
-        },
-        { 
-            title: "Python Software Developer", 
-            company: { display_name: "Check Point" }, 
-            location: { display_name: "Tel Aviv-Yafo" }, 
-            description: `
-                <strong>Role Overview:</strong><br>
-                Join our backend infrastructure security team. You will build high-performance distributed systems, microservices, and specialized internal security automation systems completely written in Python.<br><br>
-                <strong>Key Requirements:</strong><br>
-                • 3+ years of enterprise object-oriented development backend experience with Python.<br>
-                • Strong experience with asynchronous programming (Asyncio) and frameworks like FastAPI or Django.<br>
-                • Expert knowledge in relational databases (PostgreSQL/MySQL) and caching layers (Redis).<br>
-                • Familiarity with containerized execution platforms (Docker, Linux architecture).` 
-        },
-        { 
-            title: "Software Engineer (Core Systems)", 
-            company: { display_name: "Intel" }, 
-            location: { display_name: "Haifa" }, 
-            description: `
-                <strong>Role Overview:</strong><br>
-                Intel's core platform team is seeking a Software Engineer to develop internal system software, compilers, and hardware optimization tools. You will handle complex memory architectures and high-throughput low-latency systems.<br><br>
-                <strong>Key Requirements:</strong><br>
-                • Deep conceptual understanding of Software Engineering, Operating Systems, and memory management.<br>
-                • Proficiency in Python, C/C++, or Java.<br>
-                • Experience developing tools for multi-threaded applications and hardware acceleration layers.<br>
-                • B.Sc. in Computer Science or Computer Engineering.`
-        },
-        { 
-            title: "Senior Machine Learning Architect", 
-            company: { display_name: "Microsoft" }, 
-            location: { display_name: "Herzliya" }, 
-            description: `
-                <strong>Role Overview:</strong><br>
-                Design modern large-scale machine learning and NLP pipelines for next-generation intelligence tools. You will oversee AI architecture design from raw telemetry ingestion up to final live feature engineering.<br><br>
-                <strong>Key Requirements:</strong><br>
-                • Extensive hands-on background running production AI pipelines.<br>
-                • Expert-level programming using Python, Scikit-Learn, and PyTorch ecosystem libraries.<br>
-                • Proven experience designing distributed systems or high-performance GPU clustering environments.`
-        },
-        { 
-            title: "Backend Software Developer (Python & Go)", 
-            company: { display_name: "CyberArk" }, 
-            location: { display_name: "Petah Tikva" }, 
-            description: `
-                <strong>Role Overview:</strong><br>
-                We are hiring a Software Developer to engineer advanced privileged access monitoring services. You'll code secure REST endpoints, build encryption integrations, and write automated threat detection plugins.<br><br>
-                <strong>Key Requirements:</strong><br>
-                • Proficiency inside a backend landscape with either Python or Go language layouts.<br>
-                • Strong understanding of RESTful API design, OAuth2, and microservice engineering protocols.<br>
-                • Experience implementing secure coding practices against OWASP vulnerability benchmarks.`
-        },
-        { 
-            title: "QA Automation Engineer", 
-            company: { display_name: "Mobileye" }, 
-            location: { display_name: "Jerusalem" }, 
-            description: `
-                <strong>Role Overview:</strong><br>
-                We are seeking a QA Automation Engineer to design, build, and maintain our next-generation automated test suites for advanced driver-assistance systems (ADAS). You will ensure software reliability through rigorous, continuous integration testing.<br><br>
-                <strong>Key Requirements:</strong><br>
-                • Solid programming background in Python, Java, or C#.<br>
-                • Experience building automation frameworks from scratch using Selenium, Playwright, or Appium.<br>
-                • Strong understanding of QA methodologies, test planning, and defect tracking tools (Jira).` 
-        },
-        { 
-            title: "Full Stack Developer (Junior)", 
+            title: "Junior Full Stack Developer", 
             company: { display_name: "Wix.com" }, 
             location: { display_name: "Tel Aviv - Remote" }, 
+            isJunior: true,
             description: `
                 <strong>Role Overview:</strong><br>
                 Wix is looking for a talented Junior Full Stack Developer to join our core web engineering group. You will write high-quality, scalable code, participate in code reviews, and build user-facing web applications utilized by millions globally.<br><br>
@@ -125,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
             title: "Junior Data Analyst", 
             company: { display_name: "Google" }, 
             location: { display_name: "Tel Aviv-Yafo" }, 
+            isJunior: true,
             description: `
                 <strong>Role Overview:</strong><br>
                 We are looking for a brilliant Junior Data Analyst to turn data into valuable business insights. You will conduct full lifecycle analysis to include requirements, activities, and design.<br><br>
@@ -132,15 +59,95 @@ document.addEventListener("DOMContentLoaded", () => {
                 • 1+ years of experience or strong academic/project portfolio in Data Analysis.<br>
                 • Advanced proficiency in SQL queries and data manipulation.<br>
                 • Hands-on experience with visualization tools: Tableau, Power BI, or Looker.` 
+        },
+        { 
+            title: "NOC Tier 1 Specialist", 
+            company: { display_name: "Palo Alto Networks" }, 
+            location: { display_name: "Tel Aviv" }, 
+            isJunior: true,
+            description: `
+                <strong>Role Overview:</strong><br>
+                Excellent entry-level opportunity for students or recent graduates! Monitor our production cloud environments, track system telemetry, manage infrastructure alerts, and collaborate with DevOps teams to ensure maximum availability.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • Basic understanding of networking protocols (TCP/IP, DNS, ping/traceroute).<br>
+                • Familiarity with Linux command line environments.<br>
+                • Willingness to work in shifts (including nights/weekends) – Perfect for students!<br>
+                • High responsibility and rapid problem-solving skills.`
+        },
+        { 
+            title: "Junior UI/UX Designer", 
+            company: { display_name: "Mobileye" }, 
+            location: { display_name: "Jerusalem" }, 
+            isJunior: true,
+            description: `
+                <strong>Role Overview:</strong><br>
+                Looking for an enthusiastic Junior UI/UX Designer to join our product layout unit. You will help build wireframes, user flows, and high-fidelity interface mockups for vehicle management dashboards.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • Solid portfolio showing design systems, web layouts, or mobile application wireframes.<br>
+                • Proficiency in Figma, Adobe XD, or Illustrator.<br>
+                • Understanding of user-centric design theories and visual layout hierarchy.`
+        },
+        { 
+            title: "Java Software Developer (Entry Level)", 
+            company: { display_name: "Intel" }, 
+            location: { display_name: "Haifa" }, 
+            isJunior: true,
+            description: `
+                <strong>Role Overview:</strong><br>
+                Kickstart your software engineering career. Join our validation backend framework group coding in Java. You will learn enterprise paradigms, architectural patterns, and object-oriented testing infrastructure.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • Solid comprehension of OOP principles, Data Structures, and Java syntax.<br>
+                • Academic or independent project portfolio written in Java/Spring Boot.<br>
+                • Highly motivated self-learner with a passion for writing clean, structured code.`
+        },
+        { 
+            title: "Machine Learning Engineer", 
+            company: { display_name: "Google" }, 
+            location: { display_name: "Tel Aviv-Yafo" }, 
+            isJunior: false,
+            description: `
+                <strong>Role Overview:</strong><br>
+                We are looking for an ML Engineer to build scalable infrastructure for training and deploying deep learning models. You will optimize neural networks and work alongside researchers to implement production-grade AI solution ecosystem frameworks.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • 2+ years of professional experience with Machine Learning systems or computer vision.<br>
+                • Advanced knowledge of Python and deep learning frameworks (PyTorch, TensorFlow).` 
+        },
+        { 
+            title: "Python Software Developer", 
+            company: { display_name: "Check Point" }, 
+            location: { display_name: "Tel Aviv-Yafo" }, 
+            isJunior: false,
+            description: `
+                <strong>Role Overview:</strong><br>
+                Join our backend infrastructure security team. You will build high-performance distributed systems, microservices, and specialized internal security automation systems completely written in Python.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • 3+ years of enterprise object-oriented development backend experience with Python.<br>
+                • Strong experience with asynchronous programming (Asyncio) and frameworks like FastAPI or Django.` 
+        },
+        { 
+            title: "Cyber Security Analyst", 
+            company: { display_name: "CyberArk" }, 
+            location: { display_name: "Petah Tikva" }, 
+            isJunior: false,
+            description: `
+                <strong>Role Overview:</strong><br>
+                We are looking for a Cyber Security Analyst to join our enterprise defence division. You will analyze infrastructure logs, conduct security audits, identify code vulnerabilities, and participate in deploying secure privileged access management systems.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • Thorough understanding of the OWASP Top 10 vulnerabilities and secure coding principles.<br>
+                • Ability to write simple automation scripts using Bash or Python.` 
         }
     ];
 
-    // פונקציית החיפוש הכללית - תומכת בכל מקצועות ההייטק והחברות בשוק
+    // פונקציית החיפוש והטעינה הכללית
     async function handleSearch() {
         let query = searchInput.value.trim();
         
+        // חוק חדש: אם השדה ריק, מציגים אוטומטית רק משרות ג'וניור מבחוץ!
         if (!query) {
-            query = "Software";
+            const juniorJobs = fallbackJobs.filter(job => job.isJunior === true);
+            updateKPIMetrics("Junior", juniorJobs);
+            renderJobCards(juniorJobs);
+            return;
         }
 
         searchResultsArea.innerHTML = `
@@ -150,11 +157,10 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>`;
 
         try {
-            // קריאה לשרת ה-API הציבורי
+            // ניסיון פנייה ל-API
             const url = `https://api.adzuna.com/v1/api/jobs/il/search/1?app_id=c49747cb&app_key=9b83bba0ba50b070bc064a787cd04052&what=${encodeURIComponent(query)}`;
-            
             const response = await fetch(url);
-            if (!response.ok) throw new Error("API network failure or CORS restriction");
+            if (!response.ok) throw new Error("API Network issue or CORS block");
             
             const data = await response.json();
             const jobs = data.results || [];
@@ -166,12 +172,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 renderJobCards(jobs);
             }
         } catch (error) {
-            console.warn("External API blocked. Switching to highly specialized company and role local search fallback data.", error);
+            console.warn("External API restricted. Switching to smart fallback matching.", error);
             useFallbackSearch(query);
         }
     }
 
-    // פונקציית סינון חכמה מתוך מאגר הגיבוי - תומכת כעת בשם חברה, סוג משרה ושפות תכנות
+    // פונקציית סינון חכמה מתוך מאגר הגיבוי המלא
     function useFallbackSearch(query) {
         const lowerQuery = query.toLowerCase();
         
@@ -181,14 +187,14 @@ document.addEventListener("DOMContentLoaded", () => {
             job.description.toLowerCase().includes(lowerQuery)
         );
 
-        // אם לא נמצאה התאמה מדויקת, נציג את כל המאגר על מנת לשמור על רציפות ה-UI
-        const finalJobs = filteredJobs.length > 0 ? filteredJobs : fallbackJobs;
+        // אם חיפשו משהו שלא קיים בכלל, נשאיר את רשימת הג'וניורים כדי שהמסך תמיד יהיה רלוונטי
+        const finalJobs = filteredJobs.length > 0 ? filteredJobs : fallbackJobs.filter(job => job.isJunior === true);
 
         updateKPIMetrics(query, finalJobs);
         renderJobCards(finalJobs);
     }
 
-    // פונקציה שמחשבת ומציגה נתוני שוק חיצוניים (KPI) עבור המשרה/חברה
+    // פונקציה שמחשבת ומציגה נתוני שוק חיצוניים (KPI)
     function updateKPIMetrics(query, jobs) {
         if (!kpiDashboard || !kpiCount || !kpiSalary) return;
         
@@ -196,16 +202,18 @@ document.addEventListener("DOMContentLoaded", () => {
         kpiCount.textContent = `${jobs.length} openings found`;
         
         const lowerQuery = query.toLowerCase();
-        if (lowerQuery.includes("machine") || lowerQuery.includes("ml") || lowerQuery.includes("learning")) {
+        if (lowerQuery.includes("noc")) {
+            kpiSalary.textContent = "₪11,000 - ₪14,500 / mo";
+        } else if (lowerQuery.includes("ux") || lowerQuery.includes("ui")) {
+            kpiSalary.textContent = "₪13,500 - ₪19,000 / mo";
+        } else if (lowerQuery.includes("java")) {
+            kpiSalary.textContent = "₪16,000 - ₪23,000 / mo";
+        } else if (lowerQuery.includes("machine") || lowerQuery.includes("ml")) {
             kpiSalary.textContent = "₪28,000 - ₪42,000 / mo";
-        } else if (lowerQuery.includes("python") || lowerQuery.includes("developer") || lowerQuery.includes("software")) {
-            kpiSalary.textContent = "₪22,000 - ₪34,000 / mo";
-        } else if (lowerQuery.includes("intel")) {
-            kpiSalary.textContent = "₪20,000 - ₪32,000 / mo";
-        } else if (lowerQuery.includes("google")) {
-            kpiSalary.textContent = "₪26,000 - ₪45,000 / mo";
+        } else if (lowerQuery.includes("junior")) {
+            kpiSalary.textContent = "₪14,000 - ₪20,000 / mo";
         } else {
-            kpiSalary.textContent = "₪19,000 - ₪28,000 / mo";
+            kpiSalary.textContent = "₪18,500 - ₪27,000 / mo";
         }
     }
 
@@ -223,8 +231,14 @@ document.addEventListener("DOMContentLoaded", () => {
             const companyName = job.company?.display_name || "Tech Enterprise";
             const locationName = job.location?.display_name || "Israel (Remote/Hybrid)";
             
+            // הוספת תגית בולטת למשרות ג'וניור מבחוץ
+            const juniorBadge = job.isJunior ? `<span style="font-size: 10px; background: #f0fdf4; color: #166534; padding: 2px 6px; border-radius: 4px; margin-left: 8px; font-weight: bold; border: 1px solid #bbf7d0;">Junior Friendly</span>` : '';
+
             card.innerHTML = `
-                <h3 style="margin: 0 0 5px 0; color: #1e293b; font-size: 15px; font-weight:700; text-align: left;">${job.title}</h3>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
+                    <h3 style="margin: 0; color: #1e293b; font-size: 15px; font-weight:700; text-align: left;">${job.title}</h3>
+                    ${juniorBadge}
+                </div>
                 <p style="margin: 0 0 10px 0; color: #3b71f7; font-weight: 600; font-size: 13px; text-align: left;">🏢 ${companyName}</p>
                 <div style="display: flex; justify-content: space-between; align-items: center; direction: ltr;">
                     <span style="font-size: 11px; color: #64748b;">📍 ${locationName}</span>
@@ -278,6 +292,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (searchInput) {
         searchInput.addEventListener("input", handleSearch);
     }
+
+    // הפעלה ראשונית אוטומטית - מציגה ישר את משרות הג'וניורים!
+    handleSearch();
 
     // ================= AI INTERVIEW LOGIC =================
     const generateBtn = document.getElementById('generateBtn');
