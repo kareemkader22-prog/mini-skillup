@@ -29,8 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchSubmitBtn = document.getElementById("searchSubmitBtn");
     const searchResultsArea = document.getElementById("searchResultsArea");
 
+    // --- Hamburger Menu Variables ---
+    const menuBtn = document.getElementById('menuBtn');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    const menuItems = document.querySelectorAll('.menu-item');
+
     // ================= DATA: MOCK JOBS DATABASE =================
-    // מאגר משרות דמו כדי שיהיה מה לחפש ולהציג
     const jobsDatabase = [
         { title: "Machine Learning Developer", company: "Google", location: "Tel Aviv", tags: ["Python", "AI", "TensorFlow"] },
         { title: "Data Scientist", company: "Meta", location: "Remote", tags: ["Python", "SQL", "Machine Learning"] },
@@ -48,23 +52,58 @@ document.addEventListener('DOMContentLoaded', () => {
         profileView.classList.add('hidden');
     }
 
+    // ================= MENU DROPDOWN LOGIC =================
+    
+    // פתיחה וסגירה של תפריט ההמבורגר העליון
+    if (menuBtn && dropdownMenu) {
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isHidden = dropdownMenu.style.display === 'none';
+            dropdownMenu.style.display = isHidden ? 'block' : 'none';
+        });
+    }
+
+    // הקשבה ללחיצה על פריט בתוך תפריט ההמבורגר
+    menuItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const target = item.getAttribute('data-target');
+            
+            if (dropdownMenu) dropdownMenu.style.display = 'none';
+
+            if (target === 'interview') {
+                hideAllViews();
+                interviewView.classList.remove('hidden');
+                updateBottomNav('none');
+            } else {
+                alert(`${item.innerText} is coming soon!`);
+            }
+        });
+    });
+
+    // סגירת התפריט בלחיצה מחוץ אליו
+    document.addEventListener('click', (e) => {
+        if (dropdownMenu && !dropdownMenu.contains(e.target) && e.target !== menuBtn) {
+            dropdownMenu.style.display = 'none';
+        }
+    });
+
     // ================= APP NAVIGATION LOGIC =================
     
-    // Switch to Interview Generator
+    // מעבר לסימולטור ראיונות ממסך הבית
     openInterviewBtn.addEventListener('click', () => {
         hideAllViews();
         interviewView.classList.remove('hidden');
-        updateBottomNav('none'); // clear bottom nav selection
+        updateBottomNav('none');
     });
 
-    // Switch back to Dashboard
+    // חזרה למסך הבית
     backToHomeBtn.addEventListener('click', () => {
         hideAllViews();
         dashboardView.classList.remove('hidden');
         updateBottomNav('home');
     });
 
-    // Bottom Navigation Clicks
+    // ניווט תחתון
     navItems.forEach(item => {
         item.addEventListener('click', () => {
             const target = item.getAttribute('data-target');
@@ -76,8 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (target === 'search') {
                 searchView.classList.remove('hidden');
                 updateBottomNav('search');
-                // כשנכנסים למסך, נציג את כל המשרות כברירת מחדל
-                renderJobs(jobsDatabase);
+                renderJobs(jobsDatabase); // מציג את כל המשרות כברירת מחדל
             } else if (target === 'notifications') {
                 notificationsView.classList.remove('hidden');
                 updateBottomNav('notifications');
@@ -100,11 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ================= SEARCH & FILTER LOGIC =================
 
-    // פונקציה שמקבלת רשימת משרות ומציירת אותן יפה על המסך בעיצוב מובייל נקי
     function renderJobs(jobsToRender) {
         if (!searchResultsArea) return;
         
-        searchResultsArea.innerHTML = ""; // מנקים את התוצאות הקודמות
+        searchResultsArea.innerHTML = ""; 
 
         if (jobsToRender.length === 0) {
             searchResultsArea.innerHTML = `
@@ -114,7 +151,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // יוצרים כרטיס לכל משרה
         jobsToRender.forEach(job => {
             const card = document.createElement("div");
             card.style.cssText = `
@@ -128,7 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 direction: ltr;
             `;
 
-            // יצירת תגיות טכנולוגיה קטנות
             const tagsHTML = job.tags.map(tag => `
                 <span style="background: #eff6ff; color: #1d4ed8; font-size: 11px; padding: 4px 8px; border-radius: 6px; font-weight: 500;">${tag}</span>
             `).join("");
@@ -144,17 +179,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // פונקציית הסינון בפועל לפי מה שכתוב בתיבת הטקסט
     function handleSearch() {
         const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
         
-        // אם התיבה ריקה, נציג את כל המשרות
         if (query === "") {
             renderJobs(jobsDatabase);
             return;
         }
 
-        // סינון המערך - בודק אם המילה קיימת בכותרת, בחברה או בתגיות
         const filteredJobs = jobsDatabase.filter(job => {
             return job.title.toLowerCase().includes(query) || 
                    job.company.toLowerCase().includes(query) ||
@@ -166,7 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ================= VIRTUAL KEYBOARD LOGIC =================
 
-    // פתיחת המקלדת בלחיצה על תיבת הטקסט של החיפוש
     if (searchInput && keyboard) {
         searchInput.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -174,7 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // הוספת האותיות בלחיצה על המקשים
     document.querySelectorAll(".key").forEach(keyBtn => {
         if (keyBtn.id === "keyDelete" || keyBtn.id === "keySpace" || keyBtn.id === "keyClose") return;
 
@@ -183,23 +213,21 @@ document.addEventListener('DOMContentLoaded', () => {
             if (searchInput) {
                 searchInput.value += keyBtn.innerText;
                 searchInput.focus();
-                handleSearch(); // מריץ סינון מיידי תוך כדי הקלדה!
+                handleSearch(); 
             }
         });
     });
 
-    // כפתור מחיקה (תו אחרון)
     if (deleteBtn) {
         deleteBtn.addEventListener("click", (e) => {
             e.stopPropagation();
             if (searchInput) {
                 searchInput.value = searchInput.value.slice(0, -1);
-                handleSearch(); // מעדכן את החיפוש אחרי המחיקה
+                handleSearch();
             }
         });
     }
 
-    // מקש רווח
     if (spaceBtn) {
         spaceBtn.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -210,7 +238,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // כפתור סגירה (Done)
     if (closeBtn) {
         closeBtn.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -218,23 +245,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // סגירת מקלדת בלחיצה מחוץ לאזור שלה
     document.addEventListener("click", (e) => {
         if (keyboard && !keyboard.contains(e.target) && e.target !== searchInput) {
             keyboard.style.display = "none";
         }
     });
 
-    // לחיצה על כפתור החיפוש הראשי (Search)
     if (searchSubmitBtn) {
         searchSubmitBtn.addEventListener("click", (e) => {
             e.stopPropagation();
             if (keyboard) keyboard.style.display = "none";
-            handleSearch(); // מריץ סינון אחרון וסוגר מקלדת
+            handleSearch();
         });
     }
 
-    // תמיכה גם בהקלדה רגילה מהמקלדת של המחשב למי שמפתח בדפדפן
     if (searchInput) {
         searchInput.addEventListener("input", handleSearch);
     }
@@ -250,10 +274,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Reset UI
         errorBox.classList.add('hidden');
         resultsDiv.classList.add('hidden');
-        loadingDiv.remove('hidden');
+        loadingDiv.classList.remove('hidden');
         generateBtn.disabled = true;
 
         try {
@@ -271,12 +294,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
             
-            // Populate lists
             populateList(techList, data.technical);
             populateList(hrList, data.behavioral);
             populateList(caseList, data.caseStudy);
 
-            // Show results
             loadingDiv.classList.add('hidden');
             resultsDiv.classList.remove('hidden');
 
