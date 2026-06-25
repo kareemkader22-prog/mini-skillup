@@ -1,321 +1,459 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+
+
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', sans-serif;
-}
 
-body {
-    background-color: #0b0f19; /* רקע כהה מאוד מסביב למכשיר */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
+box-sizing: border-box;
 
-.mobile-app-wrapper {
-    width: 100%;
-    max-width: 390px;
-    background-color: #111827; /* רקע שחור-כחלחל מוביל של האפליקציה */
-    height: 844px;
-    border-radius: 40px;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    border: 8px solid #1f2937; /* מסגרת מכשיר חלקה ונקייה */
-}
+margin: 0;
 
-.view-section {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    height: 100%;
-    overflow-y: auto;
-    padding-bottom: 80px; /* Space for bottom nav */
-    background-color: #111827; /* מבטיח שכל התוכן שנטען פנימה יהיה כהה */
-}
+padding: 0;
 
-/* Header Styles */
-.dashboard-header, .app-header, [class*="header"] {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 30px 20px 20px;
-    background: #111827 !important;
-    color: #ffffff;
-}
+font-family: 'Inter', sans-serif;
 
-.app-header {
-    border-bottom: 1px solid #1f2937;
-    padding: 20px;
-}
+}body {
 
-.icon-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #9ca3af; /* אייקונים באפור בהיר */
-    transition: color 0.2s;
-}
+background-color: #0b0f19; /* רקע כהה מאוד מסביב למכשיר */
 
-.icon-btn:hover {
-    color: #3b82f6; /* נגיעת כחול בריחוף */
-}
+display: flex;
 
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
+justify-content: center;
 
-.avatar {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); /* הילה כחולה עדינה */
-}
+align-items: center;
 
-/* כותרות גלובליות בתוך האפליקציה */
-h1, h2, h3, h4, h5, h6 {
-    color: #ffffff !important;
-}
+min-height: 100vh;
 
-.user-text h2 {
-    font-size: 16px;
-    font-weight: 700;
-}
+}.mobile-app-wrapper {
 
-.user-text p {
-    font-size: 12px;
-    color: #9ca3af;
-}
+width: 100%;
 
-/* Dashboard Content & Global Containers */
-.dashboard-content, .app-content, [class*="content"], [class*="container"] {
-    padding: 0 20px;
-    flex: 1;
-    background-color: #111827;
-    color: #ffffff;
-}
+max-width: 390px;
 
-.hero-section {
-    margin-bottom: 25px;
-}
+background-color: #111827; /* רקע שחור-כחלחל מוביל של האפליקציה */
 
-.hero-section h1 {
-    font-size: 22px;
-    line-height: 1.3;
-    font-weight: 700;
-}
+height: 844px;
 
-.features-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
+border-radius: 40px;
 
-/* תמיכה גלובלית בכל סוגי הקארדים (כולל של הפרופיל) */
-.card, .feature-card, [class*="card"] {
-    background: #1f2937 !important; /* הופך את כל הקארדים הלבנים לאפור-כהה */
-    border-radius: 20px !important;
-    padding: 20px 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2) !important;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    border: 1px solid #374151 !important;
-    color: #ffffff !important;
-}
+box-shadow: 0 25px 50px rgba(0,0,0,0.5);
 
-/* תיקון טקסטים קטנים/פסקאות בתוך קארדים שיהיו בהירים */
-.card p, .feature-card p, [class*="card"] p, [class*="card"] span, [class*="card"] div {
-    color: #d1d5db; 
-}
+overflow: hidden;
 
-.feature-icon {
-    margin-bottom: 12px;
-    background: rgba(37, 99, 235, 0.15); /* רקע כחול שקוף עדין לאייקון */
-    width: 44px;
-    height: 44px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 12px;
-    color: #3b82f6; /* אייקון כחול בוהק */
-}
+display: flex;
 
-.feature-card h3 {
-    font-size: 14px;
-    margin-bottom: 8px;
-    font-weight: 700;
-}
+flex-direction: column;
 
-.feature-card p {
-    font-size: 11px;
-    line-height: 1.4;
-    margin-bottom: 15px;
-    flex: 1;
-}
+position: relative;
 
-.launch-btn {
-    width: 100%;
-    padding: 10px;
-    background-color: #374151;
-    color: #d1d5db;
-    border: none;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-}
+border: 8px solid #1f2937; /* מסגרת מכשיר חלקה ונקייה */
 
-.launch-btn:hover {
-    background-color: #4b5563;
-}
+}.view-section {
 
-.active-feature {
-    background-color: #2563eb; /* כפתור כחול מלא לפעיל */
-    color: #ffffff;
-}
+display: flex;
 
-.active-feature:hover {
-    background-color: #1d4ed8; /* כחול כהה יותר בריחוף */
-}
+flex-direction: column;
 
-/* Feature View Styles */
-.card-label {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    color: #ffffff;
-    margin-bottom: 10px;
-}
+flex: 1;
 
-textarea {
-    width: 100%;
-    height: 120px;
-    border: 1px solid #374151;
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 14px;
-    resize: none;
-    background-color: #111827;
-    color: #ffffff;
-}
+height: 100%;
 
-textarea:focus {
-    outline: none;
-    border-color: #2563eb; /* פוקוס כחול */
-    background-color: #111827;
-}
+overflow-y: auto;
 
-.primary-btn {
-    background-color: #2563eb; /* כפתור ראשי כחול */
-    color: #ffffff;
-    border: none;
-    border-radius: 12px;
-    padding: 16px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    width: 100%;
-    margin-bottom: 20px;
-    transition: background 0.2s;
-}
+padding-bottom: 80px; /* Space for bottom nav */
 
-.primary-btn:hover {
-    background-color: #1d4ed8;
-}
+}/* Header Styles */.dashboard-header, .app-header {
 
-.loading-screen {
-    text-align: center;
-    padding: 20px;
-    color: #ffffff;
-}
+display: flex;
 
-.loader-circle {
-    width: 40px;
-    height: 40px;
-    border: 4px solid #374151;
-    border-top: 4px solid #2563eb; /* לואדר כחול רץ */
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin: 0 auto 15px;
-}
+justify-content: space-between;
 
-@keyframes spin { 100% { transform: rotate(360deg); } }
+align-items: center;
 
-.result-card {
-    background: #1f2937;
-    border-radius: 16px;
-    padding: 16px;
-    margin-bottom: 15px;
-    border-left: 4px solid #2563eb; /* פס דגש כחול משמאל */
-    color: #ffffff;
-    border-top: 1px solid #374151;
-    border-right: 1px solid #374151;
-    border-bottom: 1px solid #374151;
-}
+padding: 30px 20px 20px;
 
-.result-card h3 {
-    font-size: 15px;
-    margin-bottom: 12px;
-}
+background: #111827;
 
-.custom-list { list-style-type: none; }
-.custom-list li {
-    font-size: 13px;
-    color: #d1d5db;
-    padding-left: 20px;
-    position: relative;
-    margin-bottom: 10px;
-}
-.custom-list li::before {
-    content: "✓";
-    color: #3b82f6; /* ה-V הוחלף גם הוא לכחול ניאון כדי לשמור על קו עיצובי אחיד */
-    position: absolute;
-    left: 0;
-    font-weight: bold;
-}
+}.app-header {
 
-/* כותרות פנימיות קטנות בצבע כחול בוהק (כמו ABOUT ME) שיישארו בולטות */
-[class*="title-blue"], [class*="section-title"], h3[class*="blue"], .profile-content h3 {
-    color: #3b82f6 !important;
-}
+border-bottom: 1px solid #1f2937;
 
-/* Bottom Navigation */
-.bottom-nav {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 70px;
-    background: #1f2937;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border-top: 1px solid #374151;
-    border-radius: 0 0 32px 32px;
-}
+padding: 20px;
 
-.nav-item {
-    color: #6b7280;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+}.icon-btn {
 
-.nav-item.active {
-    color: #2563eb; /* אייטם פעיל בניווט בצבע כחול */
-}
+background: none;
 
-.hidden { display: none !important; }
+border: none;
+
+cursor: pointer;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+color: #9ca3af; /* אייקונים באפור בהיר */
+
+transition: color 0.2s;
+
+}.icon-btn:hover {
+
+color: #3b82f6; /* נגיעת כחול בריחוף */
+
+}.user-info {
+
+display: flex;
+
+align-items: center;
+
+gap: 12px;
+
+}.avatar {
+
+width: 45px;
+
+height: 45px;
+
+border-radius: 50%;
+
+box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); /* הילה כחולה עדינה */
+
+}.user-text h2 {
+
+font-size: 16px;
+
+color: #ffffff;
+
+font-weight: 700;
+
+}.user-text p {
+
+font-size: 12px;
+
+color: #9ca3af;
+
+}/* Dashboard Content */.dashboard-content, .app-content {
+
+padding: 0 20px;
+
+flex: 1;
+
+}.hero-section {
+
+margin-bottom: 25px;
+
+}.hero-section h1 {
+
+font-size: 22px;
+
+color: #ffffff;
+
+line-height: 1.3;
+
+font-weight: 700;
+
+}.features-grid {
+
+display: grid;
+
+grid-template-columns: 1fr 1fr;
+
+gap: 15px;
+
+}.feature-card {
+
+background: #1f2937; /* קארד אפור-כהה נקי */
+
+border-radius: 20px;
+
+padding: 20px 15px;
+
+box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+
+display: flex;
+
+flex-direction: column;
+
+align-items: flex-start;
+
+border: 1px solid #374151;
+
+}.feature-icon {
+
+margin-bottom: 12px;
+
+background: rgba(37, 99, 235, 0.15); /* רקע כחול שקוף עדין לאייקון */
+
+width: 44px;
+
+height: 44px;
+
+display: flex;
+
+justify-content: center;
+
+align-items: center;
+
+border-radius: 12px;
+
+color: #3b82f6; /* אייקון כחול בוהק */
+
+}.feature-card h3 {
+
+font-size: 14px;
+
+color: #ffffff;
+
+margin-bottom: 8px;
+
+font-weight: 700;
+
+}.feature-card p {
+
+font-size: 11px;
+
+color: #9ca3af;
+
+line-height: 1.4;
+
+margin-bottom: 15px;
+
+flex: 1;
+
+}.launch-btn {
+
+width: 100%;
+
+padding: 10px;
+
+background-color: #374151;
+
+color: #d1d5db;
+
+border: none;
+
+border-radius: 10px;
+
+font-size: 13px;
+
+font-weight: 600;
+
+cursor: pointer;
+
+transition: all 0.2s;
+
+}.launch-btn:hover {
+
+background-color: #4b5563;
+
+}.active-feature {
+
+background-color: #2563eb; /* כפתור כחול מלא לפעיל */
+
+color: #ffffff;
+
+}.active-feature:hover {
+
+background-color: #1d4ed8; /* כחול כהה יותר בריחוף */
+
+}/* Feature View Styles */.card {
+
+background: #1f2937;
+
+border-radius: 16px;
+
+padding: 20px;
+
+box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+
+margin-bottom: 20px;
+
+border: 1px solid #374151;
+
+}.card-label {
+
+display: block;
+
+font-size: 14px;
+
+font-weight: 600;
+
+color: #ffffff;
+
+margin-bottom: 10px;
+
+}textarea {
+
+width: 100%;
+
+height: 120px;
+
+border: 1px solid #374151;
+
+border-radius: 8px;
+
+padding: 12px;
+
+font-size: 14px;
+
+resize: none;
+
+background-color: #111827;
+
+color: #ffffff;
+
+}textarea:focus {
+
+outline: none;
+
+border-color: #2563eb; /* פוקוס כחול */
+
+background-color: #111827;
+
+}.primary-btn {
+
+background-color: #2563eb; /* כפתור ראשי כחול */
+
+color: #ffffff;
+
+border: none;
+
+border-radius: 12px;
+
+padding: 16px;
+
+font-size: 16px;
+
+font-weight: 600;
+
+cursor: pointer;
+
+width: 100%;
+
+margin-bottom: 20px;
+
+transition: background 0.2s;
+
+}.primary-btn:hover {
+
+background-color: #1d4ed8;
+
+}.loading-screen {
+
+text-align: center;
+
+padding: 20px;
+
+color: #ffffff;
+
+}.loader-circle {
+
+width: 40px;
+
+height: 40px;
+
+border: 4px solid #374151;
+
+border-top: 4px solid #2563eb; /* לואדר כחול רץ */
+
+border-radius: 50%;
+
+animation: spin 1s linear infinite;
+
+margin: 0 auto 15px;
+
+}@keyframes spin { 100% { transform: rotate(360deg); } }.result-card {
+
+background: #1f2937;
+
+border-radius: 16px;
+
+padding: 16px;
+
+margin-bottom: 15px;
+
+border-left: 4px solid #2563eb; /* פס דגש כחול משמאל */
+
+color: #ffffff;
+
+border-top: 1px solid #374151;
+
+border-right: 1px solid #374151;
+
+border-bottom: 1px solid #374151;
+
+}.result-card h3 {
+
+font-size: 15px;
+
+margin-bottom: 12px;
+
+color: #ffffff;
+
+}.custom-list { list-style-type: none; }.custom-list li {
+
+font-size: 13px;
+
+color: #d1d5db;
+
+padding-left: 20px;
+
+position: relative;
+
+margin-bottom: 10px;
+
+}.custom-list li::before {
+
+content: "✓";
+
+color: #3b82f6; /* ה-V הוחלף גם הוא לכחול ניאון כדי לשמור על קו עיצובי אחיד */
+
+position: absolute;
+
+left: 0;
+
+font-weight: bold;
+
+}/* Bottom Navigation */.bottom-nav {
+
+position: absolute;
+
+bottom: 0;
+
+width: 100%;
+
+height: 70px;
+
+background: #1f2937;
+
+display: flex;
+
+justify-content: space-around;
+
+align-items: center;
+
+border-top: 1px solid #374151;
+
+border-radius: 0 0 32px 32px;
+
+}.nav-item {
+
+color: #6b7280;
+
+cursor: pointer;
+
+transition: color 0.3s ease;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+}.nav-item.active {
+
+color: #2563eb; /* אייטם פעיל בניווט בצבע כחול */
+
+}.hidden { display: none !important; }
