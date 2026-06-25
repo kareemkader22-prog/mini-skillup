@@ -230,26 +230,26 @@ color: #2563eb; /* אייטם פעיל בניווט בצבע כחול */
 }.hidden { display: none !important; }
 
 /* ================================================================= */
-/* תיקון ממוקד למסך הפרופיל בלבד: רקע שחור, מרובעים נשארים לבנים בדיוק כמו שהם */
+/* תיקון סופי ואגרסיבי למסך הפרופיל בלבד (צבע רקע שחור, מרובעים לבנים) */
 /* ================================================================= */
-.profile-content, [class*="profile"] {
-    background-color: #111827 !important; /* הופך את הרקע של מסך הפרופיל לשחור */
+/* צובע את כל תוכן אזור הפרופיל ואת כותרת ה-H1/H2 של העמוד */
+.view-section:has(.profile-card), 
+.view-section:has(#profile-page),
+.view-section:has(h2:contains("My Profile")),
+.view-section:has(h1:contains("My Profile")) {
+    background-color: #111827 !important;
 }
 
-.profile-content h2, [class*="profile"] > h2 {
-    color: #ffffff !important; /* כותרת My Profile הופכת ללבנה על הרקע השחור */
-    padding-top: 20px;
-    padding-bottom: 10px;
+.view-section:has(h2:contains("My Profile")) h2,
+.view-section:has(h1:contains("My Profile")) h1 {
+    color: #ffffff !important;
+    padding: 25px 20px 10px !important;
 }
 
-/* מוודא שהמרובעים (הקארדים) בתוך מסך הפרופיל שומרים על העיצוב הלבן המקורי שלהם */
-.profile-content .card, [class*="profile"] .card {
-    background: #ffffff !important;
+/* מוודא שהמרובעים הלבנים יישארו לבנים כמו שהם */
+.view-section:has(h2:contains("My Profile")) .card,
+.view-section:has(h2:contains("My Profile")) div[class*="card"] {
+    background-color: #ffffff !important;
     color: #111827 !important;
     border: 1px solid #e5e7eb !important;
-}
-
-/* שומר על המילים בתוך המרובעים הלבנים של הפרופיל בצבע שחור/כהה מקורי */
-.profile-content .card *, [class*="profile"] .card * {
-    color: inherit; 
 }
