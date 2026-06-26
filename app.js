@@ -151,8 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         searchResultsArea.innerHTML = `
-            <div class="loading-screen">
-                <div class="loader-circle"></div>
+            <div class="loading-screen" style="text-align:center; padding: 20px;">
                 <p style="color: #64748b;">Scanning tech ecosystem in Israel...</p>
             </div>`;
 
@@ -203,17 +202,17 @@ document.addEventListener("DOMContentLoaded", () => {
         
         const lowerQuery = query.toLowerCase();
         if (lowerQuery.includes("noc")) {
-            kpiSalary.textContent = "₪11,000 - ₪14,500 / mo";
+            kpiSalary.textContent = "11,000₪ - 14,500₪ / mo";
         } else if (lowerQuery.includes("ux") || lowerQuery.includes("ui")) {
-            kpiSalary.textContent = "₪13,500 - ₪19,000 / mo";
+            kpiSalary.textContent = "13,500₪ - 19,000₪ / mo";
         } else if (lowerQuery.includes("java")) {
-            kpiSalary.textContent = "₪16,000 - ₪23,000 / mo";
+            kpiSalary.textContent = "16,000₪ - 23,000₪ / mo";
         } else if (lowerQuery.includes("machine") || lowerQuery.includes("ml")) {
-            kpiSalary.textContent = "₪28,000 - ₪42,000 / mo";
+            kpiSalary.textContent = "28,000₪ - 42,000₪ / mo";
         } else if (lowerQuery.includes("junior")) {
-            kpiSalary.textContent = "₪14,000 - ₪20,000 / mo";
+            kpiSalary.textContent = "14,000₪ - 20,000₪ / mo";
         } else {
-            kpiSalary.textContent = "₪18,500 - ₪27,000 / mo";
+            kpiSalary.textContent = "18,500₪ - 27,000₪ / mo";
         }
     }
 
@@ -227,11 +226,14 @@ document.addEventListener("DOMContentLoaded", () => {
             card.style.cursor = "pointer";
             card.style.transition = "transform 0.2s, box-shadow 0.2s";
             card.style.marginBottom = "12px";
+            card.style.background = "white";
+            card.style.padding = "14px";
+            card.style.borderRadius = "12px";
+            card.style.border = "1px solid #e2e8f0";
             
             const companyName = job.company?.display_name || "Tech Enterprise";
             const locationName = job.location?.display_name || "Israel (Remote/Hybrid)";
             
-            // הוספת תגית בולטת למשרות ג'וניור מבחוץ
             const juniorBadge = job.isJunior ? `<span style="font-size: 10px; background: #f0fdf4; color: #166534; padding: 2px 6px; border-radius: 4px; margin-left: 8px; font-weight: bold; border: 1px solid #bbf7d0;">Junior Friendly</span>` : '';
 
             card.innerHTML = `
@@ -254,6 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // פתיחת חלון דרישות משרה
     function openJobModal(job) {
         if (!jobDetailModal) return;
         modalJobTitle.textContent = job.title;
@@ -262,7 +265,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const applyUrl = job.redirect_url || "#";
         const externalLinkBtn = job.redirect_url 
             ? `<a href="${applyUrl}" target="_blank" class="primary-btn" style="display: block; text-align: center; text-decoration: none; margin-bottom: 0;">Apply External Link</a>`
-            : `<button class="primary-btn" onclick="alert('Application submitted successfully via SkillUp AI!')" style="margin-bottom:0;">Quick Apply Now</button>`;
+            : `<button class="primary-btn" onclick="alert('Application submitted successfully via SkillUp AI!')" style="margin-bottom:0; width:100%; padding:12px; background:#3b71f7; color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer;">Quick Apply Now</button>`;
 
         modalJobDetails.innerHTML = `
             <p style="margin-bottom: 12px; font-size:13px; color:#475569; text-align: left;"><strong>Location:</strong> ${job.location?.display_name || "Israel"}</p>
@@ -280,6 +283,51 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (closeModalBtn) closeModalBtn.addEventListener("click", closeJobModal);
     if (modalBarClose) modalBarClose.addEventListener("click", closeJobModal);
+
+    // ================= לוגיקת המקלדת הווירטואלית החדשה =================
+    if (searchInput && virtualKeyboard) {
+        // הצגת מקלדת כשהמשתמש לוחץ על שדה החיפוש
+        searchInput.addEventListener("focus", () => {
+            virtualKeyboard.style.display = "block";
+        });
+
+        // מניעת הסתרת המקלדת בלחיצה על המקשים עצמם (מונע מהאינפוט לאבד פוקוס)
+        virtualKeyboard.addEventListener("mousedown", (e) => {
+            e.preventDefault();
+        });
+
+        // האזנה לכל מקשי האותיות הרגילים
+        const keys = virtualKeyboard.querySelectorAll(".key");
+        keys.forEach(key => {
+            key.addEventListener("click", () => {
+                const keyValue = key.textContent;
+                if (keyValue === "Space") {
+                    searchInput.value += " ";
+                } else {
+                    searchInput.value += keyValue;
+                }
+                handleSearch(); // ביצוע חיפוש חי עם ההקלדה
+            });
+        });
+
+        // מקש רווח (ייעודי למקרה שרוצים עיצוב נפרד)
+        const keySpace = document.getElementById("keySpace");
+        if (keySpace) {
+            keySpace.addEventListener("click", () => {
+                searchInput.value += " ";
+                handleSearch();
+            });
+        }
+
+        // מקש מחיקה Backspace
+        const keyBackspace = document.getElementById("keyBackspace");
+        if (keyBackspace) {
+            keyBackspace.addEventListener("click", () => {
+                searchInput.value = searchInput.value.slice(0, -1);
+                handleSearch();
+            });
+        }
+    }
 
     if (searchSubmitBtn) {
         searchSubmitBtn.addEventListener("click", (e) => {
@@ -386,8 +434,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("searchView").classList.remove("hidden");
                 handleSearch(); 
             }
-            if (target === "notifications") document.getElementById("notificationsView").classList.remove("hidden");
-            if (target === "profile") document.getElementById("profileView").classList.remove("hidden");
+            if (target === "notifications") document.getElementById("notificationsView")?.classList.remove("hidden");
+            if (target === "profile") document.getElementById("profileView")?.classList.remove("hidden");
         });
     });
 
