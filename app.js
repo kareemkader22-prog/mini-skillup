@@ -468,3 +468,4 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("dashboardView").classList.remove("hidden");
         });
     }
+});
