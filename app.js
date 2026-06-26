@@ -1,16 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // ===== אלמנטים בסיסיים =====
+    // אלמנטים לניווט וחיפוש משרות וחברות
     const searchSubmitBtn = document.getElementById("searchSubmitBtn");
     const searchInput = document.getElementById("searchInput");
     const searchResultsArea = document.getElementById("searchResultsArea");
     const virtualKeyboard = document.getElementById("virtualKeyboard");
     
-    // KPI Dashboard
+    // אלמנטים של לוח ה-KPI החדש
     const kpiDashboard = document.getElementById("kpiDashboard");
     const kpiCount = document.getElementById("kpiCount");
     const kpiSalary = document.getElementById("kpiSalary");
 
-    // Job Detail Modal
+    // אלמנטים של חלון המודל
     const jobDetailModal = document.getElementById("jobDetailModal");
     const closeModalBtn = document.getElementById("closeModalBtn");
     const modalBarClose = document.getElementById("modalBarClose");
@@ -18,19 +18,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalJobCompany = document.getElementById("modalJobCompany");
     const modalJobDetails = document.getElementById("modalJobDetails");
 
-    // Menu
+    // אלמנטים של התפריט העליון
     const menuBtn = document.getElementById("menuBtn");
     const dropdownMenu = document.getElementById("dropdownMenu");
 
-    // ===== קשות מקלדת וירטואלית =====
+    // מקלדת וירטואלית
     const keys = document.querySelectorAll("#virtualKeyboard .key");
     const keyDelete = document.getElementById("keyDelete");
     const keyClose = document.getElementById("keyClose");
     const keySpace = document.getElementById("keySpace");
 
-    // ===== קריאת חברה ומשרות - מאגר נתונים =====
+    // ===== מאגר משרות =====
     const fallbackJobs = [
-        // --- משרות Junior Friendly ---
         { 
             title: "Junior Full Stack Developer", 
             company: { display_name: "Wix.com" }, 
@@ -96,7 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 • Academic or independent project portfolio written in Java/Spring Boot.`
         },
 
-        // --- משרות Senior / Advanced ---
         { 
             title: "Senior Java Software Architect", 
             company: { display_name: "Intel" }, 
@@ -107,9 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 We are seeking a Senior Java Architect to spearhead the structural redesign of our enterprise manufacturing data pipelines. You will lead technical design choices, mentor senior developers, and ensure low-latency high-throughput stream processing.<br><br>
                 <strong>Key Requirements:</strong><br>
                 • 7+ years of experience in enterprise Java development (Java 17+, Spring Boot, Hibernate).<br>
-                • Extensive experience with distributed systems design and microservices architecture.<br>
-                • Mastery of message brokers (Kafka, RabbitMQ) and caching engines (Redis).<br>
-                • Strong background in cloud-native tools (Kubernetes, AWS or Azure).`
+                • Extensive experience with distributed systems design and microservices architecture.`
         },
         { 
             title: "UI/UX Product Design Lead", 
@@ -120,24 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <strong>Role Overview:</strong><br>
                 Take full design ownership of a global product line used by over 50 million creators. You will manage a talented team of UI/UX designers, conduct deep user research, define cross-product design systems, and partner closely with Product VPs.<br><br>
                 <strong>Key Requirements:</strong><br>
-                • 5+ years of experience leading UI/UX design operations for complex web/SaaS products.<br>
-                • Exceptional portfolio demonstrating product design strategy, UX research, and beautiful interactive design.<br>
-                • Expert level skills in Figma component methodologies, design systems, and advanced prototyping.<br>
-                • Excellent leadership, presentation, and communication skills.`
-        },
-        { 
-            title: "NOC & Technical Operations Manager", 
-            company: { display_name: "Palo Alto Networks" }, 
-            location: { display_name: "Tel Aviv" }, 
-            isJunior: false,
-            description: `
-                <strong>Role Overview:</strong><br>
-                We are searching for a seasoned NOC Manager to direct our global 24/7 technical incident response and system monitoring team. You will be responsible for defining SLA benchmarks, optimizing incident response cycles, and handling critical production crises.<br><br>
-                <strong>Key Requirements:</strong><br>
-                • 4+ years managing a NOC team or a technical operations group within an enterprise tech company.<br>
-                • Deep mastery of advanced network diagnostics, routing protocols, firewalls, and modern SIEM logging tools.<br>
-                • Expert knowledge in infrastructure monitoring software (Datadog, Prometheus, Grafana, Splunk).<br>
-                • Outstanding crisis management capabilities and flawless execution under pressure.`
+                • 5+ years of experience leading UI/UX design operations for complex web/SaaS products.`
         },
         { 
             title: "Senior Machine Learning Engineer", 
@@ -148,36 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <strong>Role Overview:</strong><br>
                 We are looking for an expert ML Engineer to build scalable infrastructure for training and deploying deep learning models. You will optimize neural networks and work alongside researchers to implement production-grade AI solution ecosystem frameworks.<br><br>
                 <strong>Key Requirements:</strong><br>
-                • 4+ years of professional experience running Machine Learning or computer vision models in production pipelines.<br>
-                • Advanced knowledge of Python and deep learning frameworks (PyTorch, TensorFlow).<br>
-                • Experience with complex big data infrastructure layers (Spark, Kafka, BigQuery, MLOps).` 
-        },
-        { 
-            title: "Principal Python Backend Engineer", 
-            company: { display_name: "Check Point" }, 
-            location: { display_name: "Tel Aviv-Yafo" }, 
-            isJunior: false,
-            description: `
-                <strong>Role Overview:</strong><br>
-                Join our backend infrastructure security team as a Principal Engineer. You will design and code high-performance distributed microservices, network sniffers, and core cybersecurity elements completely driven by Python.<br><br>
-                <strong>Key Requirements:</strong><br>
-                • 6+ years of enterprise object-oriented backend development experience with Python.<br>
-                • Strong experience with high-concurrency asynchronous programming (Asyncio, Celery) and FastAPI.<br>
-                • Deep expertise in relational databases, SQL tuning, and advanced Linux architecture kernels.` 
-        },
-        { 
-            title: "Senior Cyber Security & Penetration Tester", 
-            company: { display_name: "CyberArk" }, 
-            location: { display_name: "Petah Tikva" }, 
-            isJunior: false,
-            description: `
-                <strong>Role Overview:</strong><br>
-                We are looking for an elite Cyber Security Analyst / PT expert. You will execute security audits, hunt for sophisticated vulnerabilities, perform red-team operations, and consult our core R&D teams on secure development lifecycles.<br><br>
-                <strong>Key Requirements:</strong><br>
-                • 5+ years of practical application security or offensive penetration testing experience.<br>
-                • Mastery of OWASP Top 10, binary exploitation, and reverse engineering tools (Ghidra, IDA Pro).<br>
-                • Professional security credentials (OSCP, OSCE, CISSP) – A major advantage.<br>
-                • Expert level programming in Python, Bash, or Go for exploit automation.` 
+                • 4+ years of professional experience running Machine Learning or computer vision models in production pipelines.`
         }
     ];
 
@@ -196,6 +146,15 @@ document.addEventListener("DOMContentLoaded", () => {
     function showVirtualKeyboard() {
         if (virtualKeyboard) {
             virtualKeyboard.style.display = "block";
+            virtualKeyboard.style.position = "fixed";
+            virtualKeyboard.style.bottom = "0";
+            virtualKeyboard.style.left = "0";
+            virtualKeyboard.style.right = "0";
+            virtualKeyboard.style.zIndex = "2000";
+            virtualKeyboard.style.margin = "0";
+            virtualKeyboard.style.borderRadius = "16px 16px 0 0";
+            virtualKeyboard.style.maxHeight = "300px";
+            virtualKeyboard.style.overflowY = "auto";
         }
     }
 
@@ -209,8 +168,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (keys && keys.length > 0) {
         keys.forEach(key => {
             key.addEventListener("click", (e) => {
-                const char = key.textContent;
-                if (searchInput) {
+                const char = key.textContent.trim();
+                if (searchInput && char.length === 1) {
                     searchInput.value += char;
                     searchInput.focus();
                 }
@@ -237,20 +196,38 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (keyClose) {
-        keyClose.addEventListener("click", hideVirtualKeyboard);
+        keyClose.addEventListener("click", () => {
+            hideVirtualKeyboard();
+            const searchView = document.getElementById("searchView");
+            if (searchView) {
+                searchView.style.paddingBottom = "0";
+            }
+        });
     }
 
     // Show keyboard when clicking input
     if (searchInput) {
-        searchInput.addEventListener("focus", showVirtualKeyboard);
-        searchInput.addEventListener("click", showVirtualKeyboard);
+        searchInput.addEventListener("focus", () => {
+            showVirtualKeyboard();
+            // Add padding to search view so content doesn't hide behind keyboard
+            const searchView = document.getElementById("searchView");
+            if (searchView) {
+                searchView.style.paddingBottom = "320px";
+            }
+        });
+        searchInput.addEventListener("click", () => {
+            showVirtualKeyboard();
+            const searchView = document.getElementById("searchView");
+            if (searchView) {
+                searchView.style.paddingBottom = "320px";
+            }
+        });
     }
 
     // ===== Search Functions =====
     async function handleSearch() {
         let query = searchInput.value.trim();
         
-        // אם השדה ריק - מציגים את משרות הג'וניורים
         if (!query) {
             const juniorJobs = fallbackJobs.filter(job => job.isJunior === true);
             updateKPIMetrics("Junior", juniorJobs);
@@ -259,8 +236,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         searchResultsArea.innerHTML = `
-            <div class="loading-screen">
-                <div class="loader-circle"></div>
+            <div style="text-align: center; padding: 20px;">
+                <div style="width: 50px; height: 50px; border: 4px solid #e2e8f0; border-top-color: #3b71f7; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto; margin-bottom: 10px;"></div>
                 <p style="color: #64748b; font-size: 13px;">Scanning tech ecosystem in Israel...</p>
             </div>`;
 
@@ -268,7 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // ניסיון פנייה ל-API חיצוני
             const url = `https://api.adzuna.com/v1/api/jobs/il/search/1?app_id=c49747cb&app_key=9b83bba0ba50b070bc064a787cd04052&what=${encodeURIComponent(query)}`;
             const response = await fetch(url);
-            if (!response.ok) throw new Error("API Network issue or CORS block");
+            if (!response.ok) throw new Error("API Network issue");
             
             const data = await response.json();
             const jobs = data.results || [];
@@ -280,12 +257,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 renderJobCards(jobs);
             }
         } catch (error) {
-            console.warn("External API restricted. Switching to smart fallback matching.", error);
+            console.warn("External API restricted. Using fallback.", error);
             useFallbackSearch(query);
         }
     }
 
-    // Fallback Search with Smart Filtering
     function useFallbackSearch(query) {
         const lowerQuery = query.toLowerCase();
         
@@ -301,7 +277,6 @@ document.addEventListener("DOMContentLoaded", () => {
         renderJobCards(finalJobs);
     }
 
-    // Update KPI Metrics
     function updateKPIMetrics(query, jobs) {
         if (!kpiDashboard || !kpiCount || !kpiSalary) return;
         
@@ -310,11 +285,9 @@ document.addEventListener("DOMContentLoaded", () => {
         
         const lowerQuery = query.toLowerCase();
         
-        if (lowerQuery.includes("senior") || lowerQuery.includes("manager") || lowerQuery.includes("architect") || lowerQuery.includes("lead")) {
-            if (lowerQuery.includes("java") || lowerQuery.includes("machine") || lowerQuery.includes("ml")) {
+        if (lowerQuery.includes("senior") || lowerQuery.includes("manager") || lowerQuery.includes("architect")) {
+            if (lowerQuery.includes("java") || lowerQuery.includes("machine")) {
                 kpiSalary.textContent = "₪38,000 - ₪52,000 / mo";
-            } else if (lowerQuery.includes("ux") || lowerQuery.includes("ui") || lowerQuery.includes("noc")) {
-                kpiSalary.textContent = "₪24,000 - ₪36,000 / mo";
             } else {
                 kpiSalary.textContent = "₪32,000 - ₪46,000 / mo";
             }
@@ -333,12 +306,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Render Job Cards
     function renderJobCards(jobs) {
         searchResultsArea.innerHTML = "";
         
         if (jobs.length === 0) {
-            searchResultsArea.innerHTML = `<p style="text-align: center; color: #94a3b8; padding: 20px;">No jobs found. Try another search.</p>`;
+            searchResultsArea.innerHTML = `<p style="text-align: center; color: #94a3b8; padding: 20px;">No jobs found</p>`;
             return;
         }
         
@@ -350,21 +322,21 @@ document.addEventListener("DOMContentLoaded", () => {
             card.style.marginBottom = "12px";
             
             const companyName = job.company?.display_name || "Tech Enterprise";
-            const locationName = job.location?.display_name || "Israel (Remote/Hybrid)";
+            const locationName = job.location?.display_name || "Israel";
             
             let levelBadge = '';
             if (job.isJunior) {
-                levelBadge = `<span style="font-size: 10px; background: #f0fdf4; color: #166534; padding: 2px 6px; border-radius: 4px; margin-right: 8px; font-weight: bold; border: 1px solid #bbf7d0;">Junior Friendly</span>`;
+                levelBadge = `<span style="font-size: 10px; background: #f0fdf4; color: #166534; padding: 2px 6px; border-radius: 4px; margin-left: 8px; font-weight: bold;">Junior</span>`;
             } else {
-                levelBadge = `<span style="font-size: 10px; background: #fff7ed; color: #c2410c; padding: 2px 6px; border-radius: 4px; margin-right: 8px; font-weight: bold; border: 1px solid #fed7aa;">Senior / Experienced</span>`;
+                levelBadge = `<span style="font-size: 10px; background: #fff7ed; color: #c2410c; padding: 2px 6px; border-radius: 4px; margin-left: 8px; font-weight: bold;">Senior</span>`;
             }
 
             card.innerHTML = `
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
-                    <h3 style="margin: 0; color: #1e293b; font-size: 15px; font-weight:700; text-align: right; flex: 1;">${job.title}</h3>
+                    <h3 style="margin: 0; color: #1e293b; font-size: 15px; font-weight:700;">${job.title}</h3>
                     ${levelBadge}
                 </div>
-                <p style="margin: 0 0 10px 0; color: #3b71f7; font-weight: 600; font-size: 13px; text-align: right;">🏢 ${companyName}</p>
+                <p style="margin: 0 0 10px 0; color: #3b71f7; font-weight: 600; font-size: 13px;">🏢 ${companyName}</p>
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <span style="font-size: 11px; color: #64748b;">📍 ${locationName}</span>
                     <span style="font-size: 11px; background: #e0f2fe; color: #0369a1; padding: 2px 8px; border-radius: 12px; font-weight: 600;">Details</span>
@@ -379,23 +351,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Job Modal Functions
     function openJobModal(job) {
         if (!jobDetailModal) return;
         modalJobTitle.textContent = job.title;
         modalJobCompany.textContent = job.company?.display_name || "Tech Enterprise";
         
-        const applyUrl = job.redirect_url || "#";
-        const externalLinkBtn = job.redirect_url 
-            ? `<a href="${applyUrl}" target="_blank" class="primary-btn" style="display: block; text-align: center; text-decoration: none; margin-bottom: 0;">Apply External Link</a>`
-            : `<button class="primary-btn" onclick="alert('Application submitted successfully via SkillUp AI!')" style="margin-bottom:0;">Quick Apply Now</button>`;
-
         modalJobDetails.innerHTML = `
-            <p style="margin-bottom: 12px; font-size:13px; color:#475569; text-align: right;"><strong>Location:</strong> ${job.location?.display_name || "Israel"}</p>
-            <div style="font-size: 13px; color: #334155; line-height: 1.6; margin-bottom: 20px; max-height:260px; overflow-y:auto; padding-right:5px; text-align: right;">
+            <p style="margin-bottom: 12px; font-size:13px; color:#475569;"><strong>Location:</strong> ${job.location?.display_name || "Israel"}</p>
+            <div style="font-size: 13px; color: #334155; line-height: 1.6; margin-bottom: 20px; max-height:260px; overflow-y:auto;">
                 ${job.description}
             </div>
-            ${externalLinkBtn}
+            <button class="primary-btn" onclick="alert('Applied successfully!')">Apply Now</button>
         `;
         
         jobDetailModal.classList.remove("hidden");
@@ -413,6 +379,10 @@ document.addEventListener("DOMContentLoaded", () => {
         searchSubmitBtn.addEventListener("click", (e) => {
             e.stopPropagation();
             hideVirtualKeyboard();
+            const searchView = document.getElementById("searchView");
+            if (searchView) {
+                searchView.style.paddingBottom = "0";
+            }
             handleSearch();
         });
     }
@@ -422,11 +392,15 @@ document.addEventListener("DOMContentLoaded", () => {
             if (e.key === "Enter") {
                 handleSearch();
                 hideVirtualKeyboard();
+                const searchView = document.getElementById("searchView");
+                if (searchView) {
+                    searchView.style.paddingBottom = "0";
+                }
             }
         });
     }
 
-    // Initial Load - Show Junior Jobs
+    // Initial Load
     handleSearch();
 
     // ===== AI INTERVIEW LOGIC =====
@@ -439,7 +413,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const hrList = document.getElementById('hrList');
     const caseList = document.getElementById('caseList');
 
-    // Interview Generation with Fallback Questions
     if (generateBtn) {
         generateBtn.addEventListener('click', async () => {
             const jobDescription = jobInput.value.trim();
@@ -455,7 +428,6 @@ document.addEventListener("DOMContentLoaded", () => {
             generateBtn.disabled = true;
 
             try {
-                // Generate smart fallback questions based on job description
                 const questions = generateQuestions(jobDescription);
                 
                 populateList(techList, questions.technical);
@@ -468,7 +440,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } catch (error) {
                 console.error(error);
                 loadingDiv.classList.add('hidden');
-                showError("Failed to generate questions. Please try again.");
+                showError("Failed to generate questions.");
             } finally {
                 generateBtn.disabled = false;
             }
@@ -491,28 +463,9 @@ document.addEventListener("DOMContentLoaded", () => {
         ];
         
         let caseStudy = [
-            "How would you design a solution for the problem mentioned in the job description?",
-            "Walk us through your approach to solving real-world problems with the required tech stack."
+            "How would you design a solution for the problem mentioned?",
+            "Walk us through your approach to solving real-world problems."
         ];
-
-        // Customize based on keywords
-        if (lowerDesc.includes("react") || lowerDesc.includes("vue") || lowerDesc.includes("angular")) {
-            technical[0] = "What is your experience with modern frontend frameworks like React, Vue, or Angular?";
-            technical[1] = "How do you handle state management in complex React applications?";
-        }
-        if (lowerDesc.includes("python")) {
-            technical[0] = "Describe your experience with Python and its major frameworks.";
-            technical[2] = "How do you approach debugging and testing Python applications?";
-        }
-        if (lowerDesc.includes("java")) {
-            technical[0] = "What is your experience with Java and Spring Boot?";
-            technical[1] = "How do you design scalable Java applications?";
-        }
-        if (lowerDesc.includes("manager") || lowerDesc.includes("lead")) {
-            behavioral[0] = "Tell us about your experience leading technical teams.";
-            behavioral[1] = "How do you mentor junior developers?";
-            behavioral[2] = "Describe a time you had to make a difficult technical decision.";
-        }
 
         return { technical, behavioral, caseStudy };
     }
@@ -576,7 +529,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Hide modal when clicking outside
     jobDetailModal?.addEventListener("click", (e) => {
         if (e.target === jobDetailModal) {
             closeJobModal();
