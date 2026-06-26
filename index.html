@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SKILLUP AI</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="mobile-app-wrapper">
@@ -148,77 +148,47 @@
 
             <div id="searchResultsArea" style="flex: 1; overflow-y: auto; margin-bottom: 15px;"></div>
 
-            <div id="virtualKeyboard" style="display: none; background-color: #f1f5f9; padding: 10px; border-radius: 16px; box-shadow: 0 -4px 10px rgba(0,0,0,0.08); direction: ltr; margin-top: auto; user-select: none;">
+            <div id="virtualKeyboard" style="display: none; background-color: #f1f5f9; padding: 10px; border-radius: 16px; box-shadow: 0 -4px 10px rgba(0,0,0,0.05); direction: ltr; margin-top: auto; margin-bottom: 10px;">
                 <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 6px;">
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Q</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">W</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">E</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">R</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">T</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Y</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">U</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">I</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">O</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">P</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Q</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">W</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">E</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">R</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">T</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Y</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">U</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">I</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">O</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">P</button>
                 </div>
-                <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 6px; width: 95%; margin-left: auto; margin-right: auto;">
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">A</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">S</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">D</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">F</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">G</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">H</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">J</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">K</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">L</button>
+                <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 6px; padding: 0 10px;">
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">A</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">S</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">D</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">F</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">G</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">H</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">J</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">K</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">L</button>
                 </div>
                 <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 6px;">
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Z</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">X</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">C</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">V</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">B</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">N</button>
-                    <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">M</button>
-                    <button id="keyBackspace" style="flex: 1.5; padding: 12px 0; background: #cbd5e1; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">⌫</button>
+                    <button class="key" data-key="Backspace" style="flex: 1.5; padding: 10px 0; background: #cbd5e1; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Bksp</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Z</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">X</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">C</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">V</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">B</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">N</button>
+                    <button class="key" style="flex: 1; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">M</button>
+                    <button class="key" data-key="Enter" style="flex: 1.5; padding: 10px 0; background: #3b71f7; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Search</button>
                 </div>
                 <div style="display: flex; justify-content: center; gap: 4px;">
-                    <button id="keySpace" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Space</button>
+                    <button class="key" data-key="Space" style="width: 60%; padding: 10px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); text-align: center;">Space</button>
                 </div>
             </div>
         </div>
 
-        <div id="jobDetailModal" class="hidden modal-overlay" style="position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: flex-end; z-index: 2000;">
-            <div class="modal-container" style="background: white; width: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px; padding: 20px; box-sizing: border-box;">
-                <div id="modalBarClose" style="width: 40px; height: 5px; background: #cbd5e1; border-radius: 10px; margin: 0 auto 15px auto; cursor: pointer;"></div>
-                <h2 id="modalJobTitle" style="margin: 0; font-size: 18px; font-weight: 700;">Job Title</h2>
-                <p id="modalJobCompany" style="color: #3b71f7; font-weight: 600; margin: 5px 0 15px 0;">Company Name</p>
-                <div id="modalJobDetails"></div>
-                <button id="closeModalBtn" class="secondary-btn" style="width: 100%; margin-top: 10px; padding: 12px; background: #f1f5f9; border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">Close</button>
-            </div>
-        </div>
-
-        <footer class="bottom-nav">
-            <button class="nav-item active" data-target="home">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                <span>Home</span>
-            </button>
-            <button class="nav-item" data-target="search">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                <span>Search</span>
-            </button>
-            <button class="nav-item" onclick="alert('Coming soon!')">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-                <span>Alerts</span>
-            </button>
-            <button class="nav-item" onclick="alert('Coming soon!')">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                <span>Profile</span>
-            </button>
-        </footer>
-
     </div>
-
-    <script src="script.js"></script>
 </body>
-</html>
+</html>        
