@@ -1,16 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // אלמנטים לניווט וחיפוש משרות וחברות
+    // ===== אלמנטים בסיסיים =====
     const searchSubmitBtn = document.getElementById("searchSubmitBtn");
     const searchInput = document.getElementById("searchInput");
     const searchResultsArea = document.getElementById("searchResultsArea");
     const virtualKeyboard = document.getElementById("virtualKeyboard");
     
-    // אלמנטים של לוח ה-KPI החדש
+    // KPI Dashboard
     const kpiDashboard = document.getElementById("kpiDashboard");
     const kpiCount = document.getElementById("kpiCount");
     const kpiSalary = document.getElementById("kpiSalary");
 
-    // אלמנטים של חלון המודל (הדרישות המלאות)
+    // Job Detail Modal
     const jobDetailModal = document.getElementById("jobDetailModal");
     const closeModalBtn = document.getElementById("closeModalBtn");
     const modalBarClose = document.getElementById("modalBarClose");
@@ -18,23 +18,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalJobCompany = document.getElementById("modalJobCompany");
     const modalJobDetails = document.getElementById("modalJobDetails");
 
-    // אלמנטים של התפריט העליון
+    // Menu
     const menuBtn = document.getElementById("menuBtn");
     const dropdownMenu = document.getElementById("dropdownMenu");
 
-    if (menuBtn && dropdownMenu) {
-        menuBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            dropdownMenu.style.display = dropdownMenu.style.display === "none" ? "block" : "none";
-        });
-        document.addEventListener("click", () => {
-            dropdownMenu.style.display = "none";
-        });
-    }
+    // ===== קשות מקלדת וירטואלית =====
+    const keys = document.querySelectorAll("#virtualKeyboard .key");
+    const keyDelete = document.getElementById("keyDelete");
+    const keyClose = document.getElementById("keyClose");
+    const keySpace = document.getElementById("keySpace");
 
-    // מאגר ענק ומקיף המשלב משרות ג'וניור ומשרות מנוסים (Mid / Senior / Lead)
+    // ===== קריאת חברה ומשרות - מאגר נתונים =====
     const fallbackJobs = [
-        // --- משרות ג'וניור ומתחילים (מוצגות כברירת מחדל) ---
+        // --- משרות Junior Friendly ---
         { 
             title: "Junior Full Stack Developer", 
             company: { display_name: "Wix.com" }, 
@@ -100,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 • Academic or independent project portfolio written in Java/Spring Boot.`
         },
 
-        // --- משרות מתקדמות, בכירים וסניורים (לא לג'וניורים - נחשפות בחיפוש) ---
+        // --- משרות Senior / Advanced ---
         { 
             title: "Senior Java Software Architect", 
             company: { display_name: "Intel" }, 
@@ -185,11 +181,76 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     ];
 
-    // פונקציית החיפוש והטעינה הכללית
+    // ===== Menu Functionality =====
+    if (menuBtn && dropdownMenu) {
+        menuBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            dropdownMenu.style.display = dropdownMenu.style.display === "none" ? "block" : "none";
+        });
+        document.addEventListener("click", () => {
+            dropdownMenu.style.display = "none";
+        });
+    }
+
+    // ===== Virtual Keyboard Functions =====
+    function showVirtualKeyboard() {
+        if (virtualKeyboard) {
+            virtualKeyboard.style.display = "block";
+        }
+    }
+
+    function hideVirtualKeyboard() {
+        if (virtualKeyboard) {
+            virtualKeyboard.style.display = "none";
+        }
+    }
+
+    // Setup virtual keyboard keys
+    if (keys && keys.length > 0) {
+        keys.forEach(key => {
+            key.addEventListener("click", (e) => {
+                const char = key.textContent;
+                if (searchInput) {
+                    searchInput.value += char;
+                    searchInput.focus();
+                }
+            });
+        });
+    }
+
+    if (keyDelete) {
+        keyDelete.addEventListener("click", () => {
+            if (searchInput) {
+                searchInput.value = searchInput.value.slice(0, -1);
+                searchInput.focus();
+            }
+        });
+    }
+
+    if (keySpace) {
+        keySpace.addEventListener("click", () => {
+            if (searchInput) {
+                searchInput.value += " ";
+                searchInput.focus();
+            }
+        });
+    }
+
+    if (keyClose) {
+        keyClose.addEventListener("click", hideVirtualKeyboard);
+    }
+
+    // Show keyboard when clicking input
+    if (searchInput) {
+        searchInput.addEventListener("focus", showVirtualKeyboard);
+        searchInput.addEventListener("click", showVirtualKeyboard);
+    }
+
+    // ===== Search Functions =====
     async function handleSearch() {
         let query = searchInput.value.trim();
         
-        // אם השדה ריק - מציגים אוטומטית רק את משרות הג'וניור
+        // אם השדה ריק - מציגים את משרות הג'וניורים
         if (!query) {
             const juniorJobs = fallbackJobs.filter(job => job.isJunior === true);
             updateKPIMetrics("Junior", juniorJobs);
@@ -200,7 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
         searchResultsArea.innerHTML = `
             <div class="loading-screen">
                 <div class="loader-circle"></div>
-                <p style="color: #64748b;">Scanning tech ecosystem in Israel...</p>
+                <p style="color: #64748b; font-size: 13px;">Scanning tech ecosystem in Israel...</p>
             </div>`;
 
         try {
@@ -224,7 +285,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // פונקציית סינון חכמה מתוך מאגר הגיבוי המלא (ג'וניור + בכירים)
+    // Fallback Search with Smart Filtering
     function useFallbackSearch(query) {
         const lowerQuery = query.toLowerCase();
         
@@ -234,14 +295,13 @@ document.addEventListener("DOMContentLoaded", () => {
             job.description.toLowerCase().includes(lowerQuery)
         );
 
-        // אם חיפשו משהו שלא קיים בכלל, נשאיר את רשימת הג'וניורים כדי שהמסך תמיד יהיה רלוונטי
         const finalJobs = filteredJobs.length > 0 ? filteredJobs : fallbackJobs.filter(job => job.isJunior === true);
 
         updateKPIMetrics(query, finalJobs);
         renderJobCards(finalJobs);
     }
 
-    // פונקציה שמחשבת ומציגה נתוני שוק חיצוניים (KPI) ומעדכנת שכר בהתאם לבכירות המשרה
+    // Update KPI Metrics
     function updateKPIMetrics(query, jobs) {
         if (!kpiDashboard || !kpiCount || !kpiSalary) return;
         
@@ -250,7 +310,6 @@ document.addEventListener("DOMContentLoaded", () => {
         
         const lowerQuery = query.toLowerCase();
         
-        // התאמת טווחי שכר משמעותיים למשרות בכירות (Senior/Lead/Manager)
         if (lowerQuery.includes("senior") || lowerQuery.includes("manager") || lowerQuery.includes("architect") || lowerQuery.includes("lead")) {
             if (lowerQuery.includes("java") || lowerQuery.includes("machine") || lowerQuery.includes("ml")) {
                 kpiSalary.textContent = "₪38,000 - ₪52,000 / mo";
@@ -260,7 +319,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 kpiSalary.textContent = "₪32,000 - ₪46,000 / mo";
             }
         } else {
-            // טווחי שכר למשרות רגילות וג'וניורס
             if (lowerQuery.includes("noc")) {
                 kpiSalary.textContent = "₪11,000 - ₪14,500 / mo";
             } else if (lowerQuery.includes("ux") || lowerQuery.includes("ui")) {
@@ -275,9 +333,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // יצירת קארדים דינמיים של משרות/חברות
+    // Render Job Cards
     function renderJobCards(jobs) {
         searchResultsArea.innerHTML = "";
+        
+        if (jobs.length === 0) {
+            searchResultsArea.innerHTML = `<p style="text-align: center; color: #94a3b8; padding: 20px;">No jobs found. Try another search.</p>`;
+            return;
+        }
         
         jobs.forEach((job) => {
             const card = document.createElement("div");
@@ -289,21 +352,20 @@ document.addEventListener("DOMContentLoaded", () => {
             const companyName = job.company?.display_name || "Tech Enterprise";
             const locationName = job.location?.display_name || "Israel (Remote/Hybrid)";
             
-            // עיצוב תגית שונה למשרות ג'וניור ומשרות בכירים/סניור
             let levelBadge = '';
             if (job.isJunior) {
-                levelBadge = `<span style="font-size: 10px; background: #f0fdf4; color: #166534; padding: 2px 6px; border-radius: 4px; margin-left: 8px; font-weight: bold; border: 1px solid #bbf7d0;">Junior Friendly</span>`;
+                levelBadge = `<span style="font-size: 10px; background: #f0fdf4; color: #166534; padding: 2px 6px; border-radius: 4px; margin-right: 8px; font-weight: bold; border: 1px solid #bbf7d0;">Junior Friendly</span>`;
             } else {
-                levelBadge = `<span style="font-size: 10px; background: #fff7ed; color: #c2410c; padding: 2px 6px; border-radius: 4px; margin-left: 8px; font-weight: bold; border: 1px solid #fed7aa;">Senior / Experienced</span>`;
+                levelBadge = `<span style="font-size: 10px; background: #fff7ed; color: #c2410c; padding: 2px 6px; border-radius: 4px; margin-right: 8px; font-weight: bold; border: 1px solid #fed7aa;">Senior / Experienced</span>`;
             }
 
             card.innerHTML = `
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
-                    <h3 style="margin: 0; color: #1e293b; font-size: 15px; font-weight:700; text-align: left;">${job.title}</h3>
+                    <h3 style="margin: 0; color: #1e293b; font-size: 15px; font-weight:700; text-align: right; flex: 1;">${job.title}</h3>
                     ${levelBadge}
                 </div>
-                <p style="margin: 0 0 10px 0; color: #3b71f7; font-weight: 600; font-size: 13px; text-align: left;">🏢 ${companyName}</p>
-                <div style="display: flex; justify-content: space-between; align-items: center; direction: ltr;">
+                <p style="margin: 0 0 10px 0; color: #3b71f7; font-weight: 600; font-size: 13px; text-align: right;">🏢 ${companyName}</p>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
                     <span style="font-size: 11px; color: #64748b;">📍 ${locationName}</span>
                     <span style="font-size: 11px; background: #e0f2fe; color: #0369a1; padding: 2px 8px; border-radius: 12px; font-weight: 600;">Details</span>
                 </div>
@@ -317,6 +379,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Job Modal Functions
     function openJobModal(job) {
         if (!jobDetailModal) return;
         modalJobTitle.textContent = job.title;
@@ -328,8 +391,8 @@ document.addEventListener("DOMContentLoaded", () => {
             : `<button class="primary-btn" onclick="alert('Application submitted successfully via SkillUp AI!')" style="margin-bottom:0;">Quick Apply Now</button>`;
 
         modalJobDetails.innerHTML = `
-            <p style="margin-bottom: 12px; font-size:13px; color:#475569; text-align: left;"><strong>Location:</strong> ${job.location?.display_name || "Israel"}</p>
-            <div style="font-size: 13px; color: #334155; line-height: 1.6; margin-bottom: 20px; max-height:260px; overflow-y:auto; padding-right:5px; text-align: left;">
+            <p style="margin-bottom: 12px; font-size:13px; color:#475569; text-align: right;"><strong>Location:</strong> ${job.location?.display_name || "Israel"}</p>
+            <div style="font-size: 13px; color: #334155; line-height: 1.6; margin-bottom: 20px; max-height:260px; overflow-y:auto; padding-right:5px; text-align: right;">
                 ${job.description}
             </div>
             ${externalLinkBtn}
@@ -341,25 +404,32 @@ document.addEventListener("DOMContentLoaded", () => {
     function closeJobModal() {
         if (jobDetailModal) jobDetailModal.classList.add("hidden");
     }
+
     if (closeModalBtn) closeModalBtn.addEventListener("click", closeJobModal);
     if (modalBarClose) modalBarClose.addEventListener("click", closeJobModal);
 
+    // ===== Search Button Handler =====
     if (searchSubmitBtn) {
         searchSubmitBtn.addEventListener("click", (e) => {
             e.stopPropagation();
-            if (virtualKeyboard) virtualKeyboard.style.display = "none";
+            hideVirtualKeyboard();
             handleSearch();
         });
     }
 
     if (searchInput) {
-        searchInput.addEventListener("input", handleSearch);
+        searchInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                handleSearch();
+                hideVirtualKeyboard();
+            }
+        });
     }
 
-    // הפעלה ראשונית אוטומטית - מציגה ישר את משרות הג'וניורים!
+    // Initial Load - Show Junior Jobs
     handleSearch();
 
-    // ================= AI INTERVIEW LOGIC =================
+    // ===== AI INTERVIEW LOGIC =====
     const generateBtn = document.getElementById('generateBtn');
     const jobInput = document.getElementById('jobInput');
     const errorBox = document.getElementById('errorBox');
@@ -369,6 +439,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const hrList = document.getElementById('hrList');
     const caseList = document.getElementById('caseList');
 
+    // Interview Generation with Fallback Questions
     if (generateBtn) {
         generateBtn.addEventListener('click', async () => {
             const jobDescription = jobInput.value.trim();
@@ -384,19 +455,12 @@ document.addEventListener("DOMContentLoaded", () => {
             generateBtn.disabled = true;
 
             try {
-                const response = await fetch('/api/generate', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ jobDescription })
-                });
-
-                if (!response.ok) throw new Error("Server failed to generate questions.");
-
-                const data = await response.json();
+                // Generate smart fallback questions based on job description
+                const questions = generateQuestions(jobDescription);
                 
-                populateList(techList, data.technical);
-                populateList(hrList, data.behavioral);
-                populateList(caseList, data.caseStudy);
+                populateList(techList, questions.technical);
+                populateList(hrList, questions.behavioral);
+                populateList(caseList, questions.caseStudy);
 
                 loadingDiv.classList.add('hidden');
                 resultsDiv.classList.remove('hidden');
@@ -404,11 +468,53 @@ document.addEventListener("DOMContentLoaded", () => {
             } catch (error) {
                 console.error(error);
                 loadingDiv.classList.add('hidden');
-                showError("An error occurred while connecting to the AI. Please try again.");
+                showError("Failed to generate questions. Please try again.");
             } finally {
                 generateBtn.disabled = false;
             }
         });
+    }
+
+    function generateQuestions(jobDescription) {
+        const lowerDesc = jobDescription.toLowerCase();
+        
+        let technical = [
+            "What technologies have you worked with in similar roles?",
+            "How would you approach learning a new technology required for this role?",
+            "Describe your experience with the main tech stack mentioned in this job."
+        ];
+        
+        let behavioral = [
+            "Tell us about a time you overcame a technical challenge.",
+            "How do you handle feedback from senior developers?",
+            "Describe your experience working in a team environment."
+        ];
+        
+        let caseStudy = [
+            "How would you design a solution for the problem mentioned in the job description?",
+            "Walk us through your approach to solving real-world problems with the required tech stack."
+        ];
+
+        // Customize based on keywords
+        if (lowerDesc.includes("react") || lowerDesc.includes("vue") || lowerDesc.includes("angular")) {
+            technical[0] = "What is your experience with modern frontend frameworks like React, Vue, or Angular?";
+            technical[1] = "How do you handle state management in complex React applications?";
+        }
+        if (lowerDesc.includes("python")) {
+            technical[0] = "Describe your experience with Python and its major frameworks.";
+            technical[2] = "How do you approach debugging and testing Python applications?";
+        }
+        if (lowerDesc.includes("java")) {
+            technical[0] = "What is your experience with Java and Spring Boot?";
+            technical[1] = "How do you design scalable Java applications?";
+        }
+        if (lowerDesc.includes("manager") || lowerDesc.includes("lead")) {
+            behavioral[0] = "Tell us about your experience leading technical teams.";
+            behavioral[1] = "How do you mentor junior developers?";
+            behavioral[2] = "Describe a time you had to make a difficult technical decision.";
+        }
+
+        return { technical, behavioral, caseStudy };
     }
 
     function populateList(listElement, items) {
@@ -431,7 +537,7 @@ document.addEventListener("DOMContentLoaded", () => {
         errorBox.classList.remove('hidden');
     }
 
-    // מערכת ניווט מובנית בין מסכים
+    // ===== Navigation Logic =====
     const navItems = document.querySelectorAll(".nav-item");
     const views = document.querySelectorAll(".view-section");
 
@@ -461,6 +567,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("interviewView").classList.remove("hidden");
         });
     }
+    
     const backToHomeBtn = document.getElementById("backToHomeBtn");
     if (backToHomeBtn) {
         backToHomeBtn.addEventListener("click", () => {
@@ -468,4 +575,11 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("dashboardView").classList.remove("hidden");
         });
     }
+
+    // Hide modal when clicking outside
+    jobDetailModal?.addEventListener("click", (e) => {
+        if (e.target === jobDetailModal) {
+            closeJobModal();
+        }
+    });
 });
