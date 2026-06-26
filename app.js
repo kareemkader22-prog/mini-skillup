@@ -32,155 +32,125 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // מאגר משרות מקיף (ג'וניור ובכירים)
+    // מאגר גיבוי עשיר ומקומי (Fallback) למקרה שה-API נחסם בגלל CORS בדפדפן
     const fallbackJobs = [
-        // --- משרות ג'וניור ומתחילים ---
-        { 
-            title: "Junior Full Stack Developer", 
-            company: { display_name: "Wix.com" }, 
-            location: { display_name: "Tel Aviv - Remote" }, 
-            isJunior: true,
-            description: `<strong>Role Overview:</strong><br>Wix is looking for a talented Junior Full Stack Developer to join our core web engineering group.<br><br><strong>Key Requirements:</strong><br>• Strong fundamentals in JavaScript / TypeScript and HTML/CSS.<br>• Experience with React or Vue.js.` 
-        },
-        { 
-            title: "Junior Data Analyst", 
-            company: { display_name: "Google" }, 
-            location: { display_name: "Tel Aviv-Yafo" }, 
-            isJunior: true,
-            description: `<strong>Role Overview:</strong><br>Turn data into valuable business insights using SQL and visualization systems.<br><br><strong>Key Requirements:</strong><br>• Advanced proficiency in SQL queries.<br>• Hands-on experience with Tableau or Power BI.` 
-        },
-        { 
-            title: "NOC Tier 1 Specialist", 
-            company: { display_name: "Palo Alto Networks" }, 
-            location: { display_name: "Tel Aviv" }, 
-            isJunior: true,
-            description: `<strong>Role Overview:</strong><br>Excellent entry-level student opportunity! Monitor production cloud environments and handle infrastructure alerts.<br><br><strong>Key Requirements:</strong><br>• Basic networking concepts (TCP/IP, DNS).<br>• Willingness to work in shifts.`
-        },
-        { 
-            title: "Junior UI/UX Designer", 
-            company: { display_name: "Mobileye" }, 
-            location: { display_name: "Jerusalem" }, 
-            isJunior: true,
-            description: `<strong>Role Overview:</strong><br>Help build wireframes, user flows, and high-fidelity interface mockups.<br><br><strong>Key Requirements:</strong><br>• Solid portfolio showing web/mobile layout designs.<br>• High proficiency in Figma.`
-        },
-        { 
-            title: "Java Software Developer (Entry Level)", 
-            company: { display_name: "Intel" }, 
-            location: { display_name: "Haifa" }, 
-            isJunior: true,
-            description: `<strong>Role Overview:</strong><br>Kickstart your software engineering career in our validation backend framework group coding in Java.<br><br><strong>Key Requirements:</strong><br>• Solid comprehension of OOP principles and Java syntax.`
-        },
-        // --- משרות מתקדמות ובכירות ---
-        { 
-            title: "Senior Java Software Architect", 
-            company: { display_name: "Intel" }, 
-            location: { display_name: "Haifa" }, 
-            isJunior: false,
-            description: `<strong>Role Overview:</strong><br>Spearhead structural redesign of enterprise manufacturing pipelines.<br><br><strong>Key Requirements:</strong><br>• 7+ years of experience in enterprise Java development (Spring Boot, Microservices).`
-        },
-        { 
-            title: "UI/UX Product Design Lead", 
-            company: { display_name: "Wix.com" }, 
-            location: { display_name: "Tel Aviv" }, 
-            isJunior: false,
-            description: `<strong>Role Overview:</strong><br>Take design ownership of global product lines and manage a talented UI/UX unit.<br><br><strong>Key Requirements:</strong><br>• 5+ years design leadership in SaaS environments.`
-        },
-        { 
-            title: "NOC & Technical Operations Manager", 
-            company: { display_name: "Palo Alto Networks" }, 
-            location: { display_name: "Tel Aviv" }, 
-            isJunior: false,
-            description: `<strong>Role Overview:</strong><br>Direct global 24/7 technical incident response and cloud orchestration platforms.<br><br><strong>Key Requirements:</strong><br>• 4+ years managing NOC operations or enterprise telemetry stacks.`
-        },
-        { 
-            title: "Senior Machine Learning Engineer", 
-            company: { display_name: "Google" }, 
-            location: { display_name: "Tel Aviv-Yafo" }, 
-            isJunior: false,
-            description: `<strong>Role Overview:</strong><br>Build scalable infrastructure for training deep neural architectures.<br><br><strong>Key Requirements:</strong><br>• 4+ years coding production-grade machine learning pipelines with PyTorch/TensorFlow.` 
-        },
-        { 
-            title: "Principal Python Backend Engineer", 
-            company: { display_name: "Check Point" }, 
-            location: { display_name: "Tel Aviv-Yafo" }, 
-            isJunior: false,
-            description: `<strong>Role Overview:</strong><br>Design high-performance cybersecurity components and async microservices in Python.<br><br><strong>Key Requirements:</strong><br>• 6+ years enterprise Python experience (FastAPI, Asyncio).` 
-        }
+        { title: "Junior Data Analyst", company: { display_name: "Google" }, location: { display_name: "Tel Aviv-Yafo" }, description: "We are looking for a Junior Data Analyst to join our team. Proficiency in SQL, Python, and Tableau/PowerBI is required. Experience with big data technologies is a plus." },
+        { title: "IT Support Specialist", company: { display_name: "Check Point" }, location: { display_name: "Tel Aviv-Yafo" }, description: "Provide technical assistance and support for incoming queries and issues related to computer systems, software, and hardware." },
+        { title: "QA Automation Engineer", company: { display_name: "Mobileye" }, location: { display_name: "Jerusalem" }, description: "Develop and execute automated tests using Selenium/Playwright with Python or Java. Analyze test results and report bugs." },
+        { title: "Full Stack Developer (Junior)", company: { display_name: "Wix.com" }, location: { display_name: "Tel Aviv - Remote" }, description: "Join our core web engineering unit. Working with React, Node.js, and modern cloud infrastructure. Mentorship provided for juniors!" },
+        { title: "Cyber Security Analyst", company: { display_name: "CyberArk" }, location: { display_name: "Petah Tikva" }, description: "Monitor network traffic for security events, investigate potential incidents, and contribute to risk management audits." },
+        { title: "Data Scientist", company: { display_name: "Microsoft" }, location: { display_name: "Herzliya" }, description: "Apply advanced statistical and machine learning methods to extract insights from vast infrastructure datasets. Python, PyTorch, SQL expertise required." },
+        { title: "DevOps Engineer", company: { display_name: "Intel" }, location: { display_name: "Haifa" }, description: "Maintain CI/CD pipelines, manage Kubernetes clusters, and automate cloud infrastructure using Terraform and AWS/Azure." },
+        { title: "SOC Analyst Shift Leader", company: { display_name: "Palo Alto Networks" }, location: { display_name: "Tel Aviv" }, description: "Lead real-time response to security threats. Requires deep understanding of protocols, log analysis, and incident frameworks." }
     ];
 
-    // פונקציית החיפוש
+    // פונקציית החיפוש הכללית - תומכת בכל מקצועות ההייטק והחברות בשוק
     async function handleSearch() {
         let query = searchInput.value.trim();
         
+        // אם השדה ריק, נשתמש במילת ברירת מחדל
         if (!query) {
-            const juniorJobs = fallbackJobs.filter(job => job.isJunior === true);
-            updateKPIMetrics("Junior", juniorJobs);
-            renderJobCards(juniorJobs);
-            return;
+            query = "Developer";
         }
 
-        searchResultsArea.innerHTML = `<div class="loading-screen"><div class="loader-circle"></div><p>Scanning ecosystem...</p></div>`;
+        searchResultsArea.innerHTML = `
+            <div class="loading-screen">
+                <div class="loader-circle"></div>
+                <p style="color: #64748b;">Scanning tech ecosystem in Israel...</p>
+            </div>`;
 
         try {
+            // קריאה לשרת ה-API הציבורי
             const url = `https://api.adzuna.com/v1/api/jobs/il/search/1?app_id=c49747cb&app_key=9b83bba0ba50b070bc064a787cd04052&what=${encodeURIComponent(query)}`;
+            
             const response = await fetch(url);
-            if (!response.ok) throw new Error("API failure");
+            if (!response.ok) throw new Error("API network failure or CORS restriction");
+            
             const data = await response.json();
             const jobs = data.results || [];
             
-            if (jobs.length === 0) useFallbackSearch(query);
-            else { updateKPIMetrics(query, jobs); renderJobCards(jobs); }
+            if (jobs.length === 0) {
+                // אם ה-API החזיר רשימה ריקה, נשתמש בסינון המקומי
+                useFallbackSearch(query);
+            } else {
+                updateKPIMetrics(query, jobs);
+                renderJobCards(jobs);
+            }
         } catch (error) {
+            console.warn("External API failed or blocked by CORS. Switching to intelligent local data backup instantly.", error);
+            // מפעיל את הגיבוי באופן שקוף לחלוטין למשתמש!
             useFallbackSearch(query);
         }
     }
 
+    // פונקציית סינון חכמה מתוך מאגר הגיבוי המקומי
     function useFallbackSearch(query) {
         const lowerQuery = query.toLowerCase();
+        
+        // מסנן משרות לפי כותרת, חברה או תיאור המשרה
         const filteredJobs = fallbackJobs.filter(job => 
             job.title.toLowerCase().includes(lowerQuery) || 
             job.company.display_name.toLowerCase().includes(lowerQuery) || 
             job.description.toLowerCase().includes(lowerQuery)
         );
-        const finalJobs = filteredJobs.length > 0 ? filteredJobs : fallbackJobs.filter(job => job.isJunior === true);
+
+        // אם החיפוש ספציפי מדי ולא מצא כלום, נציג את כל המאגר כדי שהמסך לעולם לא יישאר ריק
+        const finalJobs = filteredJobs.length > 0 ? filteredJobs : fallbackJobs;
+
         updateKPIMetrics(query, finalJobs);
         renderJobCards(finalJobs);
     }
 
+    // פונקציה שמחשבת ומציגה נתוני שוק חיצוניים (KPI) עבור המשרה/חברה
     function updateKPIMetrics(query, jobs) {
         if (!kpiDashboard || !kpiCount || !kpiSalary) return;
+        
         kpiDashboard.classList.remove("hidden");
         kpiCount.textContent = `${jobs.length} openings found`;
+        
+        // סימולציה חכמה של טווח שכר ממוצע לפי סוג המשרה החיצונית שנכתבה
         const lowerQuery = query.toLowerCase();
-        if (lowerQuery.includes("senior") || lowerQuery.includes("manager")) kpiSalary.textContent = "₪32,000 - ₪48,000 / mo";
-        else if (lowerQuery.includes("noc")) kpiSalary.textContent = "₪11,000 - ₪14,500 / mo";
-        else kpiSalary.textContent = "₪14,000 - ₪22,000 / mo";
+        if (lowerQuery.includes("it") || lowerQuery.includes("support")) {
+            kpiSalary.textContent = "₪13,000 - ₪18,000 / mo";
+        } else if (lowerQuery.includes("qa") || lowerQuery.includes("test")) {
+            kpiSalary.textContent = "₪14,000 - ₪21,000 / mo";
+        } else if (lowerQuery.includes("cyber") || lowerQuery.includes("security")) {
+            kpiSalary.textContent = "₪22,000 - ₪34,000 / mo";
+        } else if (lowerQuery.includes("data")) {
+            kpiSalary.textContent = "₪19,000 - ₪28,000 / mo";
+        } else {
+            kpiSalary.textContent = "₪18,500 - ₪26,000 / mo";
+        }
     }
 
+    // יצירת קארדים דינמיים של משרות/חברות
     function renderJobCards(jobs) {
         searchResultsArea.innerHTML = "";
+        
         jobs.forEach((job) => {
             const card = document.createElement("div");
             card.className = "card";
             card.style.cursor = "pointer";
+            card.style.transition = "transform 0.2s, box-shadow 0.2s";
             card.style.marginBottom = "12px";
             
-            const badge = job.isJunior 
-                ? `<span style="font-size: 10px; background: #f0fdf4; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Junior Friendly</span>` 
-                : `<span style="font-size: 10px; background: #fff7ed; color: #c2410c; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Experienced</span>`;
-
+            const companyName = job.company?.display_name || "Tech Enterprise";
+            const locationName = job.location?.display_name || "Israel (Remote/Hybrid)";
+            
             card.innerHTML = `
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
-                    <h3 style="margin: 0; font-size: 15px; font-weight:700; text-align: left;">${job.title}</h3>
-                    ${badge}
-                </div>
-                <p style="margin: 0 0 10px 0; color: #3b71f7; font-weight: 600; font-size: 13px; text-align: left;">🏢 ${job.company.display_name}</p>
+                <h3 style="margin: 0 0 5px 0; color: #1e293b; font-size: 15px; font-weight:700; text-align: left;">${job.title}</h3>
+                <p style="margin: 0 0 10px 0; color: #3b71f7; font-weight: 600; font-size: 13px; text-align: left;">🏢 ${companyName}</p>
                 <div style="display: flex; justify-content: space-between; align-items: center; direction: ltr;">
-                    <span style="font-size: 11px; color: #64748b;">📍 ${job.location?.display_name || "Israel"}</span>
+                    <span style="font-size: 11px; color: #64748b;">📍 ${locationName}</span>
                     <span style="font-size: 11px; background: #e0f2fe; color: #0369a1; padding: 2px 8px; border-radius: 12px; font-weight: 600;">Details</span>
                 </div>
             `;
-            card.addEventListener("click", () => openJobModal(job));
+            
+            // לחיצה על כרטיס המשרה תפתח חלון מודל עשיר עם כל הנתונים
+            card.addEventListener("click", () => {
+                openJobModal(job);
+            });
+
             searchResultsArea.appendChild(card);
         });
     }
@@ -188,72 +158,37 @@ document.addEventListener("DOMContentLoaded", () => {
     function openJobModal(job) {
         if (!jobDetailModal) return;
         modalJobTitle.textContent = job.title;
-        modalJobCompany.textContent = job.company.display_name;
+        modalJobCompany.textContent = job.company?.display_name || "Tech Enterprise";
+        
+        const applyUrl = job.redirect_url || "#";
+        const externalLinkBtn = job.redirect_url 
+            ? `<a href="${applyUrl}" target="_blank" class="primary-btn" style="display: block; text-align: center; text-decoration: none; margin-bottom: 0;">Apply External Link</a>`
+            : `<button class="primary-btn" onclick="alert('Application submitted successfully via SkillUp AI!')" style="margin-bottom:0;">Quick Apply Now</button>`;
+
         modalJobDetails.innerHTML = `
-            <p style="margin-bottom: 12px; font-size:13px; text-align: left;"><strong>Location:</strong> ${job.location?.display_name || "Israel"}</p>
-            <div style="font-size: 13px; line-height: 1.6; margin-bottom: 20px; text-align: left;">${job.description}</div>
-            <button class="primary-btn" onclick="alert('Applied successfully!')">Quick Apply Now</button>
+            <p style="margin-bottom: 12px; font-size:13px; color:#475569; text-align: left;"><strong>Location:</strong> ${job.location?.display_name || "Israel"}</p>
+            <p style="margin-bottom: 8px; font-weight: 700; color: #1e293b; font-size:14px; text-align: left;">Requirements & Scope:</p>
+            <div style="font-size: 13px; color: #334155; line-height: 1.6; margin-bottom: 20px; max-height:200px; overflow-y:auto; padding-right:5px; text-align: left;">
+                ${job.description}
+            </div>
+            ${externalLinkBtn}
         `;
+        
         jobDetailModal.classList.remove("hidden");
     }
 
-    function closeJobModal() { jobDetailModal.classList.add("hidden"); }
+    // סגירת חלון המודל
+    function closeJobModal() {
+        if (jobDetailModal) jobDetailModal.classList.add("hidden");
+    }
     if (closeModalBtn) closeModalBtn.addEventListener("click", closeJobModal);
     if (modalBarClose) modalBarClose.addEventListener("click", closeJobModal);
 
-    // ================= לוגיקת מקלדת וירטואלית מלאה =================
-    if (searchInput && virtualKeyboard) {
-        // הצגת המקלדת כאשר לוחצים על שדה החיפוש
-        searchInput.addEventListener("focus", (e) => {
-            e.stopPropagation();
-            virtualKeyboard.classList.remove("hidden");
-        });
-
-        // מניעת סגירת המקלדת בלחיצה על המקלדת עצמה
-        virtualKeyboard.addEventListener("click", (e) => {
-            e.stopPropagation();
-        });
-
-        // סגירת המקלדת בלחיצה בכל מקום אחר בעמוד
-        document.addEventListener("click", () => {
-            virtualKeyboard.classList.add("hidden");
-        });
-
-        // האזנה לכל המקשים של המקלדת
-        const keys = virtualKeyboard.querySelectorAll(".key");
-        keys.forEach(key => {
-            key.addEventListener("click", (e) => {
-                e.stopPropagation(); // מונע סגירה של המקלדת
-                
-                const keyId = key.id;
-                const keyText = key.textContent;
-
-                if (keyId === "keyBackspace") {
-                    // מחיקת תו אחרון
-                    searchInput.value = searchInput.value.slice(0, -1);
-                } else if (keyId === "keySpace") {
-                    // הוספת רווח
-                    searchInput.value += " ";
-                } else if (keyId === "keySearch") {
-                    // כפתור Go - מסתיר את המקלדת ומריץ
-                    virtualKeyboard.classList.add("hidden");
-                    handleSearch();
-                    return;
-                } else {
-                    // הוספת האות שהוקלדה
-                    searchInput.value += keyText;
-                }
-
-                // הפעלת החיפוש בזמן אמת עם כל תו שהוקלד במקלדת
-                handleSearch();
-            });
-        });
-    }
-
+    // האזנה לאירועי החיפוש (בזמן אמת ובלחיצה)
     if (searchSubmitBtn) {
         searchSubmitBtn.addEventListener("click", (e) => {
             e.stopPropagation();
-            if (virtualKeyboard) virtualKeyboard.classList.add("hidden");
+            if (virtualKeyboard) virtualKeyboard.style.display = "none";
             handleSearch();
         });
     }
@@ -262,6 +197,113 @@ document.addEventListener("DOMContentLoaded", () => {
         searchInput.addEventListener("input", handleSearch);
     }
 
-    // הפעלה ראשונית
-    handleSearch();
+    // ================= AI INTERVIEW LOGIC =================
+    const generateBtn = document.getElementById('generateBtn');
+    const jobInput = document.getElementById('jobInput');
+    const errorBox = document.getElementById('errorBox');
+    const resultsDiv = document.getElementById('results');
+    const loadingDiv = document.getElementById('loading');
+    const techList = document.getElementById('techList');
+    const hrList = document.getElementById('hrList');
+    const caseList = document.getElementById('caseList');
+
+    if (generateBtn) {
+        generateBtn.addEventListener('click', async () => {
+            const jobDescription = jobInput.value.trim();
+            
+            if (!jobDescription) {
+                showError("Please paste a job description first.");
+                return;
+            }
+
+            errorBox.classList.add('hidden');
+            resultsDiv.classList.add('hidden');
+            loadingDiv.classList.remove('hidden');
+            generateBtn.disabled = true;
+
+            try {
+                const response = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ jobDescription })
+                });
+
+                if (!response.ok) throw new Error("Server failed to generate questions.");
+
+                const data = await response.json();
+                
+                populateList(techList, data.technical);
+                populateList(hrList, data.behavioral);
+                populateList(caseList, data.caseStudy);
+
+                loadingDiv.classList.add('hidden');
+                resultsDiv.classList.remove('hidden');
+
+            } catch (error) {
+                console.error(error);
+                loadingDiv.classList.add('hidden');
+                showError("An error occurred while connecting to the AI. Please try again.");
+            } finally {
+                generateBtn.disabled = false;
+            }
+        });
+    }
+
+    function populateList(listElement, items) {
+        if (!listElement) return;
+        listElement.innerHTML = '';
+        if (!items || items.length === 0) {
+            listElement.innerHTML = '<li>No questions generated.</li>';
+            return;
+        }
+        items.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = item;
+            listElement.appendChild(li);
+        });
+    }
+
+    function showError(message) {
+        if (!errorBox) return;
+        errorBox.textContent = message;
+        errorBox.classList.remove('hidden');
+    }
+
+    // מערכת ניווט מובנית בין מסכים
+    const navItems = document.querySelectorAll(".nav-item");
+    const views = document.querySelectorAll(".view-section");
+
+    navItems.forEach(item => {
+        item.addEventListener("click", () => {
+            const target = item.getAttribute("data-target");
+            
+            navItems.forEach(i => i.classList.remove("active"));
+            item.classList.add("active");
+
+            views.forEach(v => v.classList.add("hidden"));
+            
+            if (target === "home") document.getElementById("dashboardView").classList.remove("hidden");
+            if (target === "search") {
+                document.getElementById("searchView").classList.remove("hidden");
+                handleSearch(); // טעינה אוטומטית בכניסה
+            }
+            if (target === "notifications") document.getElementById("notificationsView").classList.remove("hidden");
+            if (target === "profile") document.getElementById("profileView").classList.remove("hidden");
+        });
+    });
+
+    const openInterviewBtn = document.getElementById("openInterviewBtn");
+    if (openInterviewBtn) {
+        openInterviewBtn.addEventListener("click", () => {
+            views.forEach(v => v.classList.add("hidden"));
+            document.getElementById("interviewView").classList.remove("hidden");
+        });
+    }
+    const backToHomeBtn = document.getElementById("backToHomeBtn");
+    if (backToHomeBtn) {
+        backToHomeBtn.addEventListener("click", () => {
+            views.forEach(v => v.classList.add("hidden"));
+            document.getElementById("dashboardView").classList.remove("hidden");
+        });
+    }
 });
