@@ -1,399 +1,15 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SKILLUP AI</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-        
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-        }
-
-        .mobile-app-wrapper {
-            max-width: 480px;
-            margin: 0 auto;
-            background: white;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-
-        .view-section {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .view-section.hidden {
-            display: none;
-        }
-
-        .dashboard-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px;
-            background: white;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex: 1;
-        }
-
-        .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-
-        .user-text h2 {
-            margin: 0;
-            font-size: 16px;
-            color: #1e293b;
-        }
-
-        .user-text p {
-            margin: 0;
-            font-size: 12px;
-            color: #64748b;
-        }
-
-        .icon-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .dashboard-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-        }
-
-        .hero-section h1 {
-            font-size: 24px;
-            color: #0f172a;
-            font-weight: 700;
-            margin: 0 0 24px 0;
-            line-height: 1.3;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }
-
-        .feature-card {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 16px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            box-shadow: 0 4px 12px rgba(59, 113, 247, 0.1);
-            border-color: #3b71f7;
-        }
-
-        .feature-icon {
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .feature-card h3 {
-            margin: 0 0 8px 0;
-            font-size: 16px;
-            color: #1e293b;
-            font-weight: 600;
-        }
-
-        .feature-card p {
-            margin: 0 0 12px 0;
-            font-size: 13px;
-            color: #64748b;
-            line-height: 1.4;
-        }
-
-        .launch-btn {
-            background: white;
-            color: #3b71f7;
-            border: 2px solid #3b71f7;
-            padding: 10px 16px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .launch-btn:hover {
-            background: #f0f4ff;
-        }
-
-        .launch-btn.active-feature {
-            background: #3b71f7;
-            color: white;
-        }
-
-        .app-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px;
-            background: white;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .app-header h1 {
-            margin: 0;
-            font-size: 18px;
-            color: #1e293b;
-            flex: 1;
-            text-align: center;
-        }
-
-        .app-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 16px;
-        }
-
-        .card {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-            transition: all 0.2s ease;
-        }
-
-        .card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-
-        .card-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #1e293b;
-            font-size: 14px;
-        }
-
-        .card textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 14px;
-            resize: vertical;
-            min-height: 100px;
-            outline: none;
-        }
-
-        .card textarea:focus {
-            border-color: #3b71f7;
-            box-shadow: 0 0 0 3px rgba(59, 113, 247, 0.1);
-        }
-
-        .primary-btn {
-            width: 100%;
-            padding: 12px;
-            background: #3b71f7;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 12px;
-        }
-
-        .primary-btn:hover {
-            background: #2c5be0;
-        }
-
-        .primary-btn:disabled {
-            background: #cbd5e1;
-            cursor: not-allowed;
-        }
-
-        .loading-screen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-        }
-
-        .loader-circle {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #e2e8f0;
-            border-top-color: #3b71f7;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .loading-screen p {
-            margin-top: 16px;
-            color: #64748b;
-            font-size: 14px;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .error-box {
-            background: #fee2e2;
-            color: #dc2626;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            font-size: 13px;
-            border: 1px solid #fecaca;
-        }
-
-        .results-container {
-            margin-top: 20px;
-        }
-
-        .score-header h2 {
-            margin: 0 0 4px 0;
-            color: #1e293b;
-            font-size: 18px;
-        }
-
-        .score-header p {
-            margin: 0;
-            color: #64748b;
-            font-size: 13px;
-        }
-
-        .result-card {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 12px;
-        }
-
-        .result-card h3 {
-            margin: 0 0 12px 0;
-            color: #1e293b;
-            font-size: 15px;
-            font-weight: 600;
-        }
-
-        .custom-list {
-            margin: 0;
-            padding-left: 20px;
-        }
-
-        .custom-list li {
-            margin-bottom: 8px;
-            color: #334155;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-
-        .bottom-nav {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 12px 0;
-            background: white;
-            border-top: 1px solid #e2e8f0;
-            position: relative;
-            z-index: 100;
-        }
-
-        .nav-item {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 12px;
-            color: #94a3b8;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .nav-item.active {
-            color: #3b71f7;
-        }
-
-        .nav-item svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        .menu-item {
-            transition: background 0.2s ease;
-        }
-
-        .menu-item:hover {
-            background: #f1f5f9 !important;
-        }
-
-        input[type="text"] {
-            font-family: inherit;
-        }
-
-        /* Virtual Keyboard Styles */
-        .key {
-            transition: all 0.1s ease;
-        }
-
-        .key:active {
-            transform: scale(0.95);
-            background-color: #dbeafe !important;
-        }
-
-        #virtualKeyboard {
-            max-height: 250px;
-            overflow-y: auto;
-        }
-
-        .custom-list {
-            list-style-type: disc;
-        }
-    </style>
 </head>
-<body dir="rtl">
+<body>
     <div class="mobile-app-wrapper">
         
-        <!-- Dashboard View -->
         <div id="dashboardView" class="view-section">
             <header class="dashboard-header" style="position: relative;">
                 <div class="user-info">
@@ -408,7 +24,7 @@
                 </button>
 
                 <div id="dropdownMenu" style="display: none; position: absolute; top: 65px; right: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); width: 170px; z-index: 1000; overflow: hidden; font-family: 'Inter', sans-serif;">
-                    <ul style="list-style: none; margin: 0; padding: 0;">
+                    <ul style="list-style: none; margin: 0; padding: 0; direction: ltr;">
                         <li class="menu-item" data-target="portfolio" style="padding: 12px 16px; font-size: 13px; color: #334155; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 500; text-align: left;">💻 Portfolio Analyzer</li>
                         <li class="menu-item" data-target="resume" style="padding: 12px 16px; font-size: 13px; color: #334155; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 500; text-align: left;">📄 Resume Checker</li>
                         <li class="menu-item" data-target="interview" style="padding: 12px 16px; font-size: 13px; color: #334155; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-weight: 500; text-align: left;">🎙️ Interview Prep</li>
@@ -462,7 +78,6 @@
             </main>
         </div>
 
-        <!-- Interview View -->
         <div id="interviewView" class="view-section hidden">
             <header class="app-header">
                 <button id="backToHomeBtn" class="icon-btn">
@@ -511,35 +126,27 @@
             </main>
         </div>
 
-        <!-- Search View -->
-        <div id="searchView" class="view-section hidden" style="padding: 0; font-family: 'Inter', sans-serif; box-sizing: border-box; display: flex; flex-direction: column; height: 100%; overflow: hidden;">
-            <div style="padding: 20px; flex-shrink: 0;">
-                <h2 style="margin-top: 20px; color: #3b71f7; text-align: center; margin-bottom: 5px;">Search Portal</h2>
-                <p style="color: #666; margin: 0 0 20px 0; text-align: center; font-size: 14px;">Find any job role, company, or tech skills in Israel.</p>
-                
-                <div style="display: flex; gap: 8px; margin-bottom: 15px;">
-                    <input type="text" id="searchInput" placeholder="Search role, company (e.g. IT, Google, QA)..." 
-                           style="flex: 1; padding: 12px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 14px; outline: none; background-color: #f8fafc; font-family: 'Inter', sans-serif;">
-                    <button id="searchSubmitBtn" style="padding: 12px 16px; background-color: #3b71f7; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 14px;">
-                        Search
-                    </button>
-                </div>
+        <div id="searchView" class="view-section hidden" style="padding: 20px; font-family: 'Inter', sans-serif; box-sizing: border-box; display: flex; flex-direction: column; height: 100%;">
+            <h2 style="margin-top: 20px; color: #3b71f7; text-align: center;">Search Portal</h2>
+            <p style="color: #666; margin-top: 5px; margin-bottom: 20px; text-align: center; font-size: 14px;">Find any job role, company, or tech skills in Israel.</p>
+            
+            <div style="display: flex; gap: 8px; margin-bottom: 15px; direction: ltr;">
+                <input type="text" id="searchInput" placeholder="Search role, company (e.g. IT, Google, QA)..." 
+                       style="flex: 1; padding: 12px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 14px; outline: none; background-color: #f8fafc; font-family: 'Inter', sans-serif;">
+                <button id="searchSubmitBtn" style="padding: 12px 16px; background-color: #3b71f7; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 14px;">
+                    Search
+                </button>
+            </div>
 
-                <div id="kpiDashboard" class="hidden" style="margin-bottom: 15px; padding: 12px; background: #f0fdf4; border: 1px dashed #22c55e; border-radius: 12px; font-size: 12px; color: #166534;">
-                    <div style="font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">📊 External Live Market Insights:</div>
-                    <div style="display: flex; justify-content: space-between; margin-top: 4px;">
-                        <span>Active Openings: <strong id="kpiCount">0</strong></span>
-                        <span>Est. Avg Salary: <strong id="kpiSalary">N/A</strong></span>
-                    </div>
+            <div id="kpiDashboard" class="hidden" style="margin-bottom: 15px; padding: 12px; background: #f0fdf4; border: 1px dashed #22c55e; border-radius: 12px; font-size: 12px; color: #166534; direction: ltr;">
+                <div style="font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">📊 External Live Market Insights:</div>
+                <div style="display: flex; justify-content: space-between; margin-top: 4px;">
+                    <span>Active Openings: <strong id="kpiCount">0</strong></span>
+                    <span>Est. Avg Salary: <strong id="kpiSalary">N/A</strong></span>
                 </div>
             </div>
 
-            <div style="flex: 1; overflow-y: auto; padding: 0 20px;">
-                <div id="searchResultsArea"></div>
-            </div>
-
-            <!-- Virtual Keyboard -->
-            <div id="virtualKeyboard" style="display: none; background-color: #f1f5f9; padding: 8px; border-radius: 16px 16px 0 0; box-shadow: 0 -4px 6px -1px rgba(0,0,0,0.05); margin-top: auto; flex-shrink: 0; border-top: 1px solid #e2e8f0;">
+            <div id="virtualKeyboard" style="display: none; background-color: #f1f5f9; padding: 8px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); direction: ltr; margin-top: auto; margin-bottom: 20px;">
                 <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 6px;">
                     <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Q</button>
                     <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">W</button>
@@ -573,21 +180,21 @@
                     <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">M</button>
                     <button id="keyDelete" style="flex: 1.5; padding: 12px 0; background-color: #cbd5e1; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Del</button>
                 </div>
-                <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 8px;">
+                <div style="display: flex; justify-content: center; gap: 4px;">
                     <button id="keyClose" style="flex: 2; padding: 12px 0; background-color: #94a3b8; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px;">Done</button>
                     <button id="keySpace" style="flex: 5; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Space</button>
                 </div>
             </div>
+            
+            <div id="searchResultsArea" style="margin-top: 10px;"></div>
         </div>
 
-        <!-- Notifications View -->
         <div id="notificationsView" class="view-section hidden" style="padding: 20px; text-align: center;">
             <h2 style="margin-top: 40px; color: #3b71f7;">Notifications</h2>
             <p style="color: #666; margin-top: 10px;">You have no new notifications at the moment.</p>
         </div>
 
-        <!-- Profile View -->
-        <div id="profileView" class="view-section hidden" style="padding: 20px; font-family: 'Inter', sans-serif; text-align: left; background: #f8fafc; overflow-y: auto;">
+        <div id="profileView" class="view-section hidden" style="padding: 20px; font-family: 'Inter', sans-serif; text-align: left; background: #f8fafc; height: 100%; box-sizing: border-box; overflow-y: auto;">
             <h2 style="color: #1e293b; font-size: 24px; font-weight: 700; margin-bottom: 20px; margin-top: 20px;">My Profile</h2>
             
             <div style="background: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 20px; text-align: center;">
@@ -611,8 +218,7 @@
             </div>
         </div>
 
-        <!-- Job Detail Modal -->
-        <div id="jobDetailModal" class="hidden" style="position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(15,23,42,0.7); z-index:9999; display: flex; align-items:flex-end;">
+        <div id="jobDetailModal" class="hidden" style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(15,23,42,0.7); z-index:9999; display: flex; align-items:flex-end;">
             <div style="background:#ffffff; width:100%; max-height:80%; border-top-left-radius:32px; border-top-right-radius:32px; padding:24px; box-sizing:border-box; overflow-y:auto; font-family:'Inter',sans-serif; display:flex; flex-direction:column;">
                 <div style="width: 40px; height: 5px; background: #cbd5e1; border-radius: 10px; margin: 0 auto 15px auto; cursor: pointer;" id="modalBarClose"></div>
                 <h3 id="modalJobTitle" style="color: #0f172a; font-size: 18px; font-weight:700; margin-bottom:4px;">Job Title</h3>
@@ -622,7 +228,6 @@
             </div>
         </div>
 
-        <!-- Bottom Navigation -->
         <nav class="bottom-nav">
             <div class="nav-item active" data-target="home">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
