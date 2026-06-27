@@ -39,10 +39,10 @@ body {
 }
 
 /* ==========================================================================
-   עריכת תפריט הצידו (Sidebar Drawer) - העתק מדויק של התמונה
+   עריכת תפריט הצד (Sidebar Drawer) - לפי תמונה image_a7e281.png
    ========================================================================== */
 
-/* שכבת מסך כהה עדינה מאחורי המגירה */
+/* שכבת רקע כהה שקופה עדינה מאחורי המגירה */
 .menu-overlay {
     position: absolute;
     top: 0;
@@ -54,12 +54,12 @@ body {
     transition: opacity 0.3s ease;
 }
 
-/* המגירה הראשית שנפתחת משמאל */
+/* מגירת התפריט הראשית משמאל לימין */
 .sidebar-menu {
     position: absolute;
     top: 0;
     left: 0;
-    width: 290px; /* תופס חלק נכבד מהמסך כמו בצילום */
+    width: 295px; 
     height: 100%;
     background: #ffffff;
     z-index: 1000;
@@ -70,9 +70,15 @@ body {
     transition: transform 0.3s ease;
 }
 
-/* אזור הלוגו העליון */
+/* מצב מוסתר של התפריט (הסטה שמאלה אל מחוץ למסך) */
+.sidebar-hidden {
+    transform: translateX(-100%);
+    pointer-events: none;
+}
+
+/* כותרת התפריט והלוגו */
 .sidebar-header {
-    padding: 10px 24px 30px 24px;
+    padding: 10px 24px 35px 24px;
 }
 
 .logo-container {
@@ -81,7 +87,7 @@ body {
     gap: 14px;
 }
 
-/* עיצוב אייקון ה-S הכחול */
+/* עיצוב אייקון ה-S הכחול בריבוע מעוגל */
 .brand-logo {
     width: 44px;
     height: 44px;
@@ -104,12 +110,12 @@ body {
 }
 
 .brand-text p {
-    font-size: 12px;
+    font-size: 11px;
     color: #64748b;
     margin-top: 2px;
 }
 
-/* רשימת האלמנטים */
+/* רשימת הניווט הפנימית */
 .sidebar-list {
     list-style: none;
     margin: 0;
@@ -133,9 +139,11 @@ body {
     background-color: #f8fafc;
 }
 
-/* אלמנט נבחר / פעיל (כמו ה-Interview Generator בתמונה) */
+/* פריט מודגש/פעיל נוכחי בתפריט הצידי */
 .active-sidebar-item {
     background-color: #eff6ff !important;
+    border-left: 3px solid #3b71f7;
+    border-radius: 0 12px 12px 0;
 }
 
 .active-sidebar-item .item-title {
@@ -156,14 +164,14 @@ body {
 }
 
 .item-title {
-    font-size: 14px;
+    font-size: 13px;
     color: #334155;
     font-weight: 500;
 }
 
-/* תגיות סטטוס (Phase 2 / Available Now) */
+/* תגיות סטטוס מצד ימין (Phase 2 / Available Now) */
 .status-badge {
-    font-size: 11px;
+    font-size: 10px;
     padding: 4px 10px;
     border-radius: 20px;
     font-weight: 600;
@@ -171,18 +179,20 @@ body {
 
 .status-badge.phase2 {
     background-color: #f1f5f9;
-    color: #64748b;
+    color: #94a3b8;
 }
 
 .status-badge.available {
-    background-color: #ecfdf5;
+    background-color: #e6fbf2;
     color: #10b981;
 }
 
-/* תחתית התפריט עם אייקונים תואמים */
+/* חלק תחתון של התפריט */
 .sidebar-footer {
     padding: 0 24px;
     direction: ltr;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 15px;
 }
 
 .footer-row {
@@ -191,7 +201,7 @@ body {
     gap: 10px;
     font-size: 12px;
     color: #64748b;
-    margin-top: 12px;
+    margin-top: 10px;
     font-weight: 500;
 }
 
