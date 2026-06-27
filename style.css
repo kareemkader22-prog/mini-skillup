@@ -39,7 +39,7 @@ body {
 }
 
 /* ==========================================================================
-   עריכת תפריט הצד (Sidebar Drawer) - לפי תמונה image_a7e281.png
+   עריכת תפריט הצד (Sidebar Drawer) - לפי תמונה image_a8000d.png
    ========================================================================== */
 
 /* שכבת רקע כהה שקופה עדינה מאחורי המגירה */
@@ -151,16 +151,28 @@ body {
     font-weight: 600;
 }
 
+/* עדכון צבע האייקון של הפריט האקטיבי במידת הצורך */
+.active-sidebar-item .sidebar-icon {
+    color: #3b71f7 !important;
+}
+
 .item-main {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
+/* עדכון: צביעת כל האייקונים של תפריט הצד בכחול כברירת מחדל */
 .sidebar-icon {
     font-size: 18px;
     display: inline-flex;
     align-items: center;
+    color: #3b71f7 !important;
+}
+
+/* במידה והאייקונים משתמשים ב-SVG, נדאג גם לצבע ה-fill שלהם */
+.sidebar-icon svg {
+    fill: #3b71f7 !important;
 }
 
 .item-title {
