@@ -375,19 +375,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
      
-    // יצירת קארדים דינמיים עם תיבת תווים (Character Initials) מובנית וחלקה לפי התמונה image_aa49ff.png
+    // יצירת קארדים דינמיים עם תמונת הלוגו האמיתית של החברה (בדיוק לפי התמונה image_aaa703.png)
     function renderJobCards(jobs) {
         searchResultsArea.innerHTML = "";
         
-        // מילון מובנה לתווי קידומת מדויקים עבור החברות המוכרות
-        const customInitials = {
-            "wix.com": "WI",
-            "google": "GO",
-            "palo alto networks": "PN",
-            "mobileye": "MO",
-            "intel": "IN",
-            "check point": "CP",
-            "cyberark": "CA"
+        // מילון הלוגואים הרשמיים המדויק ומותאם לשמות החברות במערך
+        const companyLogos = {
+            "wix.com": "https://logo.clearbit.com/wix.com",
+            "google": "https://logo.clearbit.com/google.com",
+            "palo alto networks": "https://logo.clearbit.com/paloaltonetworks.com",
+            "mobileye": "https://logo.clearbit.com/mobileye.com",
+            "intel": "https://logo.clearbit.com/intel.com",
+            "check point": "https://logo.clearbit.com/checkpoint.com",
+            "cyberark": "https://logo.clearbit.com/cyberark.com"
         };
         
         jobs.forEach((job) => {
@@ -404,9 +404,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const companyName = job.company?.display_name || "Tech Enterprise";
             const locationName = job.location?.display_name || "Israel (Remote/Hybrid)";
             
-            // גזירת שתי האותיות הראשונות או שימוש במילון התווים המובנה
+            // תיאום מפתח חסין עבור שמות חברות (הורדת רווחים ואותיות קטנות)
             const compKey = companyName.toLowerCase().trim();
-            let initials = customInitials[compKey] || companyName.substring(0, 2).toUpperCase();
+            const logoUrl = companyLogos[compKey] || `https://ui-avatars.com/api/?name=${encodeURIComponent(companyName)}&background=f1f5f9&color=64748b&bold=true`;
             
             let levelBadge = '';
             if (job.isJunior) {
@@ -416,9 +416,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
      
             card.innerHTML = `
-                <!-- מיכל תווים אפרפר מעוגל ועדין בדיוק כמו ב-image_aa49ff.png -->
-                <div style="width: 52px; height: 52px; border: 1px solid #e2e8f0; border-radius: 12px; display: flex; justify-content: center; align-items: center; background: #f8fafc; flex-shrink: 0;">
-                    <span style="font-family: sans-serif; font-size: 14px; font-weight: 600; color: #64748b; letter-spacing: 0.5px;">${initials}</span>
+                <!-- תיבת לוגו לבנה, נקייה ומעוגלת עם תמונת הלוגו בפנים, בדיוק כמו ב-image_aaa703.png -->
+                <div style="width: 52px; height: 52px; border: 1px solid #e2e8f0; border-radius: 12px; display: flex; justify-content: center; align-items: center; background: #ffffff; flex-shrink: 0; padding: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.02);">
+                    <img src="${logoUrl}" alt="${companyName} Logo" style="max-width: 100%; max-height: 100%; object-fit: contain;" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(companyName)}&background=f1f5f9&color=64748b'">
                 </div>
 
                 <!-- תוכן המשרה המשובץ מימין ללוגו (במבנה ltr תואם) -->
