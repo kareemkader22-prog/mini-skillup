@@ -375,19 +375,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
      
-    // יצירת קארדים דינמיים עם מבנה הריבוע הכפול המדויק מתוך image_aaaee5.png
+    // יצירת קארדים דינמיים עם מבנה הריבוע הכפול המדויק מתוך image_aaaee5.png המשלב את תמונת החברה
     function renderJobCards(jobs) {
         searchResultsArea.innerHTML = "";
         
-        // מילון מובנה לתווי קידומת מדויקים עבור החברות המוכרות
-        const customInitials = {
-            "wix.com": "WI",
-            "google": "GO",
-            "palo alto networks": "PN",
-            "mobileye": "MO",
-            "intel": "IN",
-            "check point": "CP",
-            "cyberark": "CA"
+        // מילון מובנה הכולל את הקידומת הדיפולטיבית וגם את תמונת הלוגו הרשמית של החברה
+        const companyAssets = {
+            "wix.com": { initials: "WI", logo: "https://logo.clearbit.com/wix.com" },
+            "google": { initials: "GO", logo: "https://logo.clearbit.com/google.com" },
+            "palo alto networks": { initials: "PN", logo: "https://logo.clearbit.com/paloaltonetworks.com" },
+            "mobileye": { initials: "MO", logo: "https://logo.clearbit.com/mobileye.com" },
+            "intel": { initials: "IN", logo: "https://logo.clearbit.com/intel.com" },
+            "check point": { initials: "CP", logo: "https://logo.clearbit.com/checkpoint.com" },
+            "cyberark": { initials: "CA", logo: "https://logo.clearbit.com/cyberark.com" }
         };
         
         jobs.forEach((job) => {
@@ -404,9 +404,16 @@ document.addEventListener("DOMContentLoaded", () => {
             const companyName = job.company?.display_name || "Tech Enterprise";
             const locationName = job.location?.display_name || "Israel (Remote/Hybrid)";
             
-            // גזירת שתי האותיות הראשונות או שימוש במילון התווים המובנה
             const compKey = companyName.toLowerCase().trim();
-            let initials = customInitials[compKey] || companyName.substring(0, 2).toUpperCase();
+            const asset = companyAssets[compKey];
+            
+            let initials = asset ? asset.initials : companyName.substring(0, 2).toUpperCase();
+            
+            // תנאי פנימי בתוך הריבוע האפרפר: מציג את תמונת החברה אם היא קיימת, ואם לא - חוזר לאותיות המקוריות מ-image_aaaee5.png
+            let innerContent = `<span style="font-family: sans-serif; font-size: 13px; font-weight: 600; color: #94a3b8; letter-spacing: 0.3px;">${initials}</span>`;
+            if (asset && asset.logo) {
+                innerContent = `<img src="${asset.logo}" alt="${companyName} Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: 4px;" onerror="this.replaceWith(document.createTextNode('${initials}'))">`;
+            }
             
             let levelBadge = '';
             if (job.isJunior) {
@@ -418,9 +425,9 @@ document.addEventListener("DOMContentLoaded", () => {
             card.innerHTML = `
                 <!-- הריבוע החיצוני הלבן המעוגל בדיוק לפי image_aaaee5.png -->
                 <div style="width: 54px; height: 54px; border: 1px solid #e2e8f0; border-radius: 14px; display: flex; justify-content: center; align-items: center; background: #ffffff; flex-shrink: 0;">
-                    <!-- הריבוע הפנימי האפרפר העמום המכיל את האותיות -->
-                    <div style="width: 38px; height: 38px; background: #f1f5f9; border-radius: 6px; display: flex; justify-content: center; align-items: center;">
-                        <span style="font-family: sans-serif; font-size: 13px; font-weight: 600; color: #94a3b8; letter-spacing: 0.3px;">${initials}</span>
+                    <!-- הריבוע הפנימי האפרפר העמום שמציג את הלוגו או את האותיות -->
+                    <div style="width: 38px; height: 38px; background: #f1f5f9; border-radius: 6px; display: flex; justify-content: center; align-items: center; overflow: hidden; padding: 2px; box-sizing: border-box;">
+                        ${innerContent}
                     </div>
                 </div>
 
