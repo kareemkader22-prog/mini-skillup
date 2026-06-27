@@ -375,18 +375,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
      
-    // יצירת קארדים דינמיים של משרות/חברות עם שילוב לוגו החברה משמאל (לפי תמונה image_aa331e.png)
+    // יצירת קארדים דינמיים עם תיבת תווים (Character Initials) מובנית וחלקה לפי התמונה image_aa49ff.png
     function renderJobCards(jobs) {
         searchResultsArea.innerHTML = "";
         
-        const companyLogos = {
-            "wix.com": "https://logo.clearbit.com/wix.com",
-            "google": "https://logo.clearbit.com/google.com",
-            "palo alto networks": "https://logo.clearbit.com/paloaltonetworks.com",
-            "mobileye": "https://logo.clearbit.com/mobileye.com",
-            "intel": "https://logo.clearbit.com/intel.com",
-            "check point": "https://logo.clearbit.com/checkpoint.com",
-            "cyberark": "https://logo.clearbit.com/cyberark.com"
+        // מילון מובנה לתווי קידומת מדויקים עבור החברות המוכרות
+        const customInitials = {
+            "wix.com": "WI",
+            "google": "GO",
+            "palo alto networks": "PN",
+            "mobileye": "MO",
+            "intel": "IN",
+            "check point": "CP",
+            "cyberark": "CA"
         };
         
         jobs.forEach((job) => {
@@ -403,8 +404,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const companyName = job.company?.display_name || "Tech Enterprise";
             const locationName = job.location?.display_name || "Israel (Remote/Hybrid)";
             
+            // גזירת שתי האותיות הראשונות או שימוש במילון התווים המובנה
             const compKey = companyName.toLowerCase().trim();
-            const logoUrl = companyLogos[compKey] || `https://ui-avatars.com/api/?name=${encodeURIComponent(companyName)}&background=3b71f7&color=fff&rounded=false&bold=true`;
+            let initials = customInitials[compKey] || companyName.substring(0, 2).toUpperCase();
             
             let levelBadge = '';
             if (job.isJunior) {
@@ -414,9 +416,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
      
             card.innerHTML = `
-                <!-- מיכל תמונת הלוגו של החברה -->
-                <div style="width: 52px; height: 52px; border: 1px solid #e2e8f0; border-radius: 12px; display: flex; justify-content: center; align-items: center; background: #ffffff; overflow: hidden; flex-shrink: 0; padding: 6px;">
-                    <img src="${logoUrl}" alt="${companyName} Logo" style="max-width: 100%; max-height: 100%; object-fit: contain;" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(companyName)}&background=f1f5f9&color=64748b'">
+                <!-- מיכל תווים אפרפר מעוגל ועדין בדיוק כמו ב-image_aa49ff.png -->
+                <div style="width: 52px; height: 52px; border: 1px solid #e2e8f0; border-radius: 12px; display: flex; justify-content: center; align-items: center; background: #f8fafc; flex-shrink: 0;">
+                    <span style="font-family: sans-serif; font-size: 14px; font-weight: 600; color: #64748b; letter-spacing: 0.5px;">${initials}</span>
                 </div>
 
                 <!-- תוכן המשרה המשובץ מימין ללוגו (במבנה ltr תואם) -->
