@@ -389,9 +389,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
      
-    // יצירת קארדים דינמיים של משרות/חברות
+    // יצירת קארדים דינמיים של משרות/חברות עם שילוב לוגו החברה משמאל (לפי תמונה image_aa331e.png)
     function renderJobCards(jobs) {
         searchResultsArea.innerHTML = "";
+        
+        // מיפוי לוגואים מובנה עבור החברות המרכזיות במאגר
+        const companyLogos = {
+            "wix.com": "https://logo.clearbit.com/wix.com",
+            "google": "https://logo.clearbit.com/google.com",
+            "palo alto networks": "https://logo.clearbit.com/paloaltonetworks.com",
+            "mobileye": "https://logo.clearbit.com/mobileye.com",
+            "intel": "https://logo.clearbit.com/intel.com",
+            "check point": "https://logo.clearbit.com/checkpoint.com",
+            "cyberark": "https://logo.clearbit.com/cyberark.com"
+        };
         
         jobs.forEach((job) => {
             const card = document.createElement("div");
@@ -399,26 +410,42 @@ document.addEventListener("DOMContentLoaded", () => {
             card.style.cursor = "pointer";
             card.style.transition = "transform 0.2s, box-shadow 0.2s";
             card.style.marginBottom = "12px";
+            card.style.display = "flex";
+            card.style.alignItems = "center";
+            card.style.padding = "16px";
+            card.style.gap = "14px";
             
             const companyName = job.company?.display_name || "Tech Enterprise";
             const locationName = job.location?.display_name || "Israel (Remote/Hybrid)";
             
+            // שליפת הלוגו או בניית אווטאר גנרי מעוצב במידה ולא קיים במאגר הכתובות המהיר
+            const compKey = companyName.toLowerCase().trim();
+            const logoUrl = companyLogos[compKey] || `https://ui-avatars.com/api/?name=${encodeURIComponent(companyName)}&background=3b71f7&color=fff&rounded=false&bold=true`;
+            
             let levelBadge = '';
             if (job.isJunior) {
-                levelBadge = `<span style="font-size: 10px; background: #f0fdf4; color: #166534; padding: 2px 6px; border-radius: 4px; margin-left: 8px; font-weight: bold; border: 1px solid #bbf7d0;">Junior Friendly</span>`;
+                levelBadge = `<span style="font-size: 10px; background: #f0fdf4; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: bold; border: 1px solid #bbf7d0; white-space: nowrap;">Junior Friendly</span>`;
             } else {
-                levelBadge = `<span style="font-size: 10px; background: #fff7ed; color: #c2410c; padding: 2px 6px; border-radius: 4px; margin-left: 8px; font-weight: bold; border: 1px solid #fed7aa;">Senior / Experienced</span>`;
+                levelBadge = `<span style="font-size: 10px; background: #fff7ed; color: #c2410c; padding: 2px 6px; border-radius: 4px; font-weight: bold; border: 1px solid #fed7aa; white-space: nowrap;">Senior / Experienced</span>`;
             }
      
             card.innerHTML = `
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
-                    <h3 style="margin: 0; color: #1e293b; font-size: 15px; font-weight:700; text-align: left;">${job.title}</h3>
-                    ${levelBadge}
+                <!-- מיכל תמונת הלוגו של החברה -->
+                <div style="width: 52px; height: 52px; border: 1px solid #e2e8f0; border-radius: 12px; display: flex; justify-content: center; align-items: center; background: #ffffff; overflow: hidden; flex-shrink: 0; padding: 6px;">
+                    <img src="${logoUrl}" alt="${companyName} Logo" style="max-width: 100%; max-height: 100%; object-fit: contain;" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(companyName)}&background=f1f5f9&color=64748b'">
                 </div>
-                <p style="margin: 0 0 10px 0; color: #3b71f7; font-weight: 600; font-size: 13px; text-align: left;">🏢 ${companyName}</p>
-                <div style="display: flex; justify-content: space-between; align-items: center; direction: ltr;">
-                    <span style="font-size: 11px; color: #64748b;">📍 ${locationName}</span>
-                    <span style="font-size: 11px; background: #e0f2fe; color: #0369a1; padding: 2px 8px; border-radius: 12px; font-weight: 600;">Details</span>
+
+                <!-- תוכן המשרה המשובץ מימין ללוגו (במבנה ltr תואם) -->
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                        <h3 style="margin: 0; color: #1e293b; font-size: 15px; font-weight: 700; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${job.title}</h3>
+                        ${levelBadge}
+                    </div>
+                    <p style="margin: 0; color: #3b71f7; font-weight: 600; font-size: 13px; text-align: left;">${companyName}</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; direction: ltr; margin-top: 2px;">
+                        <span style="font-size: 11px; color: #64748b;">📍 ${locationName}</span>
+                        <span style="font-size: 11px; color: #3b71f7; font-weight: 600; display: flex; align-items: center; gap: 2px;">Details <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
+                    </div>
                 </div>
             `;
             
@@ -564,7 +591,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (openInterviewBtn) {
         openInterviewBtn.addEventListener("click", () => {
             views.forEach(v => v.classList.add("hidden"));
-            document.getElementById("interviewView").classList.remove("hidden");
+            document.getElementById("interviewView")?.classList.remove("hidden");
             navItems.forEach(i => i.classList.remove("active"));
         });
     }
