@@ -1,10 +1,13 @@
-document.addEventListener("DOMContentLoaded", () => {// אלמנטים לניווט וחיפוש משרות וחברותconst searchSubmitBtn = document.getElementById("searchSubmitBtn");const searchInput = document.getElementById("searchInput");const searchResultsArea = document.getElementById("searchResultsArea");const virtualKeyboard = document.getElementById("virtualKeyboard");
-
+document.addEventListener("DOMContentLoaded", () => {// אלמנטים לניווט וחיפוש משרות וחברותconst searchSubmitBtn = document.getElementById("searchSubmitBtn");
+const searchInput = document.getElementById("searchInput");
+const searchResultsArea = document.getElementById("searchResultsArea");
+const virtualKeyboard = document.getElementById("virtualKeyboard");
+ 
 // אלמנטים של לוח ה-KPI החדש
 const kpiDashboard = document.getElementById("kpiDashboard");
 const kpiCount = document.getElementById("kpiCount");
 const kpiSalary = document.getElementById("kpiSalary");
-
+ 
 // אלמנטים של חלון המודל (הדרישות המלאות)
 const jobDetailModal = document.getElementById("jobDetailModal");
 const closeModalBtn = document.getElementById("closeModalBtn");
@@ -12,11 +15,11 @@ const modalBarClose = document.getElementById("modalBarClose");
 const modalJobTitle = document.getElementById("modalJobTitle");
 const modalJobCompany = document.getElementById("modalJobCompany");
 const modalJobDetails = document.getElementById("modalJobDetails");
-
+ 
 // אלמנטים של התפריט העליון
 const menuBtn = document.getElementById("menuBtn");
 const dropdownMenu = document.getElementById("dropdownMenu");
-
+ 
 // אלמנטים של הראיונות (AI Interview)
 const generateBtn = document.getElementById('generateBtn');
 const jobInput = document.getElementById('jobInput');
@@ -26,20 +29,70 @@ const loadingDiv = document.getElementById('loading');
 const techList = document.getElementById('techList');
 const hrList = document.getElementById('hrList');
 const caseList = document.getElementById('caseList');
-
+ 
 // משתנה עזר לשמירת השדה שנמצא כרגע בפוקוס
 let currentActiveInput = null;
-
-if (menuBtn && dropdownMenu) {
+ 
+// ================= ניהול התפריט העליון (Menu Management) =================
+function toggleMenu() {
+    if (!menuBtn || !dropdownMenu) return;
+    
+    const isOpen = dropdownMenu.style.display === "block";
+    dropdownMenu.style.display = isOpen ? "none" : "block";
+    
+    // הוספת אנימציה למעבר
+    if (!isOpen) {
+        dropdownMenu.style.opacity = "0";
+        dropdownMenu.style.transform = "translateY(-5px)";
+        setTimeout(() => {
+            dropdownMenu.style.transition = "opacity 0.2s ease, transform 0.2s ease";
+            dropdownMenu.style.opacity = "1";
+            dropdownMenu.style.transform = "translateY(0)";
+        }, 10);
+    }
+}
+ 
+function closeMenu() {
+    if (dropdownMenu) {
+        dropdownMenu.style.opacity = "0";
+        dropdownMenu.style.transform = "translateY(-5px)";
+        dropdownMenu.style.transition = "opacity 0.2s ease, transform 0.2s ease";
+        setTimeout(() => {
+            dropdownMenu.style.display = "none";
+        }, 200);
+    }
+}
+ 
+// הוספת מאזיני אירועים לתפריט
+if (menuBtn) {
     menuBtn.addEventListener("click", (e) => {
         e.stopPropagation();
-        dropdownMenu.style.display = dropdownMenu.style.display === "none" ? "block" : "none";
-    });
-    document.addEventListener("click", () => {
-        dropdownMenu.style.display = "none";
+        toggleMenu();
     });
 }
-
+ 
+// סגירת התפריט כאשר לוחצים בחוץ
+document.addEventListener("click", (e) => {
+    if (dropdownMenu && menuBtn) {
+        const isClickInsideMenu = dropdownMenu.contains(e.target);
+        const isClickOnMenuBtn = menuBtn.contains(e.target);
+        
+        if (!isClickInsideMenu && !isClickOnMenuBtn && dropdownMenu.style.display === "block") {
+            closeMenu();
+        }
+    }
+});
+ 
+// סגירת התפריט כאשר לוחצים על אפשרות בתוך התפריט
+if (dropdownMenu) {
+    const menuItems = dropdownMenu.querySelectorAll("a, button");
+    menuItems.forEach(item => {
+        item.addEventListener("click", () => {
+            closeMenu();
+        });
+    });
+}
+ 
 // מאגר ענק ומקיף המשלב משרות ג'וניור ומשרות מנוסים (Mid / Senior / Lead)
 const fallbackJobs = [
     // --- משרות ג'וניור ומתחילים (מוצגות כברירת מחדל) ---
@@ -107,7 +160,7 @@ const fallbackJobs = [
             • Solid comprehension of OOP principles, Data Structures, and Java syntax.<br>
             • Academic or independent project portfolio written in Java/Spring Boot.`
     },
-
+ 
     // --- משרות מתקדמות, בכירים וסניורים (לא לג'וניורים - נחשפות בחיפוש) ---
     { 
         title: "Senior Java Software Architect", 
@@ -192,7 +245,7 @@ const fallbackJobs = [
             • Expert level programming in Python, Bash, or Go for exploit automation.` 
     }
 ];
-
+ 
 // פונקציית החיפוש והטעינה הכללית
 async function handleSearch() {
     let query = searchInput.value.trim();
@@ -203,13 +256,13 @@ async function handleSearch() {
         renderJobCards(juniorJobs);
         return;
     }
-
+ 
     searchResultsArea.innerHTML = `
         <div class="loading-screen">
             <div class="loader-circle"></div>
             <p style="color: #64748b;">Scanning tech ecosystem in Israel...</p>
         </div>`;
-
+ 
     try {
         const url = `https://api.adzuna.com/v1/api/jobs/il/search/1?app_id=c49747cb&app_key=9b83bba0ba50b070bc064a787cd04052&what=${encodeURIComponent(query)}`;
         const response = await fetch(url);
@@ -229,7 +282,7 @@ async function handleSearch() {
         useFallbackSearch(query);
     }
 }
-
+ 
 // פונקציית סינון חכמה מתוך מאגר הגיבוי המלא
 function useFallbackSearch(query) {
     const lowerQuery = query.toLowerCase();
@@ -239,13 +292,13 @@ function useFallbackSearch(query) {
         job.company.display_name.toLowerCase().includes(lowerQuery) || 
         job.description.toLowerCase().includes(lowerQuery)
     );
-
+ 
     const finalJobs = filteredJobs.length > 0 ? filteredJobs : fallbackJobs.filter(job => job.isJunior === true);
-
+ 
     updateKPIMetrics(query, finalJobs);
     renderJobCards(finalJobs);
 }
-
+ 
 // פונקציה שמחשבת ומציגה נתוני שוק חיצוניים (KPI)
 function updateKPIMetrics(query, jobs) {
     if (!kpiDashboard || !kpiCount || !kpiSalary) return;
@@ -277,7 +330,7 @@ function updateKPIMetrics(query, jobs) {
         }
     }
 }
-
+ 
 // יצירת קארדים דינמיים של משרות/חברות
 function renderJobCards(jobs) {
     searchResultsArea.innerHTML = "";
@@ -298,7 +351,7 @@ function renderJobCards(jobs) {
         } else {
             levelBadge = `<span style="font-size: 10px; background: #fff7ed; color: #c2410c; padding: 2px 6px; border-radius: 4px; margin-left: 8px; font-weight: bold; border: 1px solid #fed7aa;">Senior / Experienced</span>`;
         }
-
+ 
         card.innerHTML = `
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
                 <h3 style="margin: 0; color: #1e293b; font-size: 15px; font-weight:700; text-align: left;">${job.title}</h3>
@@ -314,11 +367,11 @@ function renderJobCards(jobs) {
         card.addEventListener("click", () => {
             openJobModal(job);
         });
-
+ 
         searchResultsArea.appendChild(card);
     });
 }
-
+ 
 function openJobModal(job) {
     if (!jobDetailModal) return;
     modalJobTitle.textContent = job.title;
@@ -328,7 +381,7 @@ function openJobModal(job) {
     const externalLinkBtn = job.redirect_url 
         ? `<a href="${applyUrl}" target="_blank" class="primary-btn" style="display: block; text-align: center; text-decoration: none; margin-bottom: 0;">Apply External Link</a>`
         : `<button class="primary-btn" onclick="alert('Application submitted successfully via SkillUp AI!')" style="margin-bottom:0;">Quick Apply Now</button>`;
-
+ 
     modalJobDetails.innerHTML = `
         <p style="margin-bottom: 12px; font-size:13px; color:#475569; text-align: left;"><strong>Location:</strong> ${job.location?.display_name || "Israel"}</p>
         <div style="font-size: 13px; color: #334155; line-height: 1.6; margin-bottom: 20px; max-height:260px; overflow-y:auto; padding-right:5px; text-align: left;">
@@ -339,13 +392,13 @@ function openJobModal(job) {
     
     jobDetailModal.classList.remove("hidden");
 }
-
+ 
 function closeJobModal() {
     if (jobDetailModal) jobDetailModal.classList.add("hidden");
 }
 if (closeModalBtn) closeModalBtn.addEventListener("click", closeJobModal);
 if (modalBarClose) modalBarClose.addEventListener("click", closeJobModal);
-
+ 
 if (searchSubmitBtn) {
     searchSubmitBtn.addEventListener("click", (e) => {
         e.stopPropagation();
@@ -353,14 +406,14 @@ if (searchSubmitBtn) {
         handleSearch();
     });
 }
-
+ 
 if (searchInput) {
     searchInput.addEventListener("input", handleSearch);
 }
-
+ 
 // הפעלה ראשונית אוטומטית של המשרות
 handleSearch();
-
+ 
 // ================= AI INTERVIEW LOGIC =================
 if (generateBtn) {
     generateBtn.addEventListener('click', async () => {
@@ -370,30 +423,30 @@ if (generateBtn) {
             showError("Please paste a job description first.");
             return;
         }
-
+ 
         errorBox.classList.add('hidden');
         resultsDiv.classList.add('hidden');
         loadingDiv.classList.remove('hidden');
         generateBtn.disabled = true;
-
+ 
         try {
             const response = await fetch('/api/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ jobDescription })
             });
-
+ 
             if (!response.ok) throw new Error("Server failed to generate questions.");
-
+ 
             const data = await response.json();
             
             populateList(techList, data.technical);
             populateList(hrList, data.behavioral);
             populateList(caseList, data.caseStudy);
-
+ 
             loadingDiv.classList.add('hidden');
             resultsDiv.classList.remove('hidden');
-
+ 
         } catch (error) {
             console.error(error);
             loadingDiv.classList.add('hidden');
@@ -403,7 +456,7 @@ if (generateBtn) {
         }
     });
 }
-
+ 
 function populateList(listElement, items) {
     if (!listElement) return;
     listElement.innerHTML = '';
@@ -417,24 +470,24 @@ function populateList(listElement, items) {
         listElement.appendChild(li);
     });
 }
-
+ 
 function showError(message) {
     if (!errorBox) return;
     errorBox.textContent = message;
     errorBox.classList.remove('hidden');
 }
-
+ 
 // ================= מערכת ניווט מובנית בין מסכים =================
 const navItems = document.querySelectorAll(".nav-item");
 const views = document.querySelectorAll(".view-section");
-
+ 
 navItems.forEach(item => {
     item.addEventListener("click", () => {
         const target = item.getAttribute("data-target");
         
         navItems.forEach(i => i.classList.remove("active"));
         item.classList.add("active");
-
+ 
         views.forEach(v => v.classList.add("hidden"));
         
         if (target === "home") document.getElementById("dashboardView").classList.remove("hidden");
@@ -444,11 +497,11 @@ navItems.forEach(item => {
         }
         if (target === "notifications") document.getElementById("notificationsView").classList.remove("hidden");
         if (target === "profile") document.getElementById("profileView").classList.remove("hidden");
-
+ 
         if (virtualKeyboard) virtualKeyboard.style.display = "none";
     });
 });
-
+ 
 const openInterviewBtn = document.getElementById("openInterviewBtn");
 if (openInterviewBtn) {
     openInterviewBtn.addEventListener("click", () => {
@@ -464,7 +517,7 @@ if (backToHomeBtn) {
         if (virtualKeyboard) virtualKeyboard.style.display = "none";
     });
 }
-
+ 
 // ================= לוגיקת המקלדת הווירטואלית המובנית =================
 if (searchInput) {
     searchInput.addEventListener("focus", function () {
@@ -472,14 +525,14 @@ if (searchInput) {
         if (virtualKeyboard) virtualKeyboard.style.display = "block";
     });
 }
-
+ 
 if (jobInput) {
     jobInput.addEventListener("focus", function () {
         currentActiveInput = jobInput;
         if (virtualKeyboard) virtualKeyboard.style.display = "block";
     });
 }
-
+ 
 const keys = document.querySelectorAll(".key");
 keys.forEach(key => {
     key.addEventListener("click", function (e) {
@@ -494,7 +547,7 @@ keys.forEach(key => {
         }
     });
 });
-
+ 
 const keyDelete = document.getElementById("keyDelete");
 if (keyDelete) {
     keyDelete.addEventListener("click", function (e) {
@@ -509,7 +562,7 @@ if (keyDelete) {
         }
     });
 }
-
+ 
 const keySpace = document.getElementById("keySpace");
 if (keySpace) {
     keySpace.addEventListener("click", function (e) {
@@ -524,7 +577,7 @@ if (keySpace) {
         }
     });
 }
-
+ 
 const keyClose = document.getElementById("keyClose");
 if (keyClose) {
     keyClose.addEventListener("click", function (e) {
@@ -535,12 +588,12 @@ if (keyClose) {
         }
     });
 }
-
+ 
 // ================= תוספת עיצוב: פירוק הפרופיל ל-4 מרובעים נפרדים ומעוצבים (ללא גיל) עם SVG כחול =================
 function upgradeProfileLayout() {
     const profileView = document.getElementById("profileView");
     if (!profileView) return;
-
+ 
     // רשימת הכרטיסים המעודכנת הכוללת קוד SVG כחול מקצועי ותואם לכל קטגוריה
     const profileData = [
         { 
@@ -569,7 +622,7 @@ function upgradeProfileLayout() {
             icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>` 
         }
     ];
-
+ 
     // חיפוש או יצירה של קונטיינר פנימי ייעודי לכרטיסיות המידע מתחת לכרטיס הראשי של השם והתמונה
     let profileCardsContainer = document.getElementById("profileCardsContainer");
     
@@ -581,7 +634,7 @@ function upgradeProfileLayout() {
         profileCardsContainer.style.display = "flex";
         profileCardsContainer.style.flexDirection = "column";
         profileCardsContainer.style.gap = "14px"; // מרווח שווה ואלגנטי בין הריבועים
-
+ 
         // מציאת אזור המידע הישן כדי להחליף אותו לחלוטין במרובעים הנפרדים החדשים
         const oldAboutMeBlock = profileView.querySelector(".card") ? profileView.querySelectorAll(".card")[1] : null;
         if (oldAboutMeBlock) {
@@ -590,10 +643,10 @@ function upgradeProfileLayout() {
             profileView.appendChild(profileCardsContainer);
         }
     }
-
+ 
     // ניקוי ובנייה מחדש של הריבועים הבודדים
     profileCardsContainer.innerHTML = "";
-
+ 
     profileData.forEach(item => {
         const squareCard = document.createElement("div");
         
@@ -605,7 +658,7 @@ function upgradeProfileLayout() {
         squareCard.style.border = "1px solid #e2e8f0";
         squareCard.style.textAlign = "left"; 
         squareCard.style.direction = "ltr";
-
+ 
         squareCard.innerHTML = `
             <div style="display: flex; align-items: center; margin-bottom: 8px; gap: 10px;">
                 <div style="background: #eff6ff; width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; border-radius: 8px; flex-shrink: 0;">
@@ -621,8 +674,8 @@ function upgradeProfileLayout() {
         profileCardsContainer.appendChild(squareCard);
     });
 }
-
+ 
 // הפעלת שדרוג הפרופיל מיד עם טעינת האפליקציה לשמירה על נראות מושלמת
 upgradeProfileLayout();
-
+ 
 })
