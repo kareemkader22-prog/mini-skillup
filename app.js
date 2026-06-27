@@ -35,166 +35,173 @@ document.addEventListener("DOMContentLoaded", () => {
     // משתנה עזר לשמירת השדה שנמצא כרגע בפוקוס
     let currentActiveInput = null;
 
-    // ================= תיקון ועדכון תפריט מובייל למסך מלא אטום לחלוטין =================
     if (menuBtn && dropdownMenu) {
-        // הגדרת המכולה הראשית - כיסוי מוחלט ואטום של המסך
-        dropdownMenu.style.position = "absolute";
-        dropdownMenu.style.top = "0";
-        dropdownMenu.style.left = "0";
-        dropdownMenu.style.width = "100%";
-        dropdownMenu.style.height = "100%";
-        dropdownMenu.style.backgroundColor = "#ffffff"; // רקע לבן חובה כדי להסתיר את דף הבית
-        dropdownMenu.style.zIndex = "999999"; // ערך גבוה במיוחד שלא יתערבב עם שום אלמנט
-        dropdownMenu.style.padding = "30px 24px";
-        dropdownMenu.style.boxSizing = "border-box";
-        dropdownMenu.style.flexDirection = "column";
-        dropdownMenu.style.display = "none";
-        dropdownMenu.style.borderRadius = "32px"; // התאמה לקימור המסך
-        dropdownMenu.style.overflowY = "auto";
-
-        // יצירת מבנה הניווט הנקי עם שורות, חצים ו-X לסגירה בצד ימין (כמו Enhancv)
-        dropdownMenu.innerHTML = `
-            <!-- שורת כותרת עליונה עם לוגו וסגירה -->
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; width: 100%;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <div style="background: #eff6ff; width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; border-radius: 8px;">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-                    </div>
-                    <span style="font-size: 18px; font-weight: 800; color: #1e293b; font-family: system-ui;">SkillUp AI</span>
-                </div>
-                <!-- כפתור X נקי לסגירה בצד ימין למעלה -->
-                <button id="closeFullscreenMenu" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #1e293b; padding: 5px; font-weight: 300;">✕</button>
-            </div>
-
-            <!-- רשימת שורות הניווט בעיצוב ליניארי מרווח עם חצים (>) -->
-            <div style="display: flex; flex-direction: column; width: 100%;">
-                
-                <!-- 1. Portfolio Analyzer -->
-                <div class="menu-linear-item" data-target="home" style="display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;">
-                    <span style="font-size: 16px; font-weight: 600; color: #1e293b;">Portfolio Analyzer</span>
-                    <span style="color: #94a3b8; font-size: 18px; font-weight: 400;">›</span>
-                </div>
-
-                <!-- 2. Resume Checker -->
-                <div class="menu-linear-item" data-target="home" style="display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;">
-                    <span style="font-size: 16px; font-weight: 600; color: #1e293b;">Resume Checker</span>
-                    <span style="color: #94a3b8; font-size: 18px; font-weight: 400;">›</span>
-                </div>
-
-                <!-- 3. Interview Prep -->
-                <div id="linearMenuInterview" style="display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;">
-                    <span style="font-size: 16px; font-weight: 600; color: #1e293b;">Interview Generator</span>
-                    <span style="color: #94a3b8; font-size: 18px; font-weight: 400;">›</span>
-                </div>
-
-                <!-- 4. Assignment DB -->
-                <div class="menu-linear-item" data-target="home" style="display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;">
-                    <span style="font-size: 16px; font-weight: 600; color: #1e293b;">Assignment DB</span>
-                    <span style="color: #94a3b8; font-size: 18px; font-weight: 400;">›</span>
-                </div>
-
-                <!-- 5. ATS Optimization -->
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;" onclick="alert('ATS Keyword Match Engine coming soon!')">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="font-size: 16px; font-weight: 600; color: #1e293b;">ATS Optimization</span>
-                        <span style="background: #e0f2fe; color: #0369a1; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">PRO</span>
-                    </div>
-                    <span style="color: #94a3b8; font-size: 18px; font-weight: 400;">›</span>
-                </div>
-
-                <!-- 6. Privacy & Safety -->
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;" onclick="alert('Privacy Controls: Stored data is fully encrypted.')">
-                    <span style="font-size: 16px; font-weight: 600; color: #1e293b;">Privacy & Settings</span>
-                    <span style="color: #94a3b8; font-size: 18px; font-weight: 400;">›</span>
-                </div>
-
-            </div>
-
-            <!-- כפתורי פעולה תחתונים -->
-            <div style="margin-top: auto; padding-top: 40px; display: flex; flex-direction: column; gap: 12px; width: 100%;">
-                <button class="primary-btn" style="margin: 0; width: 100%; border-radius: 8px; padding: 14px; font-weight: 600;" onclick="alert('Welcome back, Yosef!')">Sign In</button>
-                <button style="width: 100%; background: #f8fafc; border: 1px solid #e2e8f0; color: #475569; padding: 14px; border-radius: 8px; font-weight: 600; cursor: pointer;" onclick="alert('Starting fresh workflow setup...')">Get Started</button>
-            </div>
-        `;
-
-        // הפעלת אירוע פתיחה
         menuBtn.addEventListener("click", (e) => {
             e.stopPropagation();
-            dropdownMenu.style.display = "flex";
+            dropdownMenu.style.display = dropdownMenu.style.display === "none" ? "block" : "none";
         });
-
-        // הפעלת אירוע סגירה דרך ה-✕
-        document.getElementById("closeFullscreenMenu").addEventListener("click", (e) => {
-            e.stopPropagation();
+        document.addEventListener("click", () => {
             dropdownMenu.style.display = "none";
-        });
-
-        // פונקציות ניווט של השורות
-        const menuLinearItems = dropdownMenu.querySelectorAll(".menu-linear-item");
-        menuLinearItems.forEach(item => {
-            item.addEventListener("click", () => {
-                const target = item.getAttribute("data-target");
-                dropdownMenu.style.display = "none";
-                const matchingNav = document.querySelector(`.nav-item[data-target="${target}"]`);
-                if (matchingNav) matchingNav.click();
-            });
-        });
-
-        document.getElementById("linearMenuInterview").addEventListener("click", () => {
-            dropdownMenu.style.display = "none";
-            const openInterviewBtn = document.getElementById("openInterviewBtn");
-            if (openInterviewBtn) openInterviewBtn.click();
         });
     }
 
-    // ================= מאגר משרות וחיפוש =================
+    // מאגר ענק ומקיף המשלב משרות ג'וניור ומשרות מנוסים (Mid / Senior / Lead)
     const fallbackJobs = [
+        // --- משרות ג'וניור ומתחילים (מוצגות כברירת מחדל) ---
         { 
             title: "Junior Full Stack Developer", 
             company: { display_name: "Wix.com" }, 
             location: { display_name: "Tel Aviv - Remote" }, 
             isJunior: true,
-            description: `<strong>Role Overview:</strong><br>Wix is looking for a talented Junior Full Stack Developer to join our core web engineering group...` 
+            description: `
+                <strong>Role Overview:</strong><br>
+                Wix is looking for a talented Junior Full Stack Developer to join our core web engineering group. You will write high-quality, scalable code, participate in code reviews, and build user-facing web applications utilized by millions globally.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • Strong fundamentals in JavaScript / TypeScript and modern HTML/CSS.<br>
+                • Practical experience with modern frontend frameworks, preferably React or Vue.js.<br>
+                • Server-side development experience using Node.js, Express, or NestJS.` 
         },
         { 
             title: "Junior Data Analyst", 
             company: { display_name: "Google" }, 
             location: { display_name: "Tel Aviv-Yafo" }, 
             isJunior: true,
-            description: `<strong>Role Overview:</strong><br>We are looking for a brilliant Junior Data Analyst to turn data into valuable business insights...` 
+            description: `
+                <strong>Role Overview:</strong><br>
+                We are looking for a brilliant Junior Data Analyst to turn data into valuable business insights. You will conduct full lifecycle analysis to include requirements, activities, and design.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • 1+ years of experience or strong academic/project portfolio in Data Analysis.<br>
+                • Advanced proficiency in SQL queries and data manipulation.<br>
+                • Hands-on experience with visualization tools: Tableau, Power BI, or Looker.` 
         },
         { 
             title: "NOC Tier 1 Specialist", 
             company: { display_name: "Palo Alto Networks" }, 
             location: { display_name: "Tel Aviv" }, 
             isJunior: true,
-            description: `<strong>Role Overview:</strong><br>Excellent entry-level opportunity for students or recent graduates! Monitor our production cloud environments...`
+            description: `
+                <strong>Role Overview:</strong><br>
+                Excellent entry-level opportunity for students or recent graduates! Monitor our production cloud environments, track system telemetry, manage infrastructure alerts, and collaborate with DevOps teams to ensure maximum availability.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • Basic understanding of networking protocols (TCP/IP, DNS, ping/traceroute).<br>
+                • Familiarity with Linux command line environments.<br>
+                • Willingness to work in shifts (including nights/weekends) – Perfect for students!`
         },
         { 
             title: "Junior UI/UX Designer", 
             company: { display_name: "Mobileye" }, 
             location: { display_name: "Jerusalem" }, 
             isJunior: true,
-            description: `<strong>Role Overview:</strong><br>Looking for an enthusiastic Junior UI/UX Designer to join our product layout unit...`
+            description: `
+                <strong>Role Overview:</strong><br>
+                Looking for an enthusiastic Junior UI/UX Designer to join our product layout unit. You will help build wireframes, user flows, and high-fidelity interface mockups for vehicle management dashboards.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • Solid portfolio showing design systems, web layouts, or mobile application wireframes.<br>
+                • Proficiency in Figma, Adobe XD, or Illustrator.<br>
+                • Understanding of user-centric design theories and visual layout hierarchy.`
         },
         { 
             title: "Java Software Developer (Entry Level)", 
             company: { display_name: "Intel" }, 
             location: { display_name: "Haifa" }, 
             isJunior: true,
-            description: `<strong>Role Overview:</strong><br>Kickstart your software engineering career. Join our validation backend framework group coding in Java...`
+            description: `
+                <strong>Role Overview:</strong><br>
+                Kickstart your software engineering career. Join our validation backend framework group coding in Java. You will learn enterprise paradigms, architectural patterns, and object-oriented testing infrastructure.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • Solid comprehension of OOP principles, Data Structures, and Java syntax.<br>
+                • Academic or independent project portfolio written in Java/Spring Boot.`
         },
+
+        // --- משרות מתקדמות, בכירים וסניורים (לא לג'וניורים - נחשפות בחיפוש) ---
         { 
             title: "Senior Java Software Architect", 
             company: { display_name: "Intel" }, 
             location: { display_name: "Haifa" }, 
             isJunior: false,
-            description: `<strong>Role Overview:</strong><br>We are seeking a Senior Java Architect to spearhead the structural redesign of our enterprise manufacturing data pipelines...`
+            description: `
+                <strong>Role Overview:</strong><br>
+                We are seeking a Senior Java Architect to spearhead the structural redesign of our enterprise manufacturing data pipelines. You will lead technical design choices, mentor senior developers, and ensure low-latency high-throughput stream processing.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • 7+ years of experience in enterprise Java development (Java 17+, Spring Boot, Hibernate).<br>
+                • Extensive experience with distributed systems design and microservices architecture.<br>
+                • Mastery of message brokers (Kafka, RabbitMQ) and caching engines (Redis).<br>
+                • Strong background in cloud-native tools (Kubernetes, AWS or Azure).`
+        },
+        { 
+            title: "UI/UX Product Design Lead", 
+            company: { display_name: "Wix.com" }, 
+            location: { display_name: "Tel Aviv" }, 
+            isJunior: false,
+            description: `
+                <strong>Role Overview:</strong><br>
+                Take full design ownership of a global product line used by over 50 million creators. You will manage a talented team of UI/UX designers, conduct deep user research, define cross-product design systems, and partner closely with Product VPs.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • 5+ years of experience leading UI/UX design operations for complex web/SaaS products.<br>
+                • Exceptional portfolio demonstrating product design strategy, UX research, and beautiful interactive design.<br>
+                • Expert level skills in Figma component methodologies, design systems, and advanced prototyping.<br>
+                • Excellent leadership, presentation, and communication skills.`
+        },
+        { 
+            title: "NOC & Technical Operations Manager", 
+            company: { display_name: "Palo Alto Networks" }, 
+            location: { display_name: "Tel Aviv" }, 
+            isJunior: false,
+            description: `
+                <strong>Role Overview:</strong><br>
+                We are searching for a seasoned NOC Manager to direct our global 24/7 technical incident response and system monitoring team. You will be responsible for defining SLA benchmarks, optimizing incident response cycles, and handling critical production crises.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • 4+ years managing a NOC team or a technical operations group within an enterprise tech company.<br>
+                • Deep mastery of advanced network diagnostics, routing protocols, firewalls, and modern SIEM logging tools.<br>
+                • Expert knowledge in infrastructure monitoring software (Datadog, Prometheus, Grafana, Splunk).<br>
+                • Outstanding crisis management capabilities and flawless execution under pressure.`
+        },
+        { 
+            title: "Senior Machine Learning Engineer", 
+            company: { display_name: "Google" }, 
+            location: { display_name: "Tel Aviv-Yafo" }, 
+            isJunior: false,
+            description: `
+                <strong>Role Overview:</strong><br>
+                We are looking for an expert ML Engineer to build scalable infrastructure for training and deploying deep learning models. You will optimize neural networks and work alongside researchers to implement production-grade AI solution ecosystem frameworks.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • 4+ years of professional experience running Machine Learning or computer vision models in production pipelines.<br>
+                • Advanced knowledge of Python and deep learning frameworks (PyTorch, TensorFlow).<br>
+                • Experience with complex big data infrastructure layers (Spark, Kafka, BigQuery, MLOps).` 
+        },
+        { 
+            title: "Principal Python Backend Engineer", 
+            company: { display_name: "Check Point" }, 
+            location: { display_name: "Tel Aviv-Yafo" }, 
+            isJunior: false,
+            description: `
+                <strong>Role Overview:</strong><br>
+                Join our backend infrastructure security team as a Principal Engineer. You will design and code high-performance distributed microservices, network sniffers, and core cybersecurity elements completely driven by Python.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • 6+ years of enterprise object-oriented backend development experience with Python.<br>
+                • Strong experience with high-concurrency asynchronous programming (Asyncio, Celery) and FastAPI.<br>
+                • Deep expertise in relational databases, SQL tuning, and advanced Linux architecture kernels.` 
+        },
+        { 
+            title: "Senior Cyber Security & Penetration Tester", 
+            company: { display_name: "CyberArk" }, 
+            location: { display_name: "Petah Tikva" }, 
+            isJunior: false,
+            description: `
+                <strong>Role Overview:</strong><br>
+                We are looking for an elite Cyber Security Analyst / PT expert. You will execute security audits, hunt for sophisticated vulnerabilities, perform red-team operations, and consult our core R&D teams on secure development lifecycles.<br><br>
+                <strong>Key Requirements:</strong><br>
+                • 5+ years of practical application security or offensive penetration testing experience.<br>
+                • Mastery of OWASP Top 10, binary exploitation, and reverse engineering tools (Ghidra, IDA Pro).<br>
+                • Professional security credentials (OSCP, OSCE, CISSP) – A major advantage.<br>
+                • Expert level programming in Python, Bash, or Go for exploit automation.` 
         }
     ];
 
+    // פונקציית החיפוש והטעינה הכללית
     async function handleSearch() {
         let query = searchInput.value.trim();
+        
         if (!query) {
             const juniorJobs = fallbackJobs.filter(job => job.isJunior === true);
             updateKPIMetrics("Junior", juniorJobs);
@@ -211,68 +218,108 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const url = `https://api.adzuna.com/v1/api/jobs/il/search/1?app_id=c49747cb&app_key=9b83bba0ba50b070bc064a787cd04052&what=${encodeURIComponent(query)}`;
             const response = await fetch(url);
-            if (!response.ok) throw new Error("API network issue");
+            if (!response.ok) throw new Error("API Network issue or CORS block");
             
             const data = await response.json();
             const jobs = data.results || [];
             
-            if (jobs.length === 0) { useFallbackSearch(query); } 
-            else { updateKPIMetrics(query, jobs); renderJobCards(jobs); }
+            if (jobs.length === 0) {
+                useFallbackSearch(query);
+            } else {
+                updateKPIMetrics(query, jobs);
+                renderJobCards(jobs);
+            }
         } catch (error) {
+            console.warn("External API restricted. Switching to smart fallback matching.", error);
             useFallbackSearch(query);
         }
     }
 
+    // פונקציית סינון חכמה מתוך מאגר הגיבוי המלא
     function useFallbackSearch(query) {
         const lowerQuery = query.toLowerCase();
+        
         const filteredJobs = fallbackJobs.filter(job => 
             job.title.toLowerCase().includes(lowerQuery) || 
-            job.company.display_name.toLowerCase().includes(lowerQuery)
+            job.company.display_name.toLowerCase().includes(lowerQuery) || 
+            job.description.toLowerCase().includes(lowerQuery)
         );
+
         const finalJobs = filteredJobs.length > 0 ? filteredJobs : fallbackJobs.filter(job => job.isJunior === true);
+
         updateKPIMetrics(query, finalJobs);
         renderJobCards(finalJobs);
     }
 
+    // פונקציה שמחשבת ומציגה נתוני שוק חיצוניים (KPI)
     function updateKPIMetrics(query, jobs) {
         if (!kpiDashboard || !kpiCount || !kpiSalary) return;
+        
         kpiDashboard.classList.remove("hidden");
         kpiCount.textContent = `${jobs.length} openings found`;
         
         const lowerQuery = query.toLowerCase();
-        if (lowerQuery.includes("senior") || lowerQuery.includes("manager") || lowerQuery.includes("architect")) {
-            kpiSalary.textContent = "₪34,000 - ₪48,000 / mo";
+        
+        if (lowerQuery.includes("senior") || lowerQuery.includes("manager") || lowerQuery.includes("architect") || lowerQuery.includes("lead")) {
+            if (lowerQuery.includes("java") || lowerQuery.includes("machine") || lowerQuery.includes("ml")) {
+                kpiSalary.textContent = "₪38,000 - ₪52,000 / mo";
+            } else if (lowerQuery.includes("ux") || lowerQuery.includes("ui") || lowerQuery.includes("noc")) {
+                kpiSalary.textContent = "₪24,000 - ₪36,000 / mo";
+            } else {
+                kpiSalary.textContent = "₪32,000 - ₪46,000 / mo";
+            }
         } else {
-            kpiSalary.textContent = "₪14,000 - ₪21,000 / mo";
+            if (lowerQuery.includes("noc")) {
+                kpiSalary.textContent = "₪11,000 - ₪14,500 / mo";
+            } else if (lowerQuery.includes("ux") || lowerQuery.includes("ui")) {
+                kpiSalary.textContent = "₪13,500 - ₪19,000 / mo";
+            } else if (lowerQuery.includes("java")) {
+                kpiSalary.textContent = "₪16,000 - ₪23,000 / mo";
+            } else if (lowerQuery.includes("junior")) {
+                kpiSalary.textContent = "₪14,000 - ₪20,000 / mo";
+            } else {
+                kpiSalary.textContent = "₪18,500 - ₪27,000 / mo";
+            }
         }
     }
 
+    // יצירת קארדים דינמיים של משרות/חברות
     function renderJobCards(jobs) {
         searchResultsArea.innerHTML = "";
+        
         jobs.forEach((job) => {
             const card = document.createElement("div");
             card.className = "card";
             card.style.cursor = "pointer";
+            card.style.transition = "transform 0.2s, box-shadow 0.2s";
             card.style.marginBottom = "12px";
             
             const companyName = job.company?.display_name || "Tech Enterprise";
-            const locationName = job.location?.display_name || "Israel";
-            const levelBadge = job.isJunior 
-                ? `<span style="font-size: 10px; background: #f0fdf4; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: bold; border: 1px solid #bbf7d0;">Junior Friendly</span>`
-                : `<span style="font-size: 10px; background: #fff7ed; color: #c2410c; padding: 2px 6px; border-radius: 4px; font-weight: bold; border: 1px solid #fed7aa;">Experienced</span>`;
+            const locationName = job.location?.display_name || "Israel (Remote/Hybrid)";
+            
+            let levelBadge = '';
+            if (job.isJunior) {
+                levelBadge = `<span style="font-size: 10px; background: #f0fdf4; color: #166534; padding: 2px 6px; border-radius: 4px; margin-left: 8px; font-weight: bold; border: 1px solid #bbf7d0;">Junior Friendly</span>`;
+            } else {
+                levelBadge = `<span style="font-size: 10px; background: #fff7ed; color: #c2410c; padding: 2px 6px; border-radius: 4px; margin-left: 8px; font-weight: bold; border: 1px solid #fed7aa;">Senior / Experienced</span>`;
+            }
 
             card.innerHTML = `
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
-                    <h3 style="margin: 0; color: #1e293b; font-size: 15px; font-weight:700;">${job.title}</h3>
+                    <h3 style="margin: 0; color: #1e293b; font-size: 15px; font-weight:700; text-align: left;">${job.title}</h3>
                     ${levelBadge}
                 </div>
-                <p style="margin: 0 0 10px 0; color: #3b71f7; font-weight: 600; font-size: 13px;">🏢 ${companyName}</p>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
+                <p style="margin: 0 0 10px 0; color: #3b71f7; font-weight: 600; font-size: 13px; text-align: left;">🏢 ${companyName}</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; direction: ltr;">
                     <span style="font-size: 11px; color: #64748b;">📍 ${locationName}</span>
                     <span style="font-size: 11px; background: #e0f2fe; color: #0369a1; padding: 2px 8px; border-radius: 12px; font-weight: 600;">Details</span>
                 </div>
             `;
-            card.addEventListener("click", () => openJobModal(job));
+            
+            card.addEventListener("click", () => {
+                openJobModal(job);
+            });
+
             searchResultsArea.appendChild(card);
         });
     }
@@ -281,30 +328,58 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!jobDetailModal) return;
         modalJobTitle.textContent = job.title;
         modalJobCompany.textContent = job.company?.display_name || "Tech Enterprise";
+        
+        const applyUrl = job.redirect_url || "#";
+        const externalLinkBtn = job.redirect_url 
+            ? `<a href="${applyUrl}" target="_blank" class="primary-btn" style="display: block; text-align: center; text-decoration: none; margin-bottom: 0;">Apply External Link</a>`
+            : `<button class="primary-btn" onclick="alert('Application submitted successfully via SkillUp AI!')" style="margin-bottom:0;">Quick Apply Now</button>`;
+
         modalJobDetails.innerHTML = `
-            <p style="font-size:13px; color:#475569;"><strong>Location:</strong> ${job.location?.display_name || "Israel"}</p>
-            <div style="font-size: 13px; color: #334155; line-height: 1.6; margin-bottom: 20px;">${job.description}</div>
-            <button class="primary-btn" onclick="alert('Applied successfully via SkillUp AI!')" style="margin-bottom:0; width:100%;">Quick Apply Now</button>
+            <p style="margin-bottom: 12px; font-size:13px; color:#475569; text-align: left;"><strong>Location:</strong> ${job.location?.display_name || "Israel"}</p>
+            <div style="font-size: 13px; color: #334155; line-height: 1.6; margin-bottom: 20px; max-height:260px; overflow-y:auto; padding-right:5px; text-align: left;">
+                ${job.description}
+            </div>
+            ${externalLinkBtn}
         `;
+        
         jobDetailModal.classList.remove("hidden");
     }
 
-    if (closeModalBtn) closeModalBtn.addEventListener("click", () => jobDetailModal.classList.add("hidden"));
-    if (modalBarClose) modalBarClose.addEventListener("click", () => jobDetailModal.classList.add("hidden"));
-    if (searchSubmitBtn) searchSubmitBtn.addEventListener("click", handleSearch);
-    if (searchInput) searchInput.addEventListener("input", handleSearch);
+    function closeJobModal() {
+        if (jobDetailModal) jobDetailModal.classList.add("hidden");
+    }
+    if (closeModalBtn) closeModalBtn.addEventListener("click", closeJobModal);
+    if (modalBarClose) modalBarClose.addEventListener("click", closeJobModal);
 
+    if (searchSubmitBtn) {
+        searchSubmitBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (virtualKeyboard) virtualKeyboard.style.display = "none";
+            handleSearch();
+        });
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener("input", handleSearch);
+    }
+
+    // הפעלה ראשונית אוטומטית של המשרות
     handleSearch();
 
-    // ================= AI INTERVIEW SIMULATOR =================
+    // ================= AI INTERVIEW LOGIC =================
     if (generateBtn) {
         generateBtn.addEventListener('click', async () => {
             const jobDescription = jobInput.value.trim();
-            if (!jobDescription) { showError("Please paste a job description first."); return; }
+            
+            if (!jobDescription) {
+                showError("Please paste a job description first.");
+                return;
+            }
 
             errorBox.classList.add('hidden');
             resultsDiv.classList.add('hidden');
             loadingDiv.classList.remove('hidden');
+            generateBtn.disabled = true;
 
             try {
                 const response = await fetch('/api/generate', {
@@ -312,7 +387,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ jobDescription })
                 });
-                if (!response.ok) throw new Error("Generation failed.");
+
+                if (!response.ok) throw new Error("Server failed to generate questions.");
+
                 const data = await response.json();
                 
                 populateList(techList, data.technical);
@@ -321,9 +398,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 loadingDiv.classList.add('hidden');
                 resultsDiv.classList.remove('hidden');
+
             } catch (error) {
+                console.error(error);
                 loadingDiv.classList.add('hidden');
-                showError("An error occurred while connecting to the AI.");
+                showError("An error occurred while connecting to the AI. Please try again.");
+            } finally {
+                generateBtn.disabled = false;
             }
         });
     }
@@ -331,7 +412,11 @@ document.addEventListener("DOMContentLoaded", () => {
     function populateList(listElement, items) {
         if (!listElement) return;
         listElement.innerHTML = '';
-        (items || []).forEach(item => {
+        if (!items || items.length === 0) {
+            listElement.innerHTML = '<li>No questions generated.</li>';
+            return;
+        }
+        items.forEach(item => {
             const li = document.createElement('li');
             li.textContent = item;
             listElement.appendChild(li);
@@ -344,19 +429,24 @@ document.addEventListener("DOMContentLoaded", () => {
         errorBox.classList.remove('hidden');
     }
 
-    // ================= מערכת ניווט טאבים מובנית =================
+    // ================= מערכת ניווט מובנית בין מסכים =================
     const navItems = document.querySelectorAll(".nav-item");
     const views = document.querySelectorAll(".view-section");
 
     navItems.forEach(item => {
         item.addEventListener("click", () => {
             const target = item.getAttribute("data-target");
+            
             navItems.forEach(i => i.classList.remove("active"));
             item.classList.add("active");
+
             views.forEach(v => v.classList.add("hidden"));
             
             if (target === "home") document.getElementById("dashboardView").classList.remove("hidden");
-            if (target === "search") { document.getElementById("searchView").classList.remove("hidden"); handleSearch(); }
+            if (target === "search") {
+                document.getElementById("searchView").classList.remove("hidden");
+                handleSearch(); 
+            }
             if (target === "notifications") document.getElementById("notificationsView").classList.remove("hidden");
             if (target === "profile") document.getElementById("profileView").classList.remove("hidden");
 
@@ -371,80 +461,123 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("interviewView").classList.remove("hidden");
         });
     }
+    const backToHomeBtn = document.getElementById("backToHomeBtn");
+    if (backToHomeBtn) {
+        backToHomeBtn.addEventListener("click", () => {
+            views.forEach(v => v.classList.add("hidden"));
+            document.getElementById("dashboardView").classList.remove("hidden");
+            if (virtualKeyboard) virtualKeyboard.style.display = "none";
+        });
+    }
 
-    // ================= לוגיקת המקלדת הווירטואלית =================
-    if (searchInput) searchInput.addEventListener("focus", () => { currentActiveInput = searchInput; if (virtualKeyboard) virtualKeyboard.style.display = "block"; });
-    if (jobInput) jobInput.addEventListener("focus", () => { currentActiveInput = jobInput; if (virtualKeyboard) virtualKeyboard.style.display = "block"; });
+    // ================= לוגיקת המקלדת הווירטואלית המובנית =================
+    if (searchInput) {
+        searchInput.addEventListener("focus", function () {
+            currentActiveInput = searchInput;
+            if (virtualKeyboard) virtualKeyboard.style.display = "block";
+        });
+    }
 
-    document.querySelectorAll(".key").forEach(key => {
-        key.addEventListener("click", (e) => {
+    if (jobInput) {
+        jobInput.addEventListener("focus", function () {
+            currentActiveInput = jobInput;
+            if (virtualKeyboard) virtualKeyboard.style.display = "block";
+        });
+    }
+
+    const keys = document.querySelectorAll(".key");
+    keys.forEach(key => {
+        key.addEventListener("click", function (e) {
             e.preventDefault();
             if (currentActiveInput) {
                 currentActiveInput.value += key.innerText;
                 currentActiveInput.focus();
-                if (currentActiveInput === searchInput) handleSearch();
+                
+                if (currentActiveInput === searchInput) {
+                    handleSearch();
+                }
             }
         });
     });
 
     const keyDelete = document.getElementById("keyDelete");
     if (keyDelete) {
-        keyDelete.addEventListener("click", (e) => {
+        keyDelete.addEventListener("click", function (e) {
             e.preventDefault();
             if (currentActiveInput && currentActiveInput.value.length > 0) {
                 currentActiveInput.value = currentActiveInput.value.slice(0, -1);
                 currentActiveInput.focus();
-                if (currentActiveInput === searchInput) handleSearch();
+                
+                if (currentActiveInput === searchInput) {
+                    handleSearch();
+                }
             }
         });
     }
 
     const keySpace = document.getElementById("keySpace");
     if (keySpace) {
-        keySpace.addEventListener("click", (e) => {
+        keySpace.addEventListener("click", function (e) {
             e.preventDefault();
-            if (currentActiveInput) { currentActiveInput.value += " "; currentActiveInput.focus(); if (currentActiveInput === searchInput) handleSearch(); }
+            if (currentActiveInput) {
+                currentActiveInput.value += " ";
+                currentActiveInput.focus();
+                
+                if (currentActiveInput === searchInput) {
+                    handleSearch();
+                }
+            }
         });
     }
 
     const keyClose = document.getElementById("keyClose");
     if (keyClose) {
-        keyClose.addEventListener("click", (e) => {
+        keyClose.addEventListener("click", function (e) {
             e.preventDefault();
             if (virtualKeyboard) virtualKeyboard.style.display = "none";
-            if (currentActiveInput) currentActiveInput.blur();
+            if (currentActiveInput) {
+                currentActiveInput.blur();
+            }
         });
     }
 
-    // ================= פירוק הפרופיל ל-4 מרובעים נפרדים (ללא גיל) במסך הפרופיל =================
+    // ================= תוספת עיצוב: פירוק הפרופיל ל-4 מרובעים נפרדים ומעוצבים (ללא גיל) עם SVG כחול =================
     function upgradeProfileLayout() {
         const profileView = document.getElementById("profileView");
         if (!profileView) return;
 
+        // רשימת הכרטיסים המעודכנת הכוללת קוד SVG כחול מקצועי ותואם לכל קטגוריה
         const profileData = [
             { 
                 title: "Education", 
                 text: "Social Sciences & Tech Student.", 
-                icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10 5z"></path><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path></svg>` 
+                icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5-10 5z"></path><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path></svg>` 
             },
             { 
                 title: "Background", 
-                text: "Motivated university student with a strong passion for technology. Eager to learn, grow, and start a professional career.", 
-                icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>` 
+                text: "Motivated university student with a strong passion for technology. Eager to learn, grow, and start a professional career in the tech industry.", 
+                icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>` 
             },
             { 
                 title: "Target Goal", 
                 text: "Looking for my first opportunity in the Tech industry, with a focus on Software Development.", 
-                icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle></svg>` 
+                icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>` 
             }, 
             { 
                 title: "Top Skills", 
-                text: `<ul style="margin: 0; padding-left: 16px; list-style-type: disc;"><li>Python</li><li>SQL</li><li>JavaScript</li><li>Git</li></ul>`, 
-                icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>` 
+                text: `<ul style="margin: 0; padding-left: 16px; list-style-type: disc;">
+                        <li style="margin-bottom: 6px;">Python</li>
+                        <li style="margin-bottom: 6px;">SQL</li>
+                        <li style="margin-bottom: 6px;">JavaScript</li>
+                        <li style="margin-bottom: 0;">Git</li>
+                       </ul>`, 
+                icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>` 
             }
         ];
 
+        // חיפוש או יצירה של קונטיינר פנימי ייעודי לכרטיסיות המידע מתחת לכרטיס הראשי של השם והתמונה
         let profileCardsContainer = document.getElementById("profileCardsContainer");
+        
         if (!profileCardsContainer) {
             profileCardsContainer = document.createElement("div");
             profileCardsContainer.id = "profileCardsContainer";
@@ -452,37 +585,48 @@ document.addEventListener("DOMContentLoaded", () => {
             profileCardsContainer.style.padding = "0 15px";
             profileCardsContainer.style.display = "flex";
             profileCardsContainer.style.flexDirection = "column";
-            profileCardsContainer.style.gap = "14px";
+            profileCardsContainer.style.gap = "14px"; // מרווח שווה ואלגנטי בין הריבועים
 
+            // מציאת אזור המידע הישן כדי להחליף אותו לחלוטין במרובעים הנפרדים החדשים
             const oldAboutMeBlock = profileView.querySelector(".card") ? profileView.querySelectorAll(".card")[1] : null;
-            if (oldAboutMeBlock) oldAboutMeBlock.replaceWith(profileCardsContainer);
-            else profileView.appendChild(profileCardsContainer);
+            if (oldAboutMeBlock) {
+                oldAboutMeBlock.replaceWith(profileCardsContainer);
+            } else {
+                profileView.appendChild(profileCardsContainer);
+            }
         }
 
+        // ניקוי ובנייה מחדש של הריבועים הבודדים
         profileCardsContainer.innerHTML = "";
+
         profileData.forEach(item => {
             const squareCard = document.createElement("div");
+            
+            // יישום סגנון מרובע עצמאי ונקי לכל סעיף בנפרד (רקע לבן, פינות מעוגלות, צל עדין ושוליים)
             squareCard.style.backgroundColor = "#ffffff";
             squareCard.style.borderRadius = "12px";
             squareCard.style.padding = "16px";
-            squareCard.style.boxShadow = "0 4px 6px -1px rgba(0,0,0,0.05)";
+            squareCard.style.boxShadow = "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)";
             squareCard.style.border = "1px solid #e2e8f0";
             squareCard.style.textAlign = "left"; 
+            squareCard.style.direction = "ltr";
 
             squareCard.innerHTML = `
                 <div style="display: flex; align-items: center; margin-bottom: 8px; gap: 10px;">
-                    <div style="background: #eff6ff; width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; border-radius: 8px;">
+                    <div style="background: #eff6ff; width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; border-radius: 8px; flex-shrink: 0;">
                         ${item.icon}
                     </div>
-                    <strong style="color: #1e293b; font-size: 14px; font-weight:700;">${item.title}:</strong>
+                    <strong style="color: #1e293b; font-size: 14px; font-weight: 700; font-family: sans-serif;">${item.title}:</strong>
                 </div>
-                <div style="margin: 0; color: #475569; font-size: 13px; line-height: 1.5; padding-left: 42px;">
+                <div style="margin: 0; color: #475569; font-size: 13px; line-height: 1.5; font-family: sans-serif; padding-left: 42px;">
                     ${item.text}
                 </div>
             `;
+            
             profileCardsContainer.appendChild(squareCard);
         });
     }
 
+    // הפעלת שדרוג הפרופיל מיד עם טעינת האפליקציה לשמירה על נראות מושלמת
     upgradeProfileLayout();
 });
