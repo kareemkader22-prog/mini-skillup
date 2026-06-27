@@ -549,8 +549,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // ה-Age הוסר לחלוטין מרשימת הכרטיסים
         const profileData = [
             { title: "Education", text: "Social Sciences & Tech Student.", icon: "🎓" },
-            { title: "Background", text: "Worked for 3 years at a supermarket to self-fund and finance my academic degree. High motivation, responsible, and determined to succeed.", icon: "💼" },
-            { title: "Target Goal", text: "Actively searching for the first entry-level Junior position in tech. Looking for practical industry guidance to bridge the gap between academic theory and real-world workplace demands.", icon: "🎯" }
+            { title: "Background", text: "Motivated university student with a strong passion for technology. Eager to learn, grow, and start a professional career in the tech industry.", icon: "💼" },
+            { title: "Target Goal", text: "Looking for my first opportunity in the Tech industry, with a focus on Software Development.", icon: "🎯" }
         ];
 
         // חיפוש או יצירה של קונטיינר פנימי ייעודי לכרטיסיות המידע מתחת לכרטיס הראשי של השם והתמונה
