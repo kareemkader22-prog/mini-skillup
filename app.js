@@ -35,131 +35,93 @@ document.addEventListener("DOMContentLoaded", () => {
     // משתנה עזר לשמירת השדה שנמצא כרגע בפוקוס
     let currentActiveInput = null;
 
-    // ================= שדרוג תפריט המבורגר למסך מלא עם קארדים מרובעים ותוספות =================
+    // ================= עדכון תפריט מובייל למסך מלא בעיצוב נקי (כמו Enhancv) =================
     if (menuBtn && dropdownMenu) {
-        // הגדרת המודל שיתפרס על כל גוף המכשיר בצורה נקייה
+        // הגדרת המכולה הראשית של התפריט שתיפתח על כל המסך מלמעלה
         dropdownMenu.style.position = "absolute";
         dropdownMenu.style.top = "0";
         dropdownMenu.style.left = "0";
         dropdownMenu.style.width = "100%";
         dropdownMenu.style.height = "100%";
         dropdownMenu.style.backgroundColor = "#ffffff";
-        dropdownMenu.style.zIndex = "9999";
-        dropdownMenu.style.padding = "24px 20px";
+        dropdownMenu.style.zIndex = "99999";
+        dropdownMenu.style.padding = "24px 24px";
         dropdownMenu.style.boxSizing = "border-box";
         dropdownMenu.style.flexDirection = "column";
         dropdownMenu.style.display = "none";
-        dropdownMenu.style.borderRadius = "32px"; // שמירה על קימור המסך של המכשיר
+        dropdownMenu.style.borderRadius = "32px"; // התאמה לקימור המכשיר
         dropdownMenu.style.overflowY = "auto";
 
-        // בניית ה-HTML המדויק עם ה-X לסגירה וגריד הפיצ'רים הריבועיים המקוריים והחדשים
+        // יצירת מבנה הניווט החלק עם שורות, חצים ו-X לסגירה בצד ימין
         dropdownMenu.innerHTML = `
-            <!-- שורת כותרת עליונה עם כפתור סגירה עגול כמו בעיצוב -->
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 5px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <div style="background: #eff6ff; width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; border-radius: 8px;">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                     </div>
-                    <span style="font-size: 16px; font-weight: 800; color: #1e293b;">SkillUp Platform</span>
+                    <span style="font-size: 18px; font-weight: 800; color: #1e293b; font-family: system-ui;">SkillUp AI</span>
                 </div>
-                <!-- כפתור ה-X המבוקש לסגירה החלון -->
-                <button id="closeFullscreenMenu" style="background: #f1f5f9; border: none; width: 36px; height: 36px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; color: #475569; font-weight: bold; font-size: 14px;">✕</button>
+                <button id="closeFullscreenMenu" style="background: none; border: none; font-size: 22px; cursor: pointer; color: #1e293b; padding: 5px; font-weight: 300;">✕</button>
             </div>
 
-            <!-- כותרת פנימית מזמינה -->
-            <div style="margin-bottom: 20px; text-align: left;">
-                <h2 style="font-size: 20px; font-weight: 800; color: #1e293b; margin: 0 0 4px 0; line-height: 1.3;">Let's improve your chances of getting hired today.</h2>
-                <p style="font-size: 13px; color: #64748b; margin: 0;">Quickly switch between available AI modules.</p>
-            </div>
-
-            <!-- גריד של קארדים מרובעים (2 בעמודה כמו במסך הראשי) -->
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 20px;">
+            <div style="display: flex; flex-direction: column; width: 100%;">
                 
-                <!-- 1. Portfolio Analyzer -->
-                <div class="menu-card-item" data-target="home" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; min-height: 140px; text-align: left;">
-                    <div style="background: #eff6ff; width: 34px; height: 34px; display: flex; justify-content: center; align-items: center; border-radius: 10px; margin-bottom: 12px;">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-                    </div>
-                    <div>
-                        <h4 style="margin: 0 0 4px 0; font-size: 13px; font-weight: 700; color: #1e293b;">Portfolio Analyzer</h4>
-                        <p style="margin: 0; font-size: 10px; color: #64748b; line-height: 1.3;">Analyze GitHub projects and receive an AI score.</p>
-                    </div>
+                <div class="menu-linear-item" data-target="home" style="display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;">
+                    <span style="font-size: 16px; font-weight: 600; color: #1e293b;">Portfolio Analyzer</span>
+                    <span style="color: #94a3b8; font-size: 16px; font-weight: 400;">›</span>
                 </div>
 
-                <!-- 2. Resume Checker -->
-                <div class="menu-card-item" data-target="home" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; min-height: 140px; text-align: left;">
-                    <div style="background: #eff6ff; width: 34px; height: 34px; display: flex; justify-content: center; align-items: center; border-radius: 10px; margin-bottom: 12px;">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-                    </div>
-                    <div>
-                        <h4 style="margin: 0 0 4px 0; font-size: 13px; font-weight: 700; color: #1e293b;">Resume Checker</h4>
-                        <p style="margin: 0; font-size: 10px; color: #64748b; line-height: 1.3;">Upload your resume and receive instant AI feedback.</p>
-                    </div>
+                <div class="menu-linear-item" data-target="home" style="display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;">
+                    <span style="font-size: 16px; font-weight: 600; color: #1e293b;">Resume Checker</span>
+                    <span style="color: #94a3b8; font-size: 16px; font-weight: 400;">›</span>
                 </div>
 
-                <!-- 3. Interview Generator -->
-                <div id="menuCardInterview" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; min-height: 140px; text-align: left;">
-                    <div style="background: #eff6ff; width: 34px; height: 34px; display: flex; justify-content: center; align-items: center; border-radius: 10px; margin-bottom: 12px;">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2"><path d="M12 1c-1.66 0-3 1.34-3 3v7c0 1.66 1.34 3 3 3s3-1.34 3-3V4c0-1.66-1.34-3-3-3z"></path><path d="M19 10v1a7 7 0 0 1-14 0v-1"></path></svg>
-                    </div>
-                    <div>
-                        <h4 style="margin: 0 0 4px 0; font-size: 13px; font-weight: 700; color: #1e293b;">Interview Generator</h4>
-                        <p style="margin: 0; font-size: 10px; color: #64748b; line-height: 1.3;">Generate customized interview questions.</p>
-                    </div>
+                <div id="linearMenuInterview" style="display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;">
+                    <span style="font-size: 16px; font-weight: 600; color: #1e293b;">Interview Generator</span>
+                    <span style="color: #94a3b8; font-size: 16px; font-weight: 400;">›</span>
                 </div>
 
-                <!-- 4. Assignment DB -->
-                <div class="menu-card-item" data-target="home" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; min-height: 140px; text-align: left;">
-                    <div style="background: #eff6ff; width: 34px; height: 34px; display: flex; justify-content: center; align-items: center; border-radius: 10px; margin-bottom: 12px;">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 22"></polygon></svg>
-                    </div>
-                    <div>
-                        <h4 style="margin: 0 0 4px 0; font-size: 13px; font-weight: 700; color: #1e293b;">Assignment DB</h4>
-                        <p style="margin: 0; font-size: 10px; color: #64748b; line-height: 1.3;">Access real-world technical assignments.</p>
-                    </div>
+                <div class="menu-linear-item" data-target="home" style="display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;">
+                    <span style="font-size: 16px; font-weight: 600; color: #1e293b;">Assignment DB</span>
+                    <span style="color: #94a3b8; font-size: 16px; font-weight: 400;">›</span>
                 </div>
 
-                <!-- 5. פיצ'ר מבוקש חדש: ATS Optimization -->
-                <div style="background: #f8fafc; border: 1px solid #3b71f7; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; min-height: 140px; text-align: left; position: relative;" onclick="alert('ATS Keyword Match Engine coming in next release!')">
-                    <span style="position: absolute; top: 10px; right: 10px; background: #3b71f7; color: white; font-size: 8px; font-weight: 800; padding: 2px 6px; border-radius: 20px;">NEW</span>
-                    <div style="background: #e0f2fe; width: 34px; height: 34px; display: flex; justify-content: center; align-items: center; border-radius: 10px; margin-bottom: 12px;">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;" onclick="alert('ATS Keyword Match Engine coming soon!')">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 16px; font-weight: 600; color: #1e293b;">ATS Optimization</span>
+                        <span style="background: #e0f2fe; color: #0369a1; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">PRO</span>
                     </div>
-                    <div>
-                        <h4 style="margin: 0 0 4px 0; font-size: 13px; font-weight: 700; color: #1e293b;">ATS Optimizer</h4>
-                        <p style="margin: 0; font-size: 10px; color: #64748b; line-height: 1.3;">Optimize resume format against company system filters.</p>
-                    </div>
+                    <span style="color: #94a3b8; font-size: 16px; font-weight: 400;">›</span>
                 </div>
 
-                <!-- 6. פיצ'ר מבוקש חדש: Privacy & Safety -->
-                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; min-height: 140px; text-align: left;" onclick="alert('Privacy Controls: Your parsed data remains strictly confidential.')">
-                    <div style="background: #f1f5f9; width: 34px; height: 34px; display: flex; justify-content: center; align-items: center; border-radius: 10px; margin-bottom: 12px;">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                    </div>
-                    <div>
-                        <h4 style="margin: 0 0 4px 0; font-size: 13px; font-weight: 700; color: #1e293b;">Privacy & Safety</h4>
-                        <p style="margin: 0; font-size: 10px; color: #64748b; line-height: 1.3;">Manage and clear your personal file tracking logs securely.</p>
-                    </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;" onclick="alert('Privacy Controls: Stored data is fully encrypted.')">
+                    <span style="font-size: 16px; font-weight: 600; color: #1e293b;">Privacy & Settings</span>
+                    <span style="color: #94a3b8; font-size: 16px; font-weight: 400;">›</span>
                 </div>
 
+            </div>
+
+            <div style="margin-top: auto; padding-top: 40px; display: flex; flex-direction: column; gap: 12px; width: 100%;">
+                <button class="primary-btn" style="margin: 0; width: 100%; border-radius: 8px; padding: 14px; font-weight: 600;" onclick="alert('Welcome back, Yosef!')">Sign In</button>
+                <button style="width: 100%; background: #f8fafc; border: 1px solid #e2e8f0; color: #475569; padding: 14px; border-radius: 8px; font-weight: 600; cursor: pointer;" onclick="alert('Starting fresh workflow setup...')">Get Started</button>
             </div>
         `;
 
-        // אירוע פתיחה בלחיצה על תפריט ההמבורגר
+        // פתיחת התפריט בלחיצה על כפתור ההמבורגר
         menuBtn.addEventListener("click", (e) => {
             e.stopPropagation();
             dropdownMenu.style.display = "flex";
         });
 
-        // אירוע סגירה דרך ה-✕ המבוקש
+        // סגירת התפריט בלחיצה על כפתור ה-✕
         document.getElementById("closeFullscreenMenu").addEventListener("click", (e) => {
             e.stopPropagation();
             dropdownMenu.style.display = "none";
         });
 
-        // מעבר בין מסכים בלחיצה על הקארדים
-        const menuCardItems = dropdownMenu.querySelectorAll(".menu-card-item");
-        menuCardItems.forEach(item => {
+        // ניווט בלחיצה על השורות
+        const menuLinearItems = dropdownMenu.querySelectorAll(".menu-linear-item");
+        menuLinearItems.forEach(item => {
             item.addEventListener("click", () => {
                 const target = item.getAttribute("data-target");
                 dropdownMenu.style.display = "none";
@@ -168,8 +130,8 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
-        // קישור מותאם לקארד הראיונות במסך המלא
-        document.getElementById("menuCardInterview").addEventListener("click", () => {
+        // ניווט מותאם אישית לטאב הראיונות
+        document.getElementById("linearMenuInterview").addEventListener("click", () => {
             dropdownMenu.style.display = "none";
             const openInterviewBtn = document.getElementById("openInterviewBtn");
             if (openInterviewBtn) openInterviewBtn.click();
@@ -219,41 +181,12 @@ document.addEventListener("DOMContentLoaded", () => {
             location: { display_name: "Haifa" }, 
             isJunior: false,
             description: `<strong>Role Overview:</strong><br>We are seeking a Senior Java Architect to spearhead the structural redesign of our enterprise manufacturing data pipelines...`
-        },
-        { 
-            title: "UI/UX Product Design Lead", 
-            company: { display_name: "Wix.com" }, 
-            location: { display_name: "Tel Aviv" }, 
-            isJunior: false,
-            description: `<strong>Role Overview:</strong><br>Take full design ownership of a global product line used by over 50 million creators...`
-        },
-        { 
-            title: "NOC & Technical Operations Manager", 
-            company: { display_name: "Palo Alto Networks" }, 
-            location: { display_name: "Tel Aviv" }, 
-            isJunior: false,
-            description: `<strong>Role Overview:</strong><br>We are searching for a seasoned NOC Manager to direct our global 24/7 technical incident response...`
-        },
-        { 
-            title: "Senior Machine Learning Engineer", 
-            company: { display_name: "Google" }, 
-            location: { display_name: "Tel Aviv-Yafo" }, 
-            isJunior: false,
-            description: `<strong>Role Overview:</strong><br>We are looking for an expert ML Engineer to build scalable infrastructure for training and deploying deep learning models...` 
-        },
-        { 
-            title: "Principal Python Backend Engineer", 
-            company: { display_name: "Check Point" }, 
-            location: { display_name: "Tel Aviv-Yafo" }, 
-            isJunior: false,
-            description: `<strong>Role Overview:</strong><br>Join our backend infrastructure security team as a Principal Engineer driven by Python...` 
         }
     ];
 
     // פונקציית החיפוש
     async function handleSearch() {
         let query = searchInput.value.trim();
-        
         if (!query) {
             const juniorJobs = fallbackJobs.filter(job => job.isJunior === true);
             updateKPIMetrics("Junior", juniorJobs);
@@ -275,12 +208,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await response.json();
             const jobs = data.results || [];
             
-            if (jobs.length === 0) {
-                useFallbackSearch(query);
-            } else {
-                updateKPIMetrics(query, jobs);
-                renderJobCards(jobs);
-            }
+            if (jobs.length === 0) { useFallbackSearch(query); } 
+            else { updateKPIMetrics(query, jobs); renderJobCards(jobs); }
         } catch (error) {
             useFallbackSearch(query);
         }
@@ -435,13 +364,6 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("interviewView").classList.remove("hidden");
         });
     }
-    const backToHomeBtn = document.getElementById("backToHomeBtn");
-    if (backToHomeBtn) {
-        backToHomeBtn.addEventListener("click", () => {
-            views.forEach(v => v.classList.add("hidden"));
-            document.getElementById("dashboardView").classList.remove("hidden");
-        });
-    }
 
     // ================= לוגיקת המקלדת הווירטואלית =================
     if (searchInput) searchInput.addEventListener("focus", () => { currentActiveInput = searchInput; if (virtualKeyboard) virtualKeyboard.style.display = "block"; });
@@ -487,7 +409,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ================= תוספת עיצוב: פירוק הפרופיל ל-4 מרובעים נפרדים ומעוצבים (ללא גיל) עם SVG כחול =================
+    // ================= פירוק הפרופיל ל-4 מרובעים נפרדים (ללא גיל) במסך הפרופיל =================
     function upgradeProfileLayout() {
         const profileView = document.getElementById("profileView");
         if (!profileView) return;
@@ -500,7 +422,7 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             { 
                 title: "Background", 
-                text: "Motivated university student with a strong passion for technology. Eager to learn, grow, and start a professional career in the tech industry.", 
+                text: "Motivated university student with a strong passion for technology. Eager to learn, grow, and start a professional career.", 
                 icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>` 
             },
             { 
