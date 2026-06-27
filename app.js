@@ -550,7 +550,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const profileData = [
             { title: "Education", text: "Social Sciences & Tech Student.", icon: "🎓" },
             { title: "Background", text: "Motivated university student with a strong passion for technology. Eager to learn, grow, and start a professional career in the tech industry.", icon: "💼" },
-            { title: "Target Goal", text: "Looking for my first opportunity in the Tech industry, with a focus on Software Development.", icon: "🎯" }
+            { title: "Target Goal", text: "Looking for my first opportunity in the Tech industry, with a focus on Software Development.", icon: "🎯" }, 
+            { 
+                title: "Top Skills", 
+                text: `<ul style="margin: 0; padding-left: 16px; list-style-type: disc;">
+                        <li>Python</li>
+                        <li>SQL</li>
+                        <li>JavaScript</li>
+                        <li>Git</li>
+                       </ul>`, 
+                icon: "⚡" 
+            }
         ];
 
         // חיפוש או יצירה של קונטיינר פנימי ייעודי לכרטיסיות המידע מתחת לכרטיס הראשי של השם והתמונה
