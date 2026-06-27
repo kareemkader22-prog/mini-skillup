@@ -35,51 +35,67 @@ document.addEventListener("DOMContentLoaded", () => {
     // משתנה עזר לשמירת השדה שנמצא כרגע בפוקוס
     let currentActiveInput = null;
 
-    // ================= לוגיקת תפריט מסך מלא מתוקנת =================
+    // ================= לוגיקת תפריט מסך מלא בתוך האפליקציה בלבד =================
     if (menuBtn && dropdownMenu) {
         
-        // הגדרת סגנונות מוחלטים כדי שהתפריט יצוף מעל ה-Header ויכסה את כל המסך
+        // הגדרת סגנונות מוחלטים כדי שהתפריט יוגבל רק למסגרת הנייד של האפליקציה
         Object.assign(dropdownMenu.style, {
-            position: "fixed",
+            position: "absolute",
             top: "0",
             left: "0",
-            width: "100vw",
-            height: "100vh",
+            width: "100%",
+            height: "100%",
             backgroundColor: "rgba(255, 255, 255, 0.99)", // רקע לבן אטום ונקי
-            zIndex: "99999", // מבטיח שהתפריט ישב מעל כל אלמנט אחר בדף
+            zIndex: "99999", // מעל הכול בתוך הנייד
             display: "none", // מוסתר כברירת מחדל
             flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "22px",
-            padding: "30px",
+            justifyContent: "flex-start", // מתחיל מלמעלה
+            alignItems: "stretch", // נמתח לצדדים בשביל נוחות לחיצה
+            padding: "80px 40px 40px 40px", // מרווח מלמעלה בשביל ה-X ומרווח צדי
             boxSizing: "border-box"
         });
 
-        // בנייה מחדש של תוכן התפריט
+        // בנייה מחדש של תוכן התפריט - יישור לשמאל וקווים מפרידים מיוחדים
         dropdownMenu.innerHTML = `
-            <!-- כפתור סגירה (X) בפינה העליונה -->
-            <div id="closeMenuBtn" style="position: absolute; top: 25px; right: 30px; font-size: 35px; cursor: pointer; color: #1e293b; font-weight: bold; user-select: none;">&times;</div>
+            <div id="closeMenuBtn" style="position: absolute; top: 20px; right: 25px; font-size: 32px; cursor: pointer; color: #1e293b; font-weight: bold; user-select: none;">&times;</div>
             
-            <!-- כפתורי הניווט הקיימים -->
-            <div class="menu-fullscreen-item" data-target="home" style="font-size: 22px; font-weight: 600; color: #1e293b; cursor: pointer; padding: 10px 20px;">💻 Portfolio Analyzer</div>
-            <div class="menu-fullscreen-item" data-target="search" style="font-size: 22px; font-weight: 600; color: #1e293b; cursor: pointer; padding: 10px 20px;">📄 Resume Checker</div>
-            <div class="menu-fullscreen-item" id="menuInterviewPrep" style="font-size: 22px; font-weight: 600; color: #1e293b; cursor: pointer; padding: 10px 20px;">🎙️ Interview Prep</div>
-            <div class="menu-fullscreen-item" style="font-size: 22px; font-weight: 600; color: #1e293b; cursor: pointer; padding: 10px 20px;">🗄️ Assignment DB</div>
+            <div class="menu-fullscreen-item" data-target="home" style="font-size: 19px; font-weight: 600; color: #1e293b; cursor: pointer; padding: 12px 10px; text-align: left; direction: ltr;">💻 Portfolio Analyzer</div>
+            <div style="height: 1px; background: linear-gradient(to right, #3b71f7, transparent); margin: 2px 10px;"></div>
             
-            <hr style="width: 50%; border: 0; border-top: 1px solid #e2e8f0; margin: 15px 0;">
+            <div class="menu-fullscreen-item" data-target="search" style="font-size: 19px; font-weight: 600; color: #1e293b; cursor: pointer; padding: 12px 10px; text-align: left; direction: ltr;">📄 Resume Checker</div>
+            <div style="height: 1px; background: linear-gradient(to right, #3b71f7, transparent); margin: 2px 10px;"></div>
             
-            <!-- האפשרויות החדשות שהוספנו -->
-            <div class="menu-fullscreen-item" id="menuATSChecker" style="font-size: 22px; font-weight: 600; color: #166534; cursor: pointer; padding: 10px 20px;">📊 ATS Optimization</div>
-            <div class="menu-fullscreen-item" id="menuPrivacy" style="font-size: 22px; font-weight: 600; color: #475569; cursor: pointer; padding: 10px 20px;">🔒 Privacy Settings</div>
-            <div class="menu-fullscreen-item" id="menuLogout" style="font-size: 22px; font-weight: 700; color: #dc2626; cursor: pointer; padding: 10px 20px; margin-top: 15px;">🚪 Logout</div>
+            <div class="menu-fullscreen-item" id="menuInterviewPrep" style="font-size: 19px; font-weight: 600; color: #1e293b; cursor: pointer; padding: 12px 10px; text-align: left; direction: ltr;">🎙️ Interview Prep</div>
+            <div style="height: 1px; background: linear-gradient(to right, #3b71f7, transparent); margin: 2px 10px;"></div>
+            
+            <div class="menu-fullscreen-item" style="font-size: 19px; font-weight: 600; color: #1e293b; cursor: pointer; padding: 12px 10px; text-align: left; direction: ltr;">🗄️ Assignment DB</div>
+            
+            <div style="margin: 25px 10px; height: 2px; background: #e2e8f0; border-radius: 2px;"></div>
+            
+            <div class="menu-fullscreen-item" id="menuATSChecker" style="font-size: 19px; font-weight: 600; color: #166534; cursor: pointer; padding: 12px 10px; text-align: left; direction: ltr;">📊 ATS Optimization</div>
+            <div style="height: 1px; background: linear-gradient(to right, #166534, transparent); margin: 2px 10px;"></div>
+            
+            <div class="menu-fullscreen-item" id="menuPrivacy" style="font-size: 19px; font-weight: 600; color: #475569; cursor: pointer; padding: 12px 10px; text-align: left; direction: ltr;">🔒 Privacy Settings</div>
+            <div style="height: 1px; background: linear-gradient(to right, #475569, transparent); margin: 2px 10px;"></div>
+            
+            <div class="menu-fullscreen-item" id="menuLogout" style="font-size: 19px; font-weight: 700; color: #dc2626; cursor: pointer; padding: 12px 10px; text-align: left; direction: ltr; margin-top: 10px;">🚪 Logout</div>
         `;
 
-        // אפקט מעבר קטן בלחיצה על האלמנטים
+        // אפקט מעבר קטן ואלגנטי בלחיצה
         dropdownMenu.querySelectorAll(".menu-fullscreen-item").forEach(item => {
-            item.style.transition = "transform 0.1s ease";
+            item.style.transition = "all 0.15s ease";
+            item.style.borderRadius = "6px";
+            
+            item.addEventListener("mouseenter", () => {
+                item.style.backgroundColor = "#f8fafc";
+                item.style.paddingLeft = "15px";
+            });
+            item.addEventListener("mouseleave", () => {
+                item.style.backgroundColor = "transparent";
+                item.style.paddingLeft = "10px";
+            });
             item.addEventListener("click", () => {
-                item.style.transform = "scale(0.95)";
+                item.style.transform = "scale(0.98)";
                 setTimeout(() => item.style.transform = "scale(1)", 100);
             });
         });
