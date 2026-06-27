@@ -375,19 +375,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
      
-    // יצירת קארדים דינמיים עם מבנה הריבוע הכפול המדויק מתוך image_aaaee5.png המשלב את תמונת החברה
+    // פונקציה שמייצרת את קארד המשרה עם תמונת הלוגו הרשמית והצבעונית של החברה במקום האותיות הכלליות!
     function renderJobCards(jobs) {
         searchResultsArea.innerHTML = "";
         
-        // מילון מובנה הכולל את הקידומת הדיפולטיבית וגם את תמונת הלוגו הרשמית של החברה
+        // מילון מובנה שממפה את החברה ללוגו הרשמי והצבעוני שלה
         const companyAssets = {
-            "wix.com": { initials: "WI", logo: "https://logo.clearbit.com/wix.com" },
-            "google": { initials: "GO", logo: "https://logo.clearbit.com/google.com" },
-            "palo alto networks": { initials: "PN", logo: "https://logo.clearbit.com/paloaltonetworks.com" },
-            "mobileye": { initials: "MO", logo: "https://logo.clearbit.com/mobileye.com" },
-            "intel": { initials: "IN", logo: "https://logo.clearbit.com/intel.com" },
-            "check point": { initials: "CP", logo: "https://logo.clearbit.com/checkpoint.com" },
-            "cyberark": { initials: "CA", logo: "https://logo.clearbit.com/cyberark.com" }
+            "wix.com": { logo: "https://logo.clearbit.com/wix.com" },
+            "google": { logo: "https://logo.clearbit.com/google.com" },
+            "palo alto networks": { logo: "https://logo.clearbit.com/paloaltonetworks.com" },
+            "mobileye": { logo: "https://logo.clearbit.com/mobileye.com" },
+            "intel": { logo: "https://logo.clearbit.com/intel.com" },
+            "check point": { logo: "https://logo.clearbit.com/checkpoint.com" },
+            "cyberark": { logo: "https://logo.clearbit.com/cyberark.com" }
         };
         
         jobs.forEach((job) => {
@@ -407,12 +407,17 @@ document.addEventListener("DOMContentLoaded", () => {
             const compKey = companyName.toLowerCase().trim();
             const asset = companyAssets[compKey];
             
-            let initials = asset ? asset.initials : companyName.substring(0, 2).toUpperCase();
-            
-            // תנאי פנימי בתוך הריבוע האפרפר: מציג את תמונת החברה אם היא קיימת, ואם לא - חוזר לאותיות המקוריות מ-image_aaaee5.png
+            // ברירת מחדל של ראשי התיבות למקרה שאין תמונה
+            let initials = companyName.substring(0, 2).toUpperCase();
             let innerContent = `<span style="font-family: sans-serif; font-size: 13px; font-weight: 600; color: #94a3b8; letter-spacing: 0.3px;">${initials}</span>`;
+            
+            // עדכון קריטי: החלפת האותיות הכלליות בתמונת הלוגו הרשמית!
             if (asset && asset.logo) {
                 innerContent = `<img src="${asset.logo}" alt="${companyName} Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: 4px;" onerror="this.replaceWith(document.createTextNode('${initials}'))">`;
+            } else {
+                // תמיכה דינמית לחברות מחוץ למאגר - משיכת תמונה לפי שם הדומיין במידה וקיים
+                const cleanDomain = compKey.replace(/\s+/g, '') + ".com";
+                innerContent = `<img src="https://logo.clearbit.com/${cleanDomain}" alt="${companyName} Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: 4px;" onerror="this.innerHTML='<span style=\'color:#94a3b8; font-weight:600;\'>${initials}</span>'">`;
             }
             
             let levelBadge = '';
@@ -423,15 +428,15 @@ document.addEventListener("DOMContentLoaded", () => {
             }
      
             card.innerHTML = `
-                <!-- הריבוע החיצוני הלבן המעוגל בדיוק לפי image_aaaee5.png -->
+                <!-- הריבוע החיצוני המעוגל בדיוק כמו בצילום המסך image_dc8d3e.jpg -->
                 <div style="width: 54px; height: 54px; border: 1px solid #e2e8f0; border-radius: 14px; display: flex; justify-content: center; align-items: center; background: #ffffff; flex-shrink: 0;">
-                    <!-- הריבוע הפנימי האפרפר העמום שמציג את הלוגו או את האותיות -->
+                    <!-- הריבוע הפנימי שמציג כעת בגאווה את הלוגו/תמונת החברה הרשמית -->
                     <div style="width: 38px; height: 38px; background: #f1f5f9; border-radius: 6px; display: flex; justify-content: center; align-items: center; overflow: hidden; padding: 2px; box-sizing: border-box;">
                         ${innerContent}
                     </div>
                 </div>
 
-                <!-- תוכן המשרה המשובץ מימין ללוגו (במבנה ltr תואם) -->
+                <!-- תוכן המשרה המשובץ מימין לריבוע התמונה -->
                 <div style="flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0;">
                     <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
                         <h3 style="margin: 0; color: #1e293b; font-size: 15px; font-weight: 700; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${job.title}</h3>
@@ -672,7 +677,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
      
-    // ================= תוספת עיצוב: פירוק הפרופיל ל-4 מרובעים נפרדים ومעוצבים (ללא גיל) עם SVG כחול =================
+    // ================= פירוק הפרופיל ל-4 מרובעים נפרדים מעוצבים עם SVG כחול =================
     function upgradeProfileLayout() {
         const profileView = document.getElementById("profileView");
         if (!profileView) return;
