@@ -202,7 +202,6 @@ document.addEventListener("DOMContentLoaded", () => {
     async function handleSearch() {
         let query = searchInput.value.trim();
         
-        // אם השדה ריק - מציגים אוטומטית רק את משרות הג'וניור
         if (!query) {
             const juniorJobs = fallbackJobs.filter(job => job.isJunior === true);
             updateKPIMetrics("Junior", juniorJobs);
@@ -217,7 +216,6 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>`;
 
         try {
-            // ניסיון פנייה ל-API חיצוני
             const url = `https://api.adzuna.com/v1/api/jobs/il/search/1?app_id=c49747cb&app_key=9b83bba0ba50b070bc064a787cd04052&what=${encodeURIComponent(query)}`;
             const response = await fetch(url);
             if (!response.ok) throw new Error("API Network issue or CORS block");
@@ -237,7 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // פונקציית סינון חכמה מתוך מאגר הגיבוי המלא (ג'וניור + בכירים)
+    // פונקציית סינון חכמה מתוך מאגר הגיבוי המלא
     function useFallbackSearch(query) {
         const lowerQuery = query.toLowerCase();
         
@@ -247,14 +245,13 @@ document.addEventListener("DOMContentLoaded", () => {
             job.description.toLowerCase().includes(lowerQuery)
         );
 
-        // אם חיפשו משהו שלא קיים בכלל, נשאיר את רשימת הג'וניורים כדי שהמסך תמיד יהיה רלוונטי
         const finalJobs = filteredJobs.length > 0 ? filteredJobs : fallbackJobs.filter(job => job.isJunior === true);
 
         updateKPIMetrics(query, finalJobs);
         renderJobCards(finalJobs);
     }
 
-    // פונקציה שמחשבת ומציגה נתוני שוק חיצוניים (KPI) ומעדכנת שכר בהתאם לבכירות המשרה
+    // פונקציה שמחשבת ומציגה נתוני שוק חיצוניים (KPI)
     function updateKPIMetrics(query, jobs) {
         if (!kpiDashboard || !kpiCount || !kpiSalary) return;
         
@@ -263,7 +260,6 @@ document.addEventListener("DOMContentLoaded", () => {
         
         const lowerQuery = query.toLowerCase();
         
-        // התאמת טווחי שכר משמעותיים למשרות בכירות (Senior/Lead/Manager)
         if (lowerQuery.includes("senior") || lowerQuery.includes("manager") || lowerQuery.includes("architect") || lowerQuery.includes("lead")) {
             if (lowerQuery.includes("java") || lowerQuery.includes("machine") || lowerQuery.includes("ml")) {
                 kpiSalary.textContent = "₪38,000 - ₪52,000 / mo";
@@ -273,7 +269,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 kpiSalary.textContent = "₪32,000 - ₪46,000 / mo";
             }
         } else {
-            // טווחי שכר למשרות רגילות וג'וניורס
             if (lowerQuery.includes("noc")) {
                 kpiSalary.textContent = "₪11,000 - ₪14,500 / mo";
             } else if (lowerQuery.includes("ux") || lowerQuery.includes("ui")) {
@@ -302,7 +297,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const companyName = job.company?.display_name || "Tech Enterprise";
             const locationName = job.location?.display_name || "Israel (Remote/Hybrid)";
             
-            // עיצוב תגית שונה למשרות ג'וניור ומשרות בכירים/סניור
             let levelBadge = '';
             if (job.isJunior) {
                 levelBadge = `<span style="font-size: 10px; background: #f0fdf4; color: #166534; padding: 2px 6px; border-radius: 4px; margin-left: 8px; font-weight: bold; border: 1px solid #bbf7d0;">Junior Friendly</span>`;
@@ -369,7 +363,7 @@ document.addEventListener("DOMContentLoaded", () => {
         searchInput.addEventListener("input", handleSearch);
     }
 
-    // הפעלה ראשונית אוטומטית - מציגה ישר את משרות הג'וניורים!
+    // הפעלה ראשונית אוטומטית של המשרות
     handleSearch();
 
     // ================= AI INTERVIEW LOGIC =================
@@ -456,7 +450,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (target === "notifications") document.getElementById("notificationsView").classList.remove("hidden");
             if (target === "profile") document.getElementById("profileView").classList.remove("hidden");
 
-            // סגירת מקלדת במעבר מסך כדי שלא תישאר פתוחה סתם
             if (virtualKeyboard) virtualKeyboard.style.display = "none";
         });
     });
@@ -477,9 +470,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ================= לוגיקת המקלדת הווירטואלית החדשה =================
-
-    // פתיחת המקלדת בעת מיקוד (Focus) בשדה החיפוש
+    // ================= לוגיקת המקלדת הווירטואלית המובנית =================
     if (searchInput) {
         searchInput.addEventListener("focus", function () {
             currentActiveInput = searchInput;
@@ -487,7 +478,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // פתיחת המקלדת בעת מיקוד (Focus) בשדה ה-Interview Generator
     if (jobInput) {
         jobInput.addEventListener("focus", function () {
             currentActiveInput = jobInput;
@@ -495,16 +485,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // האזנה ללחיצה על המקשים הרגילים (אותיות ותווים)
     const keys = document.querySelectorAll(".key");
     keys.forEach(key => {
         key.addEventListener("click", function (e) {
             e.preventDefault();
             if (currentActiveInput) {
                 currentActiveInput.value += key.innerText;
-                currentActiveInput.focus(); // החזרת המיקוד לשדה הטקסט
+                currentActiveInput.focus();
                 
-                // אם מדובר בשדה החיפוש, נרצה להפעיל את פונקציית החיפוש בזמן אמת
                 if (currentActiveInput === searchInput) {
                     handleSearch();
                 }
@@ -512,7 +500,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // כפתור מחיקה (Del) במקלדת הווירטואלית
     const keyDelete = document.getElementById("keyDelete");
     if (keyDelete) {
         keyDelete.addEventListener("click", function (e) {
@@ -528,7 +515,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // כפתור רווח (Space) במקלדת הווירטואלית
     const keySpace = document.getElementById("keySpace");
     if (keySpace) {
         keySpace.addEventListener("click", function (e) {
@@ -544,15 +530,81 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // כפתור סגירה וסיום (Done / Close)
     const keyClose = document.getElementById("keyClose");
     if (keyClose) {
         keyClose.addEventListener("click", function (e) {
             e.preventDefault();
             if (virtualKeyboard) virtualKeyboard.style.display = "none";
             if (currentActiveInput) {
-                currentActiveInput.blur(); // הסרת הפוקוס מהשדה
+                currentActiveInput.blur();
             }
         });
     }
+
+    // ================= תוספת עיצוב חדשה: פירוק הפרופיל ל-4 מרובעים נפרדים ומעוצבים =================
+    function upgradeProfileLayout() {
+        const profileView = document.getElementById("profileView");
+        if (!profileView) return;
+
+        // נתונים רשמיים מתוך תמונת המצב הנוכחית של הפרופיל
+        const profileData = [
+            { title: "Age", text: "24", icon: "👤" },
+            { title: "Education", text: "Social Sciences & Tech Student.", icon: "🎓" },
+            { title: "Background", text: "Worked for 3 years at a supermarket to self-fund and finance my academic degree. High motivation, responsible, and determined to succeed.", icon: "💼" },
+            { title: "Target Goal", text: "Actively searching for the first entry-level Junior position in tech. Looking for practical industry guidance to bridge the gap between academic theory and real-world workplace demands.", icon: "🎯" }
+        ];
+
+        // חיפוש או יצירה של קונטיינר פנימי ייעודי לכרטיסיות המידע מתחת לכרטיס הראשי של השם והתמונה
+        let profileCardsContainer = document.getElementById("profileCardsContainer");
+        
+        if (!profileCardsContainer) {
+            // אם לא קיים קונטיינר כזה, ננקה את כל האלמנטים הישנים שהיו תחת "ABOUT ME" ונבנה מבנה כרטיסים חדש ומלוטש
+            profileCardsContainer = document.createElement("div");
+            profileCardsContainer.id = "profileCardsContainer";
+            profileCardsContainer.style.marginTop = "20px";
+            profileCardsContainer.style.padding = "0 15px";
+            profileCardsContainer.style.display = "flex";
+            profileCardsContainer.style.flexDirection = "column";
+            profileCardsContainer.style.gap = "14px"; // מרווח שווה ואלגנטי בין הריבועים
+
+            // מציאת אזור המידע הישן כדי להחליף אותו לחלוטין במרובעים הנפרדים החדשים
+            const oldAboutMeBlock = profileView.querySelector(".card") ? profileView.querySelectorAll(".card")[1] : null;
+            if (oldAboutMeBlock) {
+                oldAboutMeBlock.replaceWith(profileCardsContainer);
+            } else {
+                profileView.appendChild(profileCardsContainer);
+            }
+        }
+
+        // ניקוי ובנייה מחדש של הריבועים הבודדים לפי הסדר המדויק שביקשת
+        profileCardsContainer.innerHTML = "";
+
+        profileData.forEach(item => {
+            const squareCard = document.createElement("div");
+            
+            // יישום סגנון מרובע עצמאי ונקי לכל סעיף בנפרד (רקע לבן, פינות מעוגלות, צל עדין ושוליים)
+            squareCard.style.backgroundColor = "#ffffff";
+            squareCard.style.borderRadius = "12px";
+            squareCard.style.padding = "16px";
+            squareCard.style.boxShadow = "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)";
+            squareCard.style.border = "1px solid #e2e8f0";
+            squareCard.style.textAlign = "left"; // התאמה לשפת הפרופיל האנגלית בתמונה
+            squareCard.style.direction = "ltr";
+
+            squareCard.innerHTML = `
+                <div style="display: flex; align-items: center; margin-bottom: 6px; gap: 8px;">
+                    <span style="font-size: 16px;">${item.icon}</span>
+                    <strong style="color: #1e293b; font-size: 14px; font-weight: 700; font-family: sans-serif;">${item.title}:</strong>
+                </div>
+                <p style="margin: 0; color: #475569; font-size: 13px; line-height: 1.5; font-family: sans-serif; padding-left: 24px;">
+                    ${item.text}
+                </p>
+            `;
+            
+            profileCardsContainer.appendChild(squareCard);
+        });
+    }
+
+    // הפעלת שדרוג הפרופיל מיד עם טעינת האפליקציה לשמירה על נראות מושלמת
+    upgradeProfileLayout();
 });
