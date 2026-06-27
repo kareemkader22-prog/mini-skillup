@@ -541,16 +541,28 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ================= תוספת עיצוב: פירוק הפרופיל ל-4 מרובעים נפרדים ומעוצבים (ללא גיל) =================
+    // ================= תוספת עיצוב: פירוק הפרופיל ל-4 מרובעים נפרדים ומעוצבים (ללא גיל) עם SVG כחול =================
     function upgradeProfileLayout() {
         const profileView = document.getElementById("profileView");
         if (!profileView) return;
 
-        // רשימת הכרטיסים הכוללת את ארבעת המרובעים
+        // רשימת הכרטיסים המעודכנת הכוללת קוד SVG כחול מקצועי ותואם לכל קטגוריה
         const profileData = [
-            { title: "Education", text: "Social Sciences & Tech Student.", icon: "🎓" },
-            { title: "Background", text: "Motivated university student with a strong passion for technology. Eager to learn, grow, and start a professional career in the tech industry.", icon: "💼" },
-            { title: "Target Goal", text: "Looking for my first opportunity in the Tech industry, with a focus on Software Development.", icon: "🎯" }, 
+            { 
+                title: "Education", 
+                text: "Social Sciences & Tech Student.", 
+                icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5-10 5z"></path><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path></svg>` 
+            },
+            { 
+                title: "Background", 
+                text: "Motivated university student with a strong passion for technology. Eager to learn, grow, and start a professional career in the tech industry.", 
+                icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>` 
+            },
+            { 
+                title: "Target Goal", 
+                text: "Looking for my first opportunity in the Tech industry, with a focus on Software Development.", 
+                icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>` 
+            }, 
             { 
                 title: "Top Skills", 
                 text: `<ul style="margin: 0; padding-left: 16px; list-style-type: disc;">
@@ -559,7 +571,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <li style="margin-bottom: 6px;">JavaScript</li>
                         <li style="margin-bottom: 0;">Git</li>
                        </ul>`, 
-                icon: "⚡" 
+                icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>` 
             }
         ];
 
@@ -600,11 +612,13 @@ document.addEventListener("DOMContentLoaded", () => {
             squareCard.style.direction = "ltr";
 
             squareCard.innerHTML = `
-                <div style="display: flex; align-items: center; margin-bottom: 6px; gap: 8px;">
-                    <span style="font-size: 16px;">${item.icon}</span>
+                <div style="display: flex; align-items: center; margin-bottom: 8px; gap: 10px;">
+                    <div style="background: #eff6ff; width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; border-radius: 8px; flex-shrink: 0;">
+                        ${item.icon}
+                    </div>
                     <strong style="color: #1e293b; font-size: 14px; font-weight: 700; font-family: sans-serif;">${item.title}:</strong>
                 </div>
-                <div style="margin: 0; color: #475569; font-size: 13px; line-height: 1.5; font-family: sans-serif; padding-left: 24px;">
+                <div style="margin: 0; color: #475569; font-size: 13px; line-height: 1.5; font-family: sans-serif; padding-left: 42px;">
                     ${item.text}
                 </div>
             `;
