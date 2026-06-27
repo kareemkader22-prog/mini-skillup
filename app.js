@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
      
-    // מאגר מלא ומקיף המשלב משרות ג'וניור ומשרות מנוסים (Mid / Senior / Lead)
+    // מאגר משרות מלא המשלב משרות ג'וניור ומשרות מנוסים
     const fallbackJobs = [
         // --- משרות ג'וניור ומתחילים ---
         { 
@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 • Academic or independent project portfolio written in Java/Spring Boot.`
         },
      
-        // --- משרות מתקדמות ובכירים (Senior / Lead / Architect) ---
+        // --- משרות מתקדמות ובכירים ---
         { 
             title: "Senior Java Software Architect", 
             company: { display_name: "Intel" }, 
@@ -375,19 +375,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
      
-    // יצירת קארדים דינמיים עם תמונת הלוגו האמיתית של החברה (בדיוק לפי התמונה image_aaa703.png)
+    // יצירת קארדים דינמיים עם מבנה הריבוע הכפול המדויק מתוך image_aaaee5.png
     function renderJobCards(jobs) {
         searchResultsArea.innerHTML = "";
         
-        // מילון הלוגואים הרשמיים המדויק ומותאם לשמות החברות במערך
-        const companyLogos = {
-            "wix.com": "https://logo.clearbit.com/wix.com",
-            "google": "https://logo.clearbit.com/google.com",
-            "palo alto networks": "https://logo.clearbit.com/paloaltonetworks.com",
-            "mobileye": "https://logo.clearbit.com/mobileye.com",
-            "intel": "https://logo.clearbit.com/intel.com",
-            "check point": "https://logo.clearbit.com/checkpoint.com",
-            "cyberark": "https://logo.clearbit.com/cyberark.com"
+        // מילון מובנה לתווי קידומת מדויקים עבור החברות המוכרות
+        const customInitials = {
+            "wix.com": "WI",
+            "google": "GO",
+            "palo alto networks": "PN",
+            "mobileye": "MO",
+            "intel": "IN",
+            "check point": "CP",
+            "cyberark": "CA"
         };
         
         jobs.forEach((job) => {
@@ -404,9 +404,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const companyName = job.company?.display_name || "Tech Enterprise";
             const locationName = job.location?.display_name || "Israel (Remote/Hybrid)";
             
-            // תיאום מפתח חסין עבור שמות חברות (הורדת רווחים ואותיות קטנות)
+            // גזירת שתי האותיות הראשונות או שימוש במילון התווים המובנה
             const compKey = companyName.toLowerCase().trim();
-            const logoUrl = companyLogos[compKey] || `https://ui-avatars.com/api/?name=${encodeURIComponent(companyName)}&background=f1f5f9&color=64748b&bold=true`;
+            let initials = customInitials[compKey] || companyName.substring(0, 2).toUpperCase();
             
             let levelBadge = '';
             if (job.isJunior) {
@@ -416,9 +416,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
      
             card.innerHTML = `
-                <!-- תיבת לוגו לבנה, נקייה ומעוגלת עם תמונת הלוגו בפנים, בדיוק כמו ב-image_aaa703.png -->
-                <div style="width: 52px; height: 52px; border: 1px solid #e2e8f0; border-radius: 12px; display: flex; justify-content: center; align-items: center; background: #ffffff; flex-shrink: 0; padding: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.02);">
-                    <img src="${logoUrl}" alt="${companyName} Logo" style="max-width: 100%; max-height: 100%; object-fit: contain;" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(companyName)}&background=f1f5f9&color=64748b'">
+                <!-- הריבוע החיצוני הלבן המעוגל בדיוק לפי image_aaaee5.png -->
+                <div style="width: 54px; height: 54px; border: 1px solid #e2e8f0; border-radius: 14px; display: flex; justify-content: center; align-items: center; background: #ffffff; flex-shrink: 0;">
+                    <!-- הריבוע הפנימי האפרפר העמום המכיל את האותיות -->
+                    <div style="width: 38px; height: 38px; background: #f1f5f9; border-radius: 6px; display: flex; justify-content: center; align-items: center;">
+                        <span style="font-family: sans-serif; font-size: 13px; font-weight: 600; color: #94a3b8; letter-spacing: 0.3px;">${initials}</span>
+                    </div>
                 </div>
 
                 <!-- תוכן המשרה המשובץ מימין ללוגו (במבנה ltr תואם) -->
@@ -662,7 +665,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
      
-    // ================= תוספת עיצוב: פירוק הפרופיל ל-4 מרובעים נפרדים ומעוצבים (ללא גיל) עם SVG כחול =================
+    // ================= תוספת עיצוב: פירוק הפרופיל ל-4 מרובעים נפרדים ومעוצבים (ללא גיל) עם SVG כחול =================
     function upgradeProfileLayout() {
         const profileView = document.getElementById("profileView");
         if (!profileView) return;
