@@ -333,10 +333,25 @@ textarea:focus {
     font-weight: bold;
 }
 
-/* Menu Custom Style */
+/* עיצוב רכיבי תפריט ה-Dropdown וההובר */
+.menu-item {
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
 .menu-item:hover {
-    background-color: #f8fafc;
+    background-color: #f0f6ff !important;
     color: #3b71f7 !important;
+}
+
+/* עיצוב האייקונים בתוך התפריט לצבע כחול אחיד באמצעות פילטר */
+.menu-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    font-size: 16px;
+    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
 }
 
 /* Bottom Navigation */
