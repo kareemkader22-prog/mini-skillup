@@ -541,14 +541,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ================= תוספת עיצוב חדשה: פירוק הפרופיל ל-4 מרובעים נפרדים ומעוצבים =================
+    // ================= תוספת עיצוב: פירוק הפרופיל ל-3 מרובעים נפרדים ומעוצבים (ללא גיל) =================
     function upgradeProfileLayout() {
         const profileView = document.getElementById("profileView");
         if (!profileView) return;
 
-        // נתונים רשמיים מתוך תמונת המצב הנוכחית של הפרופיל
+        // ה-Age הוסר לחלוטין מרשימת הכרטיסים
         const profileData = [
-            { title: "Age", text: "24", icon: "👤" },
             { title: "Education", text: "Social Sciences & Tech Student.", icon: "🎓" },
             { title: "Background", text: "Worked for 3 years at a supermarket to self-fund and finance my academic degree. High motivation, responsible, and determined to succeed.", icon: "💼" },
             { title: "Target Goal", text: "Actively searching for the first entry-level Junior position in tech. Looking for practical industry guidance to bridge the gap between academic theory and real-world workplace demands.", icon: "🎯" }
@@ -558,7 +557,6 @@ document.addEventListener("DOMContentLoaded", () => {
         let profileCardsContainer = document.getElementById("profileCardsContainer");
         
         if (!profileCardsContainer) {
-            // אם לא קיים קונטיינר כזה, ננקה את כל האלמנטים הישנים שהיו תחת "ABOUT ME" ונבנה מבנה כרטיסים חדש ומלוטש
             profileCardsContainer = document.createElement("div");
             profileCardsContainer.id = "profileCardsContainer";
             profileCardsContainer.style.marginTop = "20px";
@@ -576,7 +574,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        // ניקוי ובנייה מחדש של הריבועים הבודדים לפי הסדר המדויק שביקשת
+        // ניקוי ובנייה מחדש של הריבועים הבודדים
         profileCardsContainer.innerHTML = "";
 
         profileData.forEach(item => {
@@ -588,7 +586,7 @@ document.addEventListener("DOMContentLoaded", () => {
             squareCard.style.padding = "16px";
             squareCard.style.boxShadow = "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)";
             squareCard.style.border = "1px solid #e2e8f0";
-            squareCard.style.textAlign = "left"; // התאמה לשפת הפרופיל האנגלית בתמונה
+            squareCard.style.textAlign = "left"; 
             squareCard.style.direction = "ltr";
 
             squareCard.innerHTML = `
