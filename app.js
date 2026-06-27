@@ -35,91 +35,101 @@ document.addEventListener("DOMContentLoaded", () => {
     // משתנה עזר לשמירת השדה שנמצא כרגע בפוקוס
     let currentActiveInput = null;
 
-    // ================= עדכון תפריט מובייל למסך מלא בעיצוב נקי (כמו Enhancv) =================
+    // ================= תיקון ועדכון תפריט מובייל למסך מלא אטום לחלוטין =================
     if (menuBtn && dropdownMenu) {
-        // הגדרת המכולה הראשית של התפריט שתיפתח על כל המסך מלמעלה
+        // הגדרת המכולה הראשית - כיסוי מוחלט ואטום של המסך
         dropdownMenu.style.position = "absolute";
         dropdownMenu.style.top = "0";
         dropdownMenu.style.left = "0";
         dropdownMenu.style.width = "100%";
         dropdownMenu.style.height = "100%";
-        dropdownMenu.style.backgroundColor = "#ffffff";
-        dropdownMenu.style.zIndex = "99999";
-        dropdownMenu.style.padding = "24px 24px";
+        dropdownMenu.style.backgroundColor = "#ffffff"; // רקע לבן חובה כדי להסתיר את דף הבית
+        dropdownMenu.style.zIndex = "999999"; // ערך גבוה במיוחד שלא יתערבב עם שום אלמנט
+        dropdownMenu.style.padding = "30px 24px";
         dropdownMenu.style.boxSizing = "border-box";
         dropdownMenu.style.flexDirection = "column";
         dropdownMenu.style.display = "none";
-        dropdownMenu.style.borderRadius = "32px"; // התאמה לקימור המכשיר
+        dropdownMenu.style.borderRadius = "32px"; // התאמה לקימור המסך
         dropdownMenu.style.overflowY = "auto";
 
-        // יצירת מבנה הניווט החלק עם שורות, חצים ו-X לסגירה בצד ימין
+        // יצירת מבנה הניווט הנקי עם שורות, חצים ו-X לסגירה בצד ימין (כמו Enhancv)
         dropdownMenu.innerHTML = `
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+            <!-- שורת כותרת עליונה עם לוגו וסגירה -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; width: 100%;">
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <div style="background: #eff6ff; width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; border-radius: 8px;">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                     </div>
                     <span style="font-size: 18px; font-weight: 800; color: #1e293b; font-family: system-ui;">SkillUp AI</span>
                 </div>
-                <button id="closeFullscreenMenu" style="background: none; border: none; font-size: 22px; cursor: pointer; color: #1e293b; padding: 5px; font-weight: 300;">✕</button>
+                <!-- כפתור X נקי לסגירה בצד ימין למעלה -->
+                <button id="closeFullscreenMenu" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #1e293b; padding: 5px; font-weight: 300;">✕</button>
             </div>
 
+            <!-- רשימת שורות הניווט בעיצוב ליניארי מרווח עם חצים (>) -->
             <div style="display: flex; flex-direction: column; width: 100%;">
                 
-                <div class="menu-linear-item" data-target="home" style="display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;">
+                <!-- 1. Portfolio Analyzer -->
+                <div class="menu-linear-item" data-target="home" style="display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;">
                     <span style="font-size: 16px; font-weight: 600; color: #1e293b;">Portfolio Analyzer</span>
-                    <span style="color: #94a3b8; font-size: 16px; font-weight: 400;">›</span>
+                    <span style="color: #94a3b8; font-size: 18px; font-weight: 400;">›</span>
                 </div>
 
-                <div class="menu-linear-item" data-target="home" style="display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;">
+                <!-- 2. Resume Checker -->
+                <div class="menu-linear-item" data-target="home" style="display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;">
                     <span style="font-size: 16px; font-weight: 600; color: #1e293b;">Resume Checker</span>
-                    <span style="color: #94a3b8; font-size: 16px; font-weight: 400;">›</span>
+                    <span style="color: #94a3b8; font-size: 18px; font-weight: 400;">›</span>
                 </div>
 
-                <div id="linearMenuInterview" style="display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;">
+                <!-- 3. Interview Prep -->
+                <div id="linearMenuInterview" style="display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;">
                     <span style="font-size: 16px; font-weight: 600; color: #1e293b;">Interview Generator</span>
-                    <span style="color: #94a3b8; font-size: 16px; font-weight: 400;">›</span>
+                    <span style="color: #94a3b8; font-size: 18px; font-weight: 400;">›</span>
                 </div>
 
-                <div class="menu-linear-item" data-target="home" style="display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;">
+                <!-- 4. Assignment DB -->
+                <div class="menu-linear-item" data-target="home" style="display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;">
                     <span style="font-size: 16px; font-weight: 600; color: #1e293b;">Assignment DB</span>
-                    <span style="color: #94a3b8; font-size: 16px; font-weight: 400;">›</span>
+                    <span style="color: #94a3b8; font-size: 18px; font-weight: 400;">›</span>
                 </div>
 
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;" onclick="alert('ATS Keyword Match Engine coming soon!')">
+                <!-- 5. ATS Optimization -->
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;" onclick="alert('ATS Keyword Match Engine coming soon!')">
                     <div style="display: flex; align-items: center; gap: 8px;">
                         <span style="font-size: 16px; font-weight: 600; color: #1e293b;">ATS Optimization</span>
                         <span style="background: #e0f2fe; color: #0369a1; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">PRO</span>
                     </div>
-                    <span style="color: #94a3b8; font-size: 16px; font-weight: 400;">›</span>
+                    <span style="color: #94a3b8; font-size: 18px; font-weight: 400;">›</span>
                 </div>
 
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;" onclick="alert('Privacy Controls: Stored data is fully encrypted.')">
+                <!-- 6. Privacy & Safety -->
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer;" onclick="alert('Privacy Controls: Stored data is fully encrypted.')">
                     <span style="font-size: 16px; font-weight: 600; color: #1e293b;">Privacy & Settings</span>
-                    <span style="color: #94a3b8; font-size: 16px; font-weight: 400;">›</span>
+                    <span style="color: #94a3b8; font-size: 18px; font-weight: 400;">›</span>
                 </div>
 
             </div>
 
+            <!-- כפתורי פעולה תחתונים -->
             <div style="margin-top: auto; padding-top: 40px; display: flex; flex-direction: column; gap: 12px; width: 100%;">
                 <button class="primary-btn" style="margin: 0; width: 100%; border-radius: 8px; padding: 14px; font-weight: 600;" onclick="alert('Welcome back, Yosef!')">Sign In</button>
                 <button style="width: 100%; background: #f8fafc; border: 1px solid #e2e8f0; color: #475569; padding: 14px; border-radius: 8px; font-weight: 600; cursor: pointer;" onclick="alert('Starting fresh workflow setup...')">Get Started</button>
             </div>
         `;
 
-        // פתיחת התפריט בלחיצה על כפתור ההמבורגר
+        // הפעלת אירוע פתיחה
         menuBtn.addEventListener("click", (e) => {
             e.stopPropagation();
             dropdownMenu.style.display = "flex";
         });
 
-        // סגירת התפריט בלחיצה על כפתור ה-✕
+        // הפעלת אירוע סגירה דרך ה-✕
         document.getElementById("closeFullscreenMenu").addEventListener("click", (e) => {
             e.stopPropagation();
             dropdownMenu.style.display = "none";
         });
 
-        // ניווט בלחיצה על השורות
+        // פונקציות ניווט של השורות
         const menuLinearItems = dropdownMenu.querySelectorAll(".menu-linear-item");
         menuLinearItems.forEach(item => {
             item.addEventListener("click", () => {
@@ -130,7 +140,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
-        // ניווט מותאם אישית לטאב הראיונות
         document.getElementById("linearMenuInterview").addEventListener("click", () => {
             dropdownMenu.style.display = "none";
             const openInterviewBtn = document.getElementById("openInterviewBtn");
@@ -138,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // מאגר משרות מורחב (ג'וניור ובכירים) לחיפוש
+    // ================= מאגר משרות וחיפוש =================
     const fallbackJobs = [
         { 
             title: "Junior Full Stack Developer", 
@@ -184,7 +193,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     ];
 
-    // פונקציית החיפוש
     async function handleSearch() {
         let query = searchInput.value.trim();
         if (!query) {
@@ -286,7 +294,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (searchSubmitBtn) searchSubmitBtn.addEventListener("click", handleSearch);
     if (searchInput) searchInput.addEventListener("input", handleSearch);
 
-    // טעינת משרות ראשונית
     handleSearch();
 
     // ================= AI INTERVIEW SIMULATOR =================
