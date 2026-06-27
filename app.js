@@ -22,6 +22,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const menuBtn = document.getElementById("menuBtn");
     const dropdownMenu = document.getElementById("dropdownMenu");
 
+    // אלמנטים של הראיונות (AI Interview)
+    const generateBtn = document.getElementById('generateBtn');
+    const jobInput = document.getElementById('jobInput');
+    const errorBox = document.getElementById('errorBox');
+    const resultsDiv = document.getElementById('results');
+    const loadingDiv = document.getElementById('loading');
+    const techList = document.getElementById('techList');
+    const hrList = document.getElementById('hrList');
+    const caseList = document.getElementById('caseList');
+
+    // משתנה עזר לשמירת השדה שנמצא כרגע בפוקוס
+    let currentActiveInput = null;
+
     if (menuBtn && dropdownMenu) {
         menuBtn.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -360,15 +373,6 @@ document.addEventListener("DOMContentLoaded", () => {
     handleSearch();
 
     // ================= AI INTERVIEW LOGIC =================
-    const generateBtn = document.getElementById('generateBtn');
-    const jobInput = document.getElementById('jobInput');
-    const errorBox = document.getElementById('errorBox');
-    const resultsDiv = document.getElementById('results');
-    const loadingDiv = document.getElementById('loading');
-    const techList = document.getElementById('techList');
-    const hrList = document.getElementById('hrList');
-    const caseList = document.getElementById('caseList');
-
     if (generateBtn) {
         generateBtn.addEventListener('click', async () => {
             const jobDescription = jobInput.value.trim();
@@ -431,7 +435,7 @@ document.addEventListener("DOMContentLoaded", () => {
         errorBox.classList.remove('hidden');
     }
 
-    // מערכת ניווט מובנית בין מסכים
+    // ================= מערכת ניווט מובנית בין מסכים =================
     const navItems = document.querySelectorAll(".nav-item");
     const views = document.querySelectorAll(".view-section");
 
@@ -451,6 +455,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             if (target === "notifications") document.getElementById("notificationsView").classList.remove("hidden");
             if (target === "profile") document.getElementById("profileView").classList.remove("hidden");
+
+            // סגירת מקלדת במעבר מסך כדי שלא תישאר פתוחה סתם
+            if (virtualKeyboard) virtualKeyboard.style.display = "none";
         });
     });
 
@@ -466,6 +473,86 @@ document.addEventListener("DOMContentLoaded", () => {
         backToHomeBtn.addEventListener("click", () => {
             views.forEach(v => v.classList.add("hidden"));
             document.getElementById("dashboardView").classList.remove("hidden");
+            if (virtualKeyboard) virtualKeyboard.style.display = "none";
+        });
+    }
+
+    // ================= לוגיקת המקלדת הווירטואלית החדשה =================
+
+    // פתיחת המקלדת בעת מיקוד (Focus) בשדה החיפוש
+    if (searchInput) {
+        searchInput.addEventListener("focus", function () {
+            currentActiveInput = searchInput;
+            if (virtualKeyboard) virtualKeyboard.style.display = "block";
+        });
+    }
+
+    // פתיחת המקלדת בעת מיקוד (Focus) בשדה ה-Interview Generator
+    if (jobInput) {
+        jobInput.addEventListener("focus", function () {
+            currentActiveInput = jobInput;
+            if (virtualKeyboard) virtualKeyboard.style.display = "block";
+        });
+    }
+
+    // האזנה ללחיצה על המקשים הרגילים (אותיות ותווים)
+    const keys = document.querySelectorAll(".key");
+    keys.forEach(key => {
+        key.addEventListener("click", function (e) {
+            e.preventDefault();
+            if (currentActiveInput) {
+                currentActiveInput.value += key.innerText;
+                currentActiveInput.focus(); // החזרת המיקוד לשדה הטקסט
+                
+                // אם מדובר בשדה החיפוש, נרצה להפעיל את פונקציית החיפוש בזמן אמת
+                if (currentActiveInput === searchInput) {
+                    handleSearch();
+                }
+            }
+        });
+    });
+
+    // כפתור מחיקה (Del) במקלדת הווירטואלית
+    const keyDelete = document.getElementById("keyDelete");
+    if (keyDelete) {
+        keyDelete.addEventListener("click", function (e) {
+            e.preventDefault();
+            if (currentActiveInput && currentActiveInput.value.length > 0) {
+                currentActiveInput.value = currentActiveInput.value.slice(0, -1);
+                currentActiveInput.focus();
+                
+                if (currentActiveInput === searchInput) {
+                    handleSearch();
+                }
+            }
+        });
+    }
+
+    // כפתור רווח (Space) במקלדת הווירטואלית
+    const keySpace = document.getElementById("keySpace");
+    if (keySpace) {
+        keySpace.addEventListener("click", function (e) {
+            e.preventDefault();
+            if (currentActiveInput) {
+                currentActiveInput.value += " ";
+                currentActiveInput.focus();
+                
+                if (currentActiveInput === searchInput) {
+                    handleSearch();
+                }
+            }
+        });
+    }
+
+    // כפתור סגירה וסיום (Done / Close)
+    const keyClose = document.getElementById("keyClose");
+    if (keyClose) {
+        keyClose.addEventListener("click", function (e) {
+            e.preventDefault();
+            if (virtualKeyboard) virtualKeyboard.style.display = "none";
+            if (currentActiveInput) {
+                currentActiveInput.blur(); // הסרת הפוקוס מהשדה
+            }
         });
     }
 });
