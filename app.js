@@ -375,7 +375,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
      
-    // פונקציה שמייצרת את קארד המשרה עם תמונת הלוגו הרשמית והצבעונית של החברה (מתוקן ומיושר לפי image_dc94a5.jpg)
+    // פונקציה שמייצרת את קארד המשרה עם תמונת הלוגו הרשמית והצבעונית של החברה
     function renderJobCards(jobs) {
         searchResultsArea.innerHTML = "";
         
@@ -679,16 +679,34 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
      
-    // ================= פירוק הפרופיל ל-4 מרובעים נפרדים מעוצבים עם SVG כחול =================
+    // ================= פירוק הפרופיל ל-4 מרובעים נפרדים מעוצבים עם תגיות מעוצבות לפי image_de01dc.jpg =================
     function upgradeProfileLayout() {
         const profileView = document.getElementById("profileView");
         if (!profileView) return;
      
+        // רשימת הכישורים המעוצבים כבאדג'ים
+        const skills = ["Python", "SQL", "JavaScript", "Git", "HTML", "CSS", "Problem Solving"];
+        
+        // יצירת מחרוזת ה-HTML עבור ה-Skills כבלונים מעוגלים זה לצד זה (בדיוק כמו בתמונה image_de01dc.jpg)
+        const skillsHTML = `
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px;">
+                ${skills.map(skill => `
+                    <span style="font-size: 12px; background-color: #eff6ff; color: #2563eb; padding: 6px 14px; border-radius: 20px; font-weight: 500; font-family: sans-serif; border: 1px solid #dbeafe; display: inline-block;">
+                        ${skill}
+                    </span>
+                `).join('')}
+            </div>
+        `;
+
         const profileData = [
             { 
                 title: "Education", 
-                text: "Social Sciences & Tech Student.", 
-                icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5-10 5z"></path><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path></svg>` 
+                text: `<div style="display: flex; flex-direction: column; gap: 2px;">
+                        <span style="font-weight: 600; color: #1e293b;">Social Sciences & Tech Student</span>
+                        <span style="color: #64748b; font-size: 12px;">University Student</span>
+                       </div>`, 
+                icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5-10 5z"></path><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path></svg>`,
+                isEducation: true // דגל ייעודי להוספת ה-Current ירוק בצד
             },
             { 
                 title: "Background", 
@@ -702,12 +720,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 
             { 
                 title: "Top Skills", 
-                text: `<ul style="margin: 0; padding-left: 16px; list-style-type: disc;">
-                        <li style="margin-bottom: 6px;">Python</li>
-                        <li style="margin-bottom: 6px;">SQL</li>
-                        <li style="margin-bottom: 6px;">JavaScript</li>
-                        <li style="margin-bottom: 0;">Git</li>
-                       </ul>`, 
+                text: skillsHTML, 
                 icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>` 
             }
         ];
@@ -743,13 +756,19 @@ document.addEventListener("DOMContentLoaded", () => {
             squareCard.style.border = "1px solid #e2e8f0";
             squareCard.style.textAlign = "left"; 
             squareCard.style.direction = "ltr";
+            
+            // תגית Current ירוקה עבור כרטיסיית הלימודים
+            const currentBadgeHTML = item.isEducation 
+                ? `<span style="font-size: 11px; background-color: #f0fdf4; color: #166534; padding: 3px 10px; border-radius: 12px; font-weight: bold; border: 1px solid #bbf7d0; margin-left: auto;">Current</span>` 
+                : '';
      
             squareCard.innerHTML = `
-                <div style="display: flex; align-items: center; margin-bottom: 8px; gap: 10px;">
+                <div style="display: flex; align-items: center; margin-bottom: 8px; gap: 10px; width: 100%;">
                     <div style="background: #eff6ff; width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; border-radius: 8px; flex-shrink: 0;">
                         ${item.icon}
                     </div>
-                    <strong style="color: #1e293b; font-size: 14px; font-weight: 700; font-family: sans-serif;">${item.title}:</strong>
+                    <strong style="color: #1e293b; font-size: 14px; font-weight: 700; font-family: sans-serif;">${item.title}</strong>
+                    ${currentBadgeHTML}
                 </div>
                 <div style="margin: 0; color: #475569; font-size: 13px; line-height: 1.5; font-family: sans-serif; padding-left: 42px;">
                     ${item.text}
