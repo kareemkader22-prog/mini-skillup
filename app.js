@@ -35,13 +35,155 @@ document.addEventListener("DOMContentLoaded", () => {
     // משתנה עזר לשמירת השדה שנמצא כרגע בפוקוס
     let currentActiveInput = null;
 
+    // ================= שדרוג תפריט המבורגר למסך מלא ומעוצב =================
     if (menuBtn && dropdownMenu) {
+        // התאמת האלמנט הקיים שיתפקד כמסך מלא יפיפה מעל הכל
+        dropdownMenu.style.position = "absolute";
+        dropdownMenu.style.top = "0";
+        dropdownMenu.style.left = "0";
+        dropdownMenu.style.width = "100%";
+        dropdownMenu.style.height = "100%";
+        dropdownMenu.style.backgroundColor = "rgba(255, 255, 255, 0.98)";
+        dropdownMenu.style.zIndex = "9999";
+        dropdownMenu.style.padding = "24px 20px";
+        dropdownMenu.style.boxSizing = "border-box";
+        dropdownMenu.style.flexDirection = "column";
+        dropdownMenu.style.display = "none";
+        dropdownMenu.style.borderRadius = "32px"; // שומר על הפינות המעוגלות של מסגרת המכשיר
+
+        // בנייה מחדש של תוכן התפריט - עשיר, מלא באפשרויות, עם לחצן סגירה ואייקונים כחולים
+        dropdownMenu.innerHTML = `
+            <!-- כותרת עליונה ולחצן סגירה -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #f1f5f9; direction: ltr;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="background: #eff6ff; width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; border-radius: 8px;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path><path d="M2 12h20"></path></svg>
+                    </div>
+                    <span style="font-size: 16px; font-weight: 800; color: #1e293b; font-family: sans-serif;">SkillUp Platform</span>
+                </div>
+                <button id="closeFullscreenMenu" style="background: #f1f5f9; border: none; width: 36px; height: 36px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; color: #64748b; font-weight: bold; font-size: 16px; transition: background 0.2s;">✕</button>
+            </div>
+
+            <!-- רשימת פריטי התפריט המורחבת -->
+            <div style="display: flex; flex-direction: column; gap: 12px; overflow-y: auto; max-height: calc(100% - 100px); direction: ltr;">
+                
+                <!-- פריט 1: Portfolio Analyzer -->
+                <div class="menu-fullscreen-item" data-target="home" style="display: flex; align-items: center; gap: 14px; padding: 14px; background: #f8fafc; border-radius: 12px; cursor: pointer; border: 1px solid #e2e8f0;">
+                    <div style="background: #eff6ff; width: 36px; height: 36px; display: flex; justify-content: center; align-items: center; border-radius: 8px; flex-shrink: 0;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                    </div>
+                    <div>
+                        <div style="font-size: 14px; font-weight: 700; color: #1e293b; text-align: left;">Portfolio Analyzer</div>
+                        <div style="font-size: 11px; color: #64748b; text-align: left;">Analyze GitHub projects & AI score</div>
+                    </div>
+                </div>
+
+                <!-- פריט 2: Resume Checker -->
+                <div class="menu-fullscreen-item" data-target="home" style="display: flex; align-items: center; gap: 14px; padding: 14px; background: #f8fafc; border-radius: 12px; cursor: pointer; border: 1px solid #e2e8f0;">
+                    <div style="background: #eff6ff; width: 36px; height: 36px; display: flex; justify-content: center; align-items: center; border-radius: 8px; flex-shrink: 0;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    </div>
+                    <div>
+                        <div style="font-size: 14px; font-weight: 700; color: #1e293b; text-align: left;">Resume Checker</div>
+                        <div style="font-size: 11px; color: #64748b; text-align: left;">Upload resume for instant review</div>
+                    </div>
+                </div>
+
+                <!-- פריט 3: Interview Prep -->
+                <div id="menuLinkInterview" style="display: flex; align-items: center; gap: 14px; padding: 14px; background: #f8fafc; border-radius: 12px; cursor: pointer; border: 1px solid #e2e8f0;">
+                    <div style="background: #eff6ff; width: 36px; height: 36px; display: flex; justify-content: center; align-items: center; border-radius: 8px; flex-shrink: 0;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1c-1.66 0-3 1.34-3 3v7c0 1.66 1.34 3 3 3s3-1.34 3-3V4c0-1.66-1.34-3-3-3z"></path><path d="M19 10v1a7 7 0 0 1-14 0v-1"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                    </div>
+                    <div>
+                        <div style="font-size: 14px; font-weight: 700; color: #1e293b; text-align: left;">AI Interview Generator</div>
+                        <div style="font-size: 11px; color: #64748b; text-align: left;">Generate customized simulator specs</div>
+                    </div>
+                </div>
+
+                <!-- פריט 4: Assignment DB -->
+                <div class="menu-fullscreen-item" data-target="home" style="display: flex; align-items: center; gap: 14px; padding: 14px; background: #f8fafc; border-radius: 12px; cursor: pointer; border: 1px solid #e2e8f0;">
+                    <div style="background: #eff6ff; width: 36px; height: 36px; display: flex; justify-content: center; align-items: center; border-radius: 8px; flex-shrink: 0;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 22"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                    </div>
+                    <div>
+                        <div style="font-size: 14px; font-weight: 700; color: #1e293b; text-align: left;">Assignment DB</div>
+                        <div style="font-size: 11px; color: #64748b; text-align: left;">Access real-world home tasks</div>
+                    </div>
+                </div>
+
+                <!-- פריט 5 חדש: LinkedIn Optimizer -->
+                <div style="display: flex; align-items: center; gap: 14px; padding: 14px; background: #f8fafc; border-radius: 12px; cursor: pointer; border: 1px solid #e2e8f0;" onclick="alert('LinkedIn Profile Optimizer is coming soon!')">
+                    <div style="background: #eff6ff; width: 36px; height: 36px; display: flex; justify-content: center; align-items: center; border-radius: 8px; flex-shrink: 0;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </div>
+                    <div>
+                        <div style="font-size: 14px; font-weight: 700; color: #1e293b; text-align: left;">LinkedIn Optimizer <span style="font-size:9px; background:#3b71f7; color:#fff; padding:1px 4px; border-radius:3px; margin-left:4px;">NEW</span></div>
+                        <div style="font-size: 11px; color: #64748b; text-align: left;">Improve your social presence score</div>
+                    </div>
+                </div>
+
+                <!-- פריט 6 חדש: Market Salary Insights -->
+                <div class="menu-fullscreen-item" data-target="search" style="display: flex; align-items: center; gap: 14px; padding: 14px; background: #f8fafc; border-radius: 12px; cursor: pointer; border: 1px solid #e2e8f0;">
+                    <div style="background: #eff6ff; width: 36px; height: 36px; display: flex; justify-content: center; align-items: center; border-radius: 8px; flex-shrink: 0;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    </div>
+                    <div>
+                        <div style="font-size: 14px; font-weight: 700; color: #1e293b; text-align: left;">Salary & Market Trends</div>
+                        <div style="font-size: 11px; color: #64748b; text-align: left;">Explore tech salary ranges in Israel</div>
+                    </div>
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 10px 0;">
+
+                <!-- פריט 7 חדש: Settings -->
+                <div style="display: flex; align-items: center; gap: 14px; padding: 10px 14px; cursor: pointer;" onclick="alert('Settings Panel loaded successfully.')">
+                    <div style="background: #f1f5f9; width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; border-radius: 6px; flex-shrink: 0;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    </div>
+                    <span style="font-size: 13px; font-weight: 600; color: #475569;">Account Settings</span>
+                </div>
+
+                <!-- פריט 8 חדש: Help & Support -->
+                <div style="display: flex; align-items: center; gap: 14px; padding: 10px 14px; cursor: pointer;" onclick="alert('Support ticket system initialized.')">
+                    <div style="background: #f1f5f9; width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; border-radius: 6px; flex-shrink: 0;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    </div>
+                    <span style="font-size: 13px; font-weight: 600; color: #475569;">Help & Support Center</span>
+                </div>
+
+            </div>
+        `;
+
+        // לחיצה על ההמבורגר פותחת את המסך המלא
         menuBtn.addEventListener("click", (e) => {
             e.stopPropagation();
-            dropdownMenu.style.display = dropdownMenu.style.display === "none" ? "block" : "none";
+            dropdownMenu.style.display = "flex";
         });
-        document.addEventListener("click", () => {
+
+        // לחיצה על כפתור ה-✕ סוגרת את התפריט
+        document.getElementById("closeFullscreenMenu").addEventListener("click", (e) => {
+            e.stopPropagation();
             dropdownMenu.style.display = "none";
+        });
+
+        // חיבור הניווט הפנימי מתוך פריטי המסך המלא
+        const fullMenuItems = dropdownMenu.querySelectorAll(".menu-fullscreen-item");
+        fullMenuItems.forEach(item => {
+            item.addEventListener("click", () => {
+                const target = item.getAttribute("data-target");
+                dropdownMenu.style.display = "none"; // סגירה אוטומטית במעבר
+                
+                // הפעלת הטאב המתאים למטה
+                const matchingNav = document.querySelector(`.nav-item[data-target="${target}"]`);
+                if (matchingNav) matchingNav.click();
+            });
+        });
+
+        // כפתור סימולטור הראיונות הייעודי בתוך התפריט
+        document.getElementById("menuLinkInterview").addEventListener("click", () => {
+            dropdownMenu.style.display = "none";
+            const openInterviewBtn = document.getElementById("openInterviewBtn");
+            if (openInterviewBtn) openInterviewBtn.click();
         });
     }
 
@@ -613,6 +755,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             squareCard.innerHTML = `
                 <div style="display: flex; align-items: center; margin-bottom: 8px; gap: 10px;">
+                    <!-- קונטיינר עגול עדין כחול עבור ה-SVG -->
                     <div style="background: #eff6ff; width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; border-radius: 8px; flex-shrink: 0;">
                         ${item.icon}
                     </div>
