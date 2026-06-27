@@ -541,26 +541,26 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ================= תוספת עיצוב: פירוק הפרופיל ל-3 מרובעים נפרדים ומעוצבים (ללא גיל) =================
+    // ================= תוספת עיצוב: פירוק הפרופיל ל-4 מרובעים נפרדים ומעוצבים (ללא גיל) =================
     function upgradeProfileLayout() {
         const profileView = document.getElementById("profileView");
         if (!profileView) return;
 
-        // ה-Age הוסר לחלוטין מרשימת הכרטיסים
+        // רשימת הכרטיסים הכוללת את ארבעת המרובעים
         const profileData = [
             { title: "Education", text: "Social Sciences & Tech Student.", icon: "🎓" },
-            { title: "Background", text: "Motivated university student with a strong passion for technology. Eager to learn, grow, and start a professional career in the tech industry.", icon: "💼" },
-            { title: "Target Goal", text: "Looking for my first opportunity in the Tech industry, with a focus on Software Development.", icon: "🎯" }, 
             { 
                 title: "Top Skills", 
                 text: `<ul style="margin: 0; padding-left: 16px; list-style-type: disc;">
-                        <li>Python</li>
-                        <li>SQL</li>
-                        <li>JavaScript</li>
-                        <li>Git</li>
+                        <li style="margin-bottom: 6px;">Python</li>
+                        <li style="margin-bottom: 6px;">SQL</li>
+                        <li style="margin-bottom: 6px;">JavaScript</li>
+                        <li style="margin-bottom: 0;">Git</li>
                        </ul>`, 
                 icon: "⚡" 
-            }
+            },
+            { title: "Background", text: "Motivated university student with a strong passion for technology. Eager to learn, grow, and start a professional career in the tech industry.", icon: "💼" },
+            { title: "Target Goal", text: "Looking for my first opportunity in the Tech industry, with a focus on Software Development.", icon: "🎯" }
         ];
 
         // חיפוש או יצירה של קונטיינר פנימי ייעודי לכרטיסיות המידע מתחת לכרטיס הראשי של השם והתמונה
@@ -604,9 +604,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     <span style="font-size: 16px;">${item.icon}</span>
                     <strong style="color: #1e293b; font-size: 14px; font-weight: 700; font-family: sans-serif;">${item.title}:</strong>
                 </div>
-                <p style="margin: 0; color: #475569; font-size: 13px; line-height: 1.5; font-family: sans-serif; padding-left: 24px;">
+                <div style="margin: 0; color: #475569; font-size: 13px; line-height: 1.5; font-family: sans-serif; padding-left: 24px;">
                     ${item.text}
-                </p>
+                </div>
             `;
             
             profileCardsContainer.appendChild(squareCard);
