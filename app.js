@@ -35,55 +35,56 @@ document.addEventListener("DOMContentLoaded", () => {
     // משתנה עזר לשמירת השדה שנמצא כרגע בפוקוס
     let currentActiveInput = null;
 
-    // ================= לוגיקת תפריט מסך מלא - מוגבל למסך הטלפון בלבד =================
+    // ================= לוגיקת תפריט מסך מלא מתוקנת =================
     if (menuBtn && dropdownMenu) {
-        // וידוא שהאלמנט האבא מוגדר כ-relative כדי שהתפריט ייפתח בדיוק בגודל הטלפון
-        if (dropdownMenu.parentElement) {
-            dropdownMenu.parentElement.style.position = "relative";
-        }
-
-        // הגדרת סגנונות דינמיים לתפריט מסך מלא בתוך גבולות הטלפון
+        
+        // הגדרת סגנונות מוחלטים כדי שהתפריט יצוף מעל ה-Header ויכסה את כל המסך
         Object.assign(dropdownMenu.style, {
-            position: "absolute",
+            position: "fixed",
             top: "0",
             left: "0",
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(255, 255, 255, 0.98)", // רקע לבן נקי כמעט אטום לגמרי
-            zIndex: "9999",
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(255, 255, 255, 0.99)", // רקע לבן אטום ונקי
+            zIndex: "99999", // מבטיח שהתפריט ישב מעל כל אלמנט אחר בדף
             display: "none", // מוסתר כברירת מחדל
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            gap: "18px",
-            padding: "20px",
+            gap: "22px",
+            padding: "30px",
             boxSizing: "border-box"
         });
 
-        // בנייה מחדש של תוכן התפריט - הוספת הלחצנים החדשים ועיצוב מוגדל ומרווח
+        // בנייה מחדש של תוכן התפריט
         dropdownMenu.innerHTML = `
-            <div id="closeMenuBtn" style="position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; color: #1e293b; font-weight: bold; user-select: none;">&times;</div>
+            <!-- כפתור סגירה (X) בפינה העליונה -->
+            <div id="closeMenuBtn" style="position: absolute; top: 25px; right: 30px; font-size: 35px; cursor: pointer; color: #1e293b; font-weight: bold; user-select: none;">&times;</div>
             
-            <div class="menu-fullscreen-item" data-target="home" style="font-size: 19px; font-weight: 600; color: #1e293b; cursor: pointer; padding: 8px 16px;">💻 Portfolio Analyzer</div>
-            <div class="menu-fullscreen-item" data-target="search" style="font-size: 19px; font-weight: 600; color: #1e293b; cursor: pointer; padding: 8px 16px;">📄 Resume Checker</div>
-            <div class="menu-fullscreen-item" id="menuInterviewPrep" style="font-size: 19px; font-weight: 600; color: #1e293b; cursor: pointer; padding: 8px 16px;">🎙️ Interview Prep</div>
-            <div class="menu-fullscreen-item" style="font-size: 19px; font-weight: 600; color: #1e293b; cursor: pointer; padding: 8px 16px;">🗄️ Assignment DB</div>
+            <!-- כפתורי הניווט הקיימים -->
+            <div class="menu-fullscreen-item" data-target="home" style="font-size: 22px; font-weight: 600; color: #1e293b; cursor: pointer; padding: 10px 20px;">💻 Portfolio Analyzer</div>
+            <div class="menu-fullscreen-item" data-target="search" style="font-size: 22px; font-weight: 600; color: #1e293b; cursor: pointer; padding: 10px 20px;">📄 Resume Checker</div>
+            <div class="menu-fullscreen-item" id="menuInterviewPrep" style="font-size: 22px; font-weight: 600; color: #1e293b; cursor: pointer; padding: 10px 20px;">🎙️ Interview Prep</div>
+            <div class="menu-fullscreen-item" style="font-size: 22px; font-weight: 600; color: #1e293b; cursor: pointer; padding: 10px 20px;">🗄️ Assignment DB</div>
             
-            <hr style="width: 60%; border: 0; border-top: 1px solid #e2e8f0; margin: 10px 0;">
+            <hr style="width: 50%; border: 0; border-top: 1px solid #e2e8f0; margin: 15px 0;">
             
-            <div class="menu-fullscreen-item" id="menuATSChecker" style="font-size: 19px; font-weight: 600; color: #166534; cursor: pointer; padding: 8px 16px;">📊 ATS Optimization</div>
-            <div class="menu-fullscreen-item" id="menuPrivacy" style="font-size: 19px; font-weight: 600; color: #475569; cursor: pointer; padding: 8px 16px;">🔒 Privacy Settings</div>
-            <div class="menu-fullscreen-item" id="menuLogout" style="font-size: 19px; font-weight: 700; color: #dc2626; cursor: pointer; padding: 8px 16px; margin-top: 10px;">🚪 Logout</div>
+            <!-- האפשרויות החדשות שהוספנו -->
+            <div class="menu-fullscreen-item" id="menuATSChecker" style="font-size: 22px; font-weight: 600; color: #166534; cursor: pointer; padding: 10px 20px;">📊 ATS Optimization</div>
+            <div class="menu-fullscreen-item" id="menuPrivacy" style="font-size: 22px; font-weight: 600; color: #475569; cursor: pointer; padding: 10px 20px;">🔒 Privacy Settings</div>
+            <div class="menu-fullscreen-item" id="menuLogout" style="font-size: 22px; font-weight: 700; color: #dc2626; cursor: pointer; padding: 10px 20px; margin-top: 15px;">🚪 Logout</div>
         `;
 
-        // הוספת אפקט הובר קליל בלחיצה / מעבר עכבר
+        // אפקט מעבר קטן בלחיצה על האלמנטים
         dropdownMenu.querySelectorAll(".menu-fullscreen-item").forEach(item => {
-            item.style.transition = "transform 0.15s ease, opacity 0.15s ease";
-            item.addEventListener("mouseenter", () => { item.style.transform = "scale(1.04)"; item.style.opacity = "0.85"; });
-            item.addEventListener("mouseleave", () => { item.style.transform = "scale(1)"; item.style.opacity = "1"; });
+            item.style.transition = "transform 0.1s ease";
+            item.addEventListener("click", () => {
+                item.style.transform = "scale(0.95)";
+                setTimeout(() => item.style.transform = "scale(1)", 100);
+            });
         });
 
-        // פתיחת התפריט בלחיצה על כפתור ההמבורגר העליון
+        // פתיחת התפריט בלחיצה על כפתור ההמבורגר
         menuBtn.addEventListener("click", (e) => {
             e.stopPropagation();
             dropdownMenu.style.display = "flex"; 
@@ -94,14 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
             dropdownMenu.style.display = "none";
         });
 
-        // סגירה כללית בלחיצה מחוץ לתפריט (הגנה נוספת)
-        document.addEventListener("click", (e) => {
-            if (dropdownMenu.style.display === "flex" && !dropdownMenu.contains(e.target) && e.target !== menuBtn) {
-                dropdownMenu.style.display = "none";
-            }
-        });
-
-        // ניווט אוטומטי עבור כפתורי הבר התחתון (התאמה מלאה למערכת הניווט המקורית שלך)
+        // סגירת התפריט וניווט בלחיצה על פריט תואם
         dropdownMenu.querySelectorAll(".menu-fullscreen-item").forEach(item => {
             item.addEventListener("click", () => {
                 const target = item.getAttribute("data-target");
@@ -113,34 +107,24 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
-        // ניווט לסימולטור הראיונות (Interview Prep) דרך התפריט
+        // ניווט ייחודי ל-Interview Prep
         document.getElementById("menuInterviewPrep").addEventListener("click", () => {
             dropdownMenu.style.display = "none";
             const openInterviewBtn = document.getElementById("openInterviewBtn");
-            if (openInterviewBtn) {
-                openInterviewBtn.click();
-            } else {
-                // Fallback במידה והכפתור לא נגיש
-                document.querySelectorAll(".view-section").forEach(v => v.classList.add("hidden"));
-                const interviewSection = document.getElementById("interviewView") || document.getElementById("notificationsView");
-                if (interviewSection) interviewSection.classList.remove("hidden");
-            }
+            if (openInterviewBtn) openInterviewBtn.click();
         });
 
-        // פונקציונליות לחצן ATS
+        // פונקציונליות לכפתורים החדשים
         document.getElementById("menuATSChecker").addEventListener("click", () => {
-            alert("ATS Optimization Engine: Scan completed. Your resume is 85% optimized for Junior Developer roles!");
+            alert("ATS Optimization Engine: Scan completed. Your resume is 85% optimized!");
         });
 
-        // פונקציונליות לחצן הגדרות פרטיות
         document.getElementById("menuPrivacy").addEventListener("click", () => {
-            alert("Privacy Settings: System profile is currently secure. Anonymous application mode is enabled.");
+            alert("Privacy Settings: System profile is secure.");
         });
 
-        // פונקציונליות לחצן התנתקות
         document.getElementById("menuLogout").addEventListener("click", () => {
-            if (confirm("Are you sure you want to log out of SkillUp AI?")) {
-                alert("Logging out safely...");
+            if (confirm("Are you sure you want to log out?")) {
                 window.location.reload(); 
             }
         });
@@ -642,7 +626,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ================= תוספת עיצוב: פירוק הפרופיל ל-4 מרובעים נפרדים ومעוצבים (ללא גיל) עם SVG כחול =================
+    // ================= תוספת עיצוב: פירוק הפרופיל ל-4 מרובעים נפרדים ומעוצבים (ללא גיל) עם SVG כחול =================
     function upgradeProfileLayout() {
         const profileView = document.getElementById("profileView");
         if (!profileView) return;
