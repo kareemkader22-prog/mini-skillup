@@ -58,7 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const isOpen = dropdownMenu.style.display === "block";
         dropdownMenu.style.display = isOpen ? "none" : "block";
         
-        // הוספת אנימציה למעבר
         if (!isOpen) {
             dropdownMenu.style.opacity = "0";
             dropdownMenu.style.transform = "translateY(-5px)";
@@ -81,7 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
      
-    // לחיצה על כפתור ההמבורגר פותחת את תפריט המגירה הצידי (ובמידה וקיים, מטפלת גם בתפריט העליון)
     if (menuBtn) {
         menuBtn.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -93,12 +91,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
      
-    // לחיצה על האזור הכהה שמחוץ למגירה סוגרת אותה
     if (menuOverlay) {
         menuOverlay.addEventListener("click", closeSidebar);
     }
 
-    // סגירת התפריט הכללי/עליון כאשר לוחצים בחוץ
     document.addEventListener("click", (e) => {
         if (dropdownMenu && menuBtn) {
             const isClickInsideMenu = dropdownMenu.contains(e.target);
@@ -110,7 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
      
-    // סגירת התפריט העליון כאשר לוחצים על אפשרות בתוכו
     if (dropdownMenu) {
         const menuItems = dropdownMenu.querySelectorAll("a, button");
         menuItems.forEach(item => {
@@ -120,21 +115,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // מעבר בין מסכים בלחיצה על פריטי תפריט המגירה הצידית
     const sidebarItems = document.querySelectorAll(".sidebar-item");
     sidebarItems.forEach(item => {
         item.addEventListener("click", () => {
             const target = item.getAttribute("data-target");
             
-            // עדכון מחלקת ה-Active בתפריט הצידי ויזואלית
             sidebarItems.forEach(i => i.classList.remove("active-sidebar-item"));
             item.classList.add("active-sidebar-item");
 
-            // לוגיקת החלפת המסכים:
             if (target === "interview") {
                 views.forEach(v => v.classList.add("hidden"));
                 document.getElementById("interviewView")?.classList.remove("hidden");
-                // עדכון הניווט התחתון שיתאים (הסרת אקטיביות מהשאר)
                 navItems.forEach(i => i.classList.remove("active"));
             } else if (target === "home") {
                 views.forEach(v => v.classList.add("hidden"));
@@ -142,18 +133,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 navItems.forEach(i => i.classList.remove("active"));
                 document.querySelector('.nav-item[data-target="home"]')?.classList.add("active");
             } else {
-                // שאר האפשרויות שמציגות כרגע Coming Soon
                 alert(`${item.querySelector('.item-title').textContent} is coming soon!`);
             }
             
-            // סגירת התפריט לאחר בחירה
             closeSidebar();
         });
     });
      
-    // מאגר ענק ומקיף המשלב משרות ג'וניור ומשרות מנוסים (Mid / Senior / Lead)
+    // מאגר מלא ומקיף המשלב משרות ג'וניור ומשרות מנוסים (Mid / Senior / Lead)
     const fallbackJobs = [
-        // --- משרות ג'וניור ומתחילים (מוצגות כברירת מחדל) ---
+        // --- משרות ג'וניור ומתחילים ---
         { 
             title: "Junior Full Stack Developer", 
             company: { display_name: "Wix.com" }, 
@@ -219,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 • Academic or independent project portfolio written in Java/Spring Boot.`
         },
      
-        // --- משרות מתקדמות, בכירים וסניורים (לא לג'וניורים - נחשפות בחיפוש) ---
+        // --- משרות מתקדמות ובכירים (Senior / Lead / Architect) ---
         { 
             title: "Senior Java Software Architect", 
             company: { display_name: "Intel" }, 
@@ -304,7 +293,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     ];
      
-    // פונקציית החיפוש והטעינה הכללית
     async function handleSearch() {
         let query = searchInput.value.trim();
         
@@ -341,7 +329,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
      
-    // פונקציית סינון חכמה מתוך מאגר הגיבוי המלא
     function useFallbackSearch(query) {
         const lowerQuery = query.toLowerCase();
         
@@ -357,7 +344,6 @@ document.addEventListener("DOMContentLoaded", () => {
         renderJobCards(finalJobs);
     }
      
-    // פונקציה שמחשבת ומציגה נתוני שוק חיצוניים (KPI)
     function updateKPIMetrics(query, jobs) {
         if (!kpiDashboard || !kpiCount || !kpiSalary) return;
         
@@ -393,7 +379,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderJobCards(jobs) {
         searchResultsArea.innerHTML = "";
         
-        // מיפוי לוגואים מובנה עבור החברות המרכזיות במאגר
         const companyLogos = {
             "wix.com": "https://logo.clearbit.com/wix.com",
             "google": "https://logo.clearbit.com/google.com",
@@ -418,7 +403,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const companyName = job.company?.display_name || "Tech Enterprise";
             const locationName = job.location?.display_name || "Israel (Remote/Hybrid)";
             
-            // שליפת הלוגו או בניית אווטאר גנרי מעוצב במידה ולא קיים במאגר הכתובות המהיר
             const compKey = companyName.toLowerCase().trim();
             const logoUrl = companyLogos[compKey] || `https://ui-avatars.com/api/?name=${encodeURIComponent(companyName)}&background=3b71f7&color=fff&rounded=false&bold=true`;
             
@@ -496,7 +480,6 @@ document.addEventListener("DOMContentLoaded", () => {
         searchInput.addEventListener("input", handleSearch);
     }
      
-    // הפעלה ראשונית אוטומטית של המשרות
     handleSearch();
      
     // ================= AI INTERVIEW LOGIC =================
@@ -682,7 +665,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const profileView = document.getElementById("profileView");
         if (!profileView) return;
      
-        // רשימת הכרטיסים המעודכנת הכוללת קוד SVG כחול מקצועי ותואם לכל קטגוריה
         const profileData = [
             { 
                 title: "Education", 
@@ -711,7 +693,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         ];
      
-        // חיפוש או יצירה של קונטיינר פנימי ייעודי לכרטיסיות המידע מתחת לכרטיס הראשי של השם והתמונה
         let profileCardsContainer = document.getElementById("profileCardsContainer");
         
         if (!profileCardsContainer) {
@@ -721,9 +702,8 @@ document.addEventListener("DOMContentLoaded", () => {
             profileCardsContainer.style.padding = "0 15px";
             profileCardsContainer.style.display = "flex";
             profileCardsContainer.style.flexDirection = "column";
-            profileCardsContainer.style.gap = "14px"; // מרווח שווה ואלגנטי בין הריבועים
+            profileCardsContainer.style.gap = "14px";
      
-            // מציאת אזור המידע הישן כדי להחליף אותו לחלוטין במרובעים הנפרדים החדשים
             const oldAboutMeBlock = profileView.querySelector(".card") ? profileView.querySelectorAll(".card")[1] : null;
             if (oldAboutMeBlock) {
                 oldAboutMeBlock.replaceWith(profileCardsContainer);
@@ -732,13 +712,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
      
-        // ניקוי ובנייה מחדש של הריבועים הבודדים
         profileCardsContainer.innerHTML = "";
      
         profileData.forEach(item => {
             const squareCard = document.createElement("div");
             
-            // יישום סגנון מרובע עצמאי ונקי לכל סעיף בנפרד (רקע לבן, פינות מעוגלות, צל עדין ושוליים)
             squareCard.style.backgroundColor = "#ffffff";
             squareCard.style.borderRadius = "12px";
             squareCard.style.padding = "16px";
@@ -763,7 +741,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
      
-    // הפעלת שדרוג הפרופיל מיד עם טעינת האפליקציה לשמירה על נראות מושלמת
     upgradeProfileLayout();
      
 });
