@@ -1,629 +1,1116 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKILLUP AI</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
+<!DOCTYPE html><html lang="en"><head>
+
+
+
+<meta charset="UTF-8">
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<title>SKILLUP AI</title>
+
+
+
+<link rel="stylesheet" href="style.css">
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></head><body>
+
+
 
 <div class="mobile-app-wrapper">
 
-    <!-- שכבת כיסוי כהה ותפריט מגירה צדדי -->
-    <div id="menuOverlay" class="menu-overlay hidden"></div>
-    <div id="sidebarMenu" class="sidebar-menu sidebar-hidden">
-        <div class="sidebar-header">
-            <div class="logo-container">
-                <div class="brand-logo">S</div>
-                <div class="brand-text">
-                    <h3>SKILLUP AI</h3>
-                    <p>AI Career Assistant</p>
-                </div>
-            </div>
-        </div>
 
-        <ul class="sidebar-list">
-            <li class="sidebar-item" data-target="portfolio">
-                <div class="item-main">
-                    <span class="sidebar-icon">💻</span>
-                    <span class="item-title">Portfolio Analyzer</span>
-                </div>
-                <span class="status-badge phase2">Phase 2</span>
-            </li>
-            <li class="sidebar-item" data-target="resume">
-                <div class="item-main">
-                    <span class="sidebar-icon">📄</span>
-                    <span class="item-title">Resume Checker</span>
-                </div>
-                <span class="status-badge phase2">Phase 2</span>
-            </li>
-            <li class="sidebar-item active-sidebar-item" data-target="interview">
-                <div class="item-main">
-                    <span class="sidebar-icon">🎙️</span>
-                    <span class="item-title">Interview Generator</span>
-                </div>
-                <span class="status-badge available">• Available Now</span>
-            </li>
-            <li class="sidebar-item" data-target="assignment">
-                <div class="item-main">
-                    <span class="sidebar-icon">🗄️</span>
-                    <span class="item-title">Assignment Database</span>
-                </div>
-                <span class="status-badge phase2">Phase 2</span>
-            </li>
-        </ul>
 
-        <div class="sidebar-footer">
-            <div class="footer-row">
-                <span class="footer-icon">ⓘ</span>
-                <span>Version 1.0</span>
-            </div>
-            <div class="footer-row">
-                <span class="footer-icon">🤖</span>
-                <span>Powered by OpenAI</span>
-            </div>
-        </div>
-    </div>
 
-    <!-- Dashboard View -->
-    <div id="dashboardView" class="view-section">
-        <header class="dashboard-header" style="position: relative;">
-            <div class="user-info">
-                <img src="https://ui-avatars.com/api/?name=Yosef+Khalil&background=3b71f7&color=fff&rounded=true" alt="Profile" class="avatar">
-                <div class="user-text">
-                    <h2>Welcome Back, Yosef</h2>
-                    <p>Junior Developer</p>
-                </div>
-            </div>
-            <button id="menuBtn" class="icon-btn" style="cursor: pointer;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-            </button>
-        </header>
 
-        <main class="dashboard-content">
-            <div class="hero-section">
-                <h1>Let's improve your chances of getting hired today.</h1>
-            </div>
+<!-- שכבת כיסוי כהה ותפריט מגירה צדדי (לפי תמונה image_a7e281.png) -->
 
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
-                    </div>
-                    <h3>Portfolio Analyzer</h3>
-                    <p>Analyze GitHub projects and receive an AI score.</p>
-                    <button class="launch-btn" onclick="alert('Coming soon!')">Launch</button>
-                </div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    </div>
-                    <h3>Resume Checker</h3>
-                    <p>Upload your resume and receive instant AI feedback.</p>
-                    <button class="launch-btn" onclick="alert('Coming soon!')">Launch</button>
-                </div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
-                    </div>
-                    <h3>Interview Generator</h3>
-                    <p>Generate customized interview questions.</p>
-                    <button id="openInterviewBtn" class="launch-btn active-feature">Launch</button>
-                </div>
+<div id="menuOverlay" class="menu-overlay hidden"></div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-                    </div>
-                    <h3>Assignment DB</h3>
-                    <p>Access real-world technical assignments.</p>
-                    <button class="launch-btn" onclick="alert('Coming soon!')">Launch</button>
-                </div>
-            </div>
-        </main>
-    </div>
 
-    <!-- Interview View -->
-    <div id="interviewView" class="view-section hidden">
-        <header class="app-header">
-            <button id="backToHomeBtn" class="icon-btn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-            </button>
-            <h1>Interview Prep</h1>
-            <div style="width: 24px;"></div>
-        </header>
 
-        <main class="app-content">
-            <div class="card input-card">
-                <label for="jobInput" class="card-label">Job Description</label>
-                <textarea id="jobInput" placeholder="Paste the job description here..."></textarea>
-            </div>
+<div id="sidebarMenu" class="sidebar-menu sidebar-hidden">
 
-            <button id="generateBtn" class="primary-btn">Generate Questions</button>
 
-            <div id="loading" class="hidden loading-screen">
-                <div class="loader-circle"></div>
-                <p>Analyzing Job Requirements...</p>
-            </div>
 
-            <div id="errorBox" class="hidden error-box"></div>
+<div class="sidebar-header">
 
-            <div id="results" class="hidden results-container">
-                <div class="score-header">
-                    <h2>AI Recommendations</h2>
-                    <p>Here are your customized questions.</p>
-                </div>
 
-                <div class="result-card">
-                    <h3>Technical Questions</h3>
-                    <ul id="techList" class="custom-list"></ul>
-                </div>
 
-                <div class="result-card">
-                    <h3>Behavioral / HR</h3>
-                    <ul id="hrList" class="custom-list"></ul>
-                </div>
+<div class="logo-container">
 
-                <div class="result-card">
-                    <h3>Case Study</h3>
-                    <ul id="caseList" class="custom-list"></ul>
-                </div>
-            </div>
-        </main>
-    </div>
 
-    <!-- Search View -->
-    <div id="searchView" class="view-section hidden" style="padding: 20px; font-family: 'Inter', sans-serif; box-sizing: border-box; display: flex; flex-direction: column; height: 100%;">
-        <h2 style="margin-top: 20px; color: #3b71f7; text-align: center;">Search Portal</h2>
-        <p style="color: #666; margin-top: 5px; margin-bottom: 20px; text-align: center; font-size: 14px;">Find any job role, company, or tech skills in Israel.</p>
 
-        <div style="display: flex; gap: 8px; margin-bottom: 15px; direction: ltr;">
-            <input type="text" id="searchInput" placeholder="Search role, company (e.g. IT, Google, QA)..." style="flex: 1; padding: 12px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 14px; outline: none; background-color: #f8fafc; font-family: 'Inter', sans-serif;">
-            <button id="searchSubmitBtn" style="padding: 12px 16px; background-color: #3b71f7; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 14px;">
-                Search
-            </button>
-        </div>
+<div class="brand-logo">S</div>
 
-        <div id="kpiDashboard" class="hidden" style="margin-bottom: 15px; padding: 12px; background: #f0fdf4; border: 1px dashed #22c55e; border-radius: 12px; font-size: 12px; color: #166534; direction: ltr;">
-            <div style="font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">📊 External Live Market Insights:</div>
-            <div style="display: flex; justify-content: space-between; margin-top: 4px;">
-                <span>Active Openings: <strong id="kpiCount">0</strong></span>
-                <span>Est. Avg Salary: <strong id="kpiSalary">N/A</strong></span>
-            </div>
-        </div>
 
-        <div id="searchResultsArea" style="margin-top: 10px;"></div>
-    </div>
 
-    <!-- Notifications View -->
-    <div id="notificationsView" class="view-section hidden" style="padding: 20px; text-align: center;">
-        <h2 style="margin-top: 40px; color: #3b71f7;">Notifications</h2>
-        <p style="color: #666; margin-top: 10px;">You have no new notifications at the moment.</p>
-    </div>
+<div class="brand-text">
 
-    <!-- Profile View -->
-    <div id="profileView" class="view-section hidden profile-view-container">
-        <div class="profile-header-wrapper">
-            <h2 class="profile-main-title">Career Profile</h2>
-            <button class="profile-edit-trigger" onclick="console.log('Edit profile clicked!')">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-                Edit
-            </button>
-        </div>
 
-        <div class="profile-scrollable-inner">
-            <div style="background: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 20px; text-align: center; border: 1px solid #edf2f7;">
-                <img src="https://ui-avatars.com/api/?name=Yosef+Khalil&background=3b71f7&color=fff&rounded=true&size=128" alt="Yosef Khalil" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 12px; border: 3px solid #e2e8f0;">
-                <h3 style="margin: 0; color: #0f172a; font-size: 20px; font-weight: 600;">Yosef Khalil</h3>
-                <p style="margin: 4px 0 0 0; color: #64748b; font-size: 14px; font-weight: 500;">Junior Developer</p>
-                <div style="display: inline-block; background: #e0f2fe; color: #0369a1; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-top: 10px;">Active Student</div>
-            </div>
 
-            <div id="profileCardsContainer"></div>
-            <div class="profile-bottom-spacer"></div>
-        </div>
-    </div>
+<h3>SKILLUP AI</h3>
 
-    <!-- Job Detail Modal -->
-    <div id="jobDetailModal" class="hidden" style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(15,23,42,0.7); z-index:9999; display: flex; align-items:flex-end;">
-        <div style="background:#ffffff; width:100%; max-height:80%; border-top-left-radius:32px; border-top-right-radius:32px; padding:24px; box-sizing:border-box; overflow-y:auto; font-family:'Inter',sans-serif; display:flex; flex-direction:column;">
-            <div style="width: 40px; height: 5px; background: #cbd5e1; border-radius: 10px; margin: 0 auto 15px auto; cursor: pointer;" id="modalBarClose"></div>
-            <h3 id="modalJobTitle" style="color: #0f172a; font-size: 18px; font-weight:700; margin-bottom:4px;">Job Title</h3>
-            <p id="modalJobCompany" style="color: #3b71f7; font-weight:600; font-size:14px; margin-bottom:16px;">Company Name</p>
-            <div id="modalJobDetails" style="flex:1;"></div>
-            <button id="closeModalBtn" class="primary-btn" style="margin-top:20px; background:#64748b; margin-bottom:0;">Close Details</button>
-        </div>
-    </div>
 
-    <!-- Virtual Keyboard -->
-    <div id="virtualKeyboard" style="display: none; position: absolute; bottom: 70px; left: 8px; right: 8px; background-color: #f1f5f9; padding: 8px; border-radius: 16px; box-shadow: 0 -4px 10px rgba(0,0,0,0.1); direction: ltr; z-index: 2000;">
-        <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 6px;">
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Q</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">W</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">E</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">R</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">T</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Y</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">U</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">I</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">O</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">P</button>
-        </div>
-        <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 6px; padding: 0 8px;">
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">A</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">S</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">D</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">F</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">G</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">H</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">J</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">K</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">L</button>
-        </div>
-        <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 6px;">
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Z</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">X</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">C</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">V</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">B</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">N</button>
-            <button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">M</button>
-            <button id="keyDelete" style="flex: 1.5; padding: 12px 0; background-color: #cbd5e1; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Del</button>
-        </div>
-        <div style="display: flex; justify-content: center; gap: 4px;">
-            <button id="keyClose" style="flex: 2; padding: 12px 0; background-color: #94a3b8; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px;">Done</button>
-            <button id="keySpace" style="flex: 5; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Space</button>
-        </div>
-    </div>
 
-    <!-- Bottom Navigation -->
-    <nav class="bottom-nav">
-        <div class="nav-item active" data-target="home">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-        </div>
-        <div class="nav-item" data-target="search">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </div>
-        <div class="nav-item" data-target="notifications">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-        </div>
-        <div class="nav-item" data-target="profile">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-        </div>
-    </nav>
+<p>AI Career Assistant</p>
+
+
 
 </div>
 
-<!-- לוגיקת האפליקציה המשולבת -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const searchSubmitBtn = document.getElementById("searchSubmitBtn");
-    const searchInput = document.getElementById("searchInput");
-    const searchResultsArea = document.getElementById("searchResultsArea");
-    const virtualKeyboard = document.getElementById("virtualKeyboard");
-     
-    const kpiDashboard = document.getElementById("kpiDashboard");
-    const kpiCount = document.getElementById("kpiCount");
-    const kpiSalary = document.getElementById("kpiSalary");
-     
-    const jobDetailModal = document.getElementById("jobDetailModal");
-    const closeModalBtn = document.getElementById("closeModalBtn");
-    const modalBarClose = document.getElementById("modalBarClose");
-    const modalJobTitle = document.getElementById("modalJobTitle");
-    const modalJobCompany = document.getElementById("modalJobCompany");
-    const modalJobDetails = document.getElementById("modalJobDetails");
-     
-    const menuBtn = document.getElementById("menuBtn");
-    const sidebarMenu = document.getElementById("sidebarMenu");
-    const menuOverlay = document.getElementById("menuOverlay");
-     
-    const generateBtn = document.getElementById('generateBtn');
-    const jobInput = document.getElementById('jobInput');
-    const errorBox = document.getElementById('errorBox');
-    const resultsDiv = document.getElementById('results');
-    const loadingDiv = document.getElementById('loading');
-    const techList = document.getElementById('techList');
-    const hrList = document.getElementById('hrList');
-    const caseList = document.getElementById('caseList');
-     
-    let currentActiveInput = null;
-     
-    // ניהול תפריט צדדי (Sidebar)
-    function openSidebar() {
-        if (sidebarMenu && menuOverlay) {
-            sidebarMenu.classList.remove("sidebar-hidden");
-            menuOverlay.classList.remove("hidden");
-        }
-    }
 
-    function closeSidebar() {
-        if (sidebarMenu && menuOverlay) {
-            sidebarMenu.classList.add("sidebar-hidden");
-            menuOverlay.classList.add("hidden");
-        }
-    }
-     
-    if (menuBtn) {
-        menuBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            openSidebar();
-        });
-    }
-     
-    if (menuOverlay) {
-        menuOverlay.addEventListener("click", closeSidebar);
-    }
 
-    const sidebarItems = document.querySelectorAll(".sidebar-item");
-    sidebarItems.forEach(item => {
-        item.addEventListener("click", () => {
-            const target = item.getAttribute("data-target");
-            sidebarItems.forEach(i => i.classList.remove("active-sidebar-item"));
-            item.classList.add("active-sidebar-item");
+</div>
 
-            if (target === "interview") {
-                views.forEach(v => v.classList.add("hidden"));
-                document.getElementById("interviewView")?.classList.remove("hidden");
-                navItems.forEach(i => i.classList.remove("active"));
-            } else if (target === "home") {
-                views.forEach(v => v.classList.add("hidden"));
-                document.getElementById("dashboardView")?.classList.remove("hidden");
-                navItems.forEach(i => i.classList.remove("active"));
-                document.querySelector('.nav-item[data-target="home"]')?.classList.add("active");
-            } else {
-                alert(`${item.querySelector('.item-title').textContent} is coming soon!`);
-            }
-            closeSidebar();
-        });
-    });
-     
-    // מאגר המשרות
-    const fallbackJobs = [
-        { 
-            title: "Junior Full Stack Developer", 
-            company: { display_name: "Wix.com" }, 
-            location: { display_name: "Tel Aviv - Remote" }, 
-            isJunior: true,
-            logo: "https://logo.clearbit.com/wix.com",
-            description: `<strong>Role Overview:</strong><br>Wix is looking for a talented Junior Full Stack Developer to join our core web engineering group...` 
-        },
-        { 
-            title: "Junior Data Analyst", 
-            company: { display_name: "Google" }, 
-            location: { display_name: "Tel Aviv-Yafo" }, 
-            isJunior: true,
-            logo: "https://logo.clearbit.com/google.com",
-            description: `<strong>Role Overview:</strong><br>We are looking for a brilliant Junior Data Analyst to turn data into valuable insights...` 
-        },
-        { 
-            title: "NOC Tier 1 Specialist", 
-            company: { display_name: "Palo Alto Networks" }, 
-            location: { display_name: "Tel Aviv" }, 
-            isJunior: true,
-            logo: "https://logo.clearbit.com/paloaltonetworks.com",
-            description: `<strong>Role Overview:</strong><br>Excellent entry-level opportunity for students or recent graduates! Monitor cloud environments...`
-        },
-        { 
-            title: "Junior UI/UX Designer", 
-            company: { display_name: "Mobileye" }, 
-            location: { display_name: "Jerusalem" }, 
-            isJunior: true,
-            logo: "https://logo.clearbit.com/mobileye.com",
-            description: `<strong>Role Overview:</strong><br>Looking for an enthusiastic Junior UI/UX Designer to join our product layout unit...`
-        },
-        { 
-            title: "Java Software Developer (Entry Level)", 
-            company: { display_name: "Intel" }, 
-            location: { display_name: "Haifa" }, 
-            isJunior: true,
-            logo: "https://logo.clearbit.com/intel.com",
-            description: `<strong>Role Overview:</strong><br>Kickstart your software engineering career. Join our validation backend framework group coding in Java...`
-        }
-    ];
-     
-    async function handleSearch() {
-        let query = searchInput.value.trim();
-        if (!query) {
-            const juniorJobs = fallbackJobs.filter(job => job.isJunior === true);
-            updateKPIMetrics("Junior", juniorJobs);
-            renderJobCards(juniorJobs);
-            return;
-        }
-     
-        searchResultsArea.innerHTML = `<div class="loading-screen"><div class="loader-circle"></div><p>Scanning tech ecosystem in Israel...</p></div>`;
-        useFallbackSearch(query);
-    }
-     
-    function useFallbackSearch(query) {
-        const lowerQuery = query.toLowerCase();
-        const filteredJobs = fallbackJobs.filter(job => 
-            job.title.toLowerCase().includes(lowerQuery) || 
-            job.company.display_name.toLowerCase().includes(lowerQuery)
-        );
-        const finalJobs = filteredJobs.length > 0 ? filteredJobs : fallbackJobs;
-        updateKPIMetrics(query, finalJobs);
-        renderJobCards(finalJobs);
-    }
-     
-    function updateKPIMetrics(query, jobs) {
-        if (!kpiDashboard || !kpiCount || !kpiSalary) return;
-        kpiDashboard.classList.remove("hidden");
-        kpiCount.textContent = `${jobs.length} openings found`;
-        kpiSalary.textContent = "₪14,000 - ₪20,000 / mo";
-    }
-     
-    // פונקציית הרינדור המעודכנת עם קופסת הלוגו הלבנה והמעוגלת
-    function renderJobCards(jobs) {
-        searchResultsArea.innerHTML = "";
-        
-        jobs.forEach((job) => {
-            const card = document.createElement("div");
-            card.className = "job-card";
-            card.style.cursor = "pointer";
-            card.style.transition = "transform 0.2s, box-shadow 0.2s";
-            card.style.marginBottom = "12px";
-            card.style.background = "#ffffff";
-            card.style.borderRadius = "16px";
-            card.style.padding = "16px";
-            card.style.boxShadow = "0 4px 6px -1px rgba(0,0,0,0.02), 0 2px 4px -1px rgba(0,0,0,0.01)";
-            card.style.display = "flex";
-            card.style.alignItems = "center";
-            card.style.gap = "16px";
-            card.style.direction = "ltr";
-            card.style.border = "1px solid #f1f5f9";
-            
-            const companyName = job.company?.display_name || "Tech Enterprise";
-            const locationName = job.location?.display_name || "Israel";
-            const fallbackLogoUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(companyName)}&background=eff6ff&color=3b71f7&bold=true`;
-            const currentLogo = job.logo ? job.logo : fallbackLogoUrl;
 
-            let levelBadge = `<span style="font-size: 10px; background: #e6fbf2; color: #10b981; padding: 4px 8px; border-radius: 6px; font-weight: 600;">Junior Friendly</span>`;
-     
-            card.innerHTML = `
-                <!-- קופסת לוגו לבנה מעוגלת נקייה משמאל -->
-                <div class="job-logo-box" style="width: 56px; height: 56px; background: #ffffff; border-radius: 12px; border: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                    <img src="${currentLogo}" alt="${companyName} Logo" style="width: 75%; height: 75%; object-fit: contain;" onerror="this.src='${fallbackLogoUrl}';">
-                </div>
-                
-                <div style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                        <h4 style="font-size: 15px; font-weight: 700; color: #0f172a; margin: 0; text-align: left;">${job.title}</h4>
-                        ${levelBadge}
-                    </div>
-                    <p style="font-size: 13px; color: #3b71f7; font-weight: 600; margin: 0; text-align: left;">${companyName}</p>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
-                        <span style="font-size: 12px; color: #64748b; display: flex; align-items: center; gap: 4px;">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                            ${locationName}
-                        </span>
-                        <button class="view-details-btn" style="background: #eff6ff; color: #3b71f7; border: none; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer;">
-                            Details
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            card.addEventListener("click", () => openJobModal(job));
-            searchResultsArea.appendChild(card);
-        });
-    }
-     
-    function openJobModal(job) {
-        if (!jobDetailModal) return;
-        modalJobTitle.textContent = job.title;
-        modalJobCompany.textContent = job.company?.display_name || "Tech Enterprise";
-        modalJobDetails.innerHTML = `<p style="font-size:13px; text-align: left;">${job.description}</p>`;
-        jobDetailModal.classList.remove("hidden");
-    }
-     
-    function closeJobModal() {
-        if (jobDetailModal) jobDetailModal.classList.add("hidden");
-    }
-    if (closeModalBtn) closeModalBtn.addEventListener("click", closeJobModal);
-    if (modalBarClose) modalBarClose.addEventListener("click", closeJobModal);
-    if (searchSubmitBtn) searchSubmitBtn.addEventListener("click", handleSearch);
-    if (searchInput) searchInput.addEventListener("input", handleSearch);
-     
-    handleSearch();
-     
-    // ניווט תחתון
-    const navItems = document.querySelectorAll(".nav-item");
-    const views = document.querySelectorAll(".view-section");
-     
-    navItems.forEach(item => {
-        item.addEventListener("click", () => {
-            const target = item.getAttribute("data-target");
-            navItems.forEach(i => i.classList.remove("active"));
-            item.classList.add("active");
-            views.forEach(v => v.classList.add("hidden"));
-            
-            if (target === "home") document.getElementById("dashboardView").classList.remove("hidden");
-            if (target === "search") {
-                document.getElementById("searchView").classList.remove("hidden");
-                handleSearch(); 
-            }
-            if (target === "notifications") document.getElementById("notificationsView").classList.remove("hidden");
-            if (target === "profile") document.getElementById("profileView").classList.remove("hidden");
-            if (virtualKeyboard) virtualKeyboard.style.display = "none";
-        });
-    });
-     
-    if (document.getElementById("openInterviewBtn")) {
-        document.getElementById("openInterviewBtn").addEventListener("click", () => {
-            views.forEach(v => v.classList.add("hidden"));
-            document.getElementById("interviewView").classList.remove("hidden");
-            navItems.forEach(i => i.classList.remove("active"));
-        });
-    }
 
-    if (document.getElementById("backToHomeBtn")) {
-        document.getElementById("backToHomeBtn").addEventListener("click", () => {
-            views.forEach(v => v.classList.add("hidden"));
-            document.getElementById("dashboardView").classList.remove("hidden");
-            navItems.forEach(i => i.classList.remove("active"));
-            document.querySelector('.nav-item[data-target="home"]')?.classList.add("active");
-        });
-    }
-     
-    // מקלדת וירטואלית
-    if (searchInput) {
-        searchInput.addEventListener("focus", () => {
-            currentActiveInput = searchInput;
-            if (virtualKeyboard) virtualKeyboard.style.display = "block";
-        });
-    }
-    if (jobInput) {
-        jobInput.addEventListener("focus", () => {
-            currentActiveInput = jobInput;
-            if (virtualKeyboard) virtualKeyboard.style.display = "block";
-        });
-    }
-     
-    document.querySelectorAll(".key").forEach(key => {
-        key.addEventListener("click", (e) => {
-            e.preventDefault();
-            if (currentActiveInput) {
-                currentActiveInput.value += key.innerText;
-                currentActiveInput.focus();
-                if (currentActiveInput === searchInput) handleSearch();
-            }
-        });
-    });
-     
-    if (document.getElementById("keyDelete")) {
-        document.getElementById("keyDelete").addEventListener("click", (e) => {
-            e.preventDefault();
-            if (currentActiveInput && currentActiveInput.value.length > 0) {
-                currentActiveInput.value = currentActiveInput.value.slice(0, -1);
-                currentActiveInput.focus();
-                if (currentActiveInput === searchInput) handleSearch();
-            }
-        });
-    }
-     
-    if (document.getElementById("keySpace")) {
-        document.getElementById("keySpace").addEventListener("click", (e) => {
-            e.preventDefault();
-            if (currentActiveInput) {
-                currentActiveInput.value += " ";
-                currentActiveInput.focus();
-                if (currentActiveInput === searchInput) handleSearch();
-            }
-        });
-    }
-     
-    if (document.getElementById("keyClose")) {
-        document.getElementById("keyClose").addEventListener("click", (e) => {
-            e.preventDefault();
-            if (virtualKeyboard) virtualKeyboard.style.display = "none";
-            if (currentActiveInput) currentActiveInput.blur();
-        });
-    }
-});
-</script>
-</body>
-</html>
+</div>
+
+
+
+
+
+<ul class="sidebar-list">
+
+
+
+<li class="sidebar-item" data-target="portfolio">
+
+
+
+<div class="item-main">
+
+
+
+<span class="sidebar-icon">💻</span>
+
+
+
+<span class="item-title">Portfolio Analyzer</span>
+
+
+
+</div>
+
+
+
+<span class="status-badge phase2">Phase 2</span>
+
+
+
+</li>
+
+
+
+<li class="sidebar-item" data-target="resume">
+
+
+
+<div class="item-main">
+
+
+
+<span class="sidebar-icon">📄</span>
+
+
+
+<span class="item-title">Resume Checker</span>
+
+
+
+</div>
+
+
+
+<span class="status-badge phase2">Phase 2</span>
+
+
+
+</li>
+
+
+
+<li class="sidebar-item active-sidebar-item" data-target="interview">
+
+
+
+<div class="item-main">
+
+
+
+<span class="sidebar-icon">🎙️</span>
+
+
+
+<span class="item-title">Interview Generator</span>
+
+
+
+</div>
+
+
+
+<span class="status-badge available">• Available Now</span>
+
+
+
+</li>
+
+
+
+<li class="sidebar-item" data-target="assignment">
+
+
+
+<div class="item-main">
+
+
+
+<span class="sidebar-icon">🗄️</span>
+
+
+
+<span class="item-title">Assignment Database</span>
+
+
+
+</div>
+
+
+
+<span class="status-badge phase2">Phase 2</span>
+
+
+
+</li>
+
+
+
+</ul>
+
+
+
+
+
+
+
+<div class="sidebar-footer">
+
+
+
+<div class="footer-row">
+
+
+
+<span class="footer-icon">ⓘ</span>
+
+
+
+<span>Version 1.0</span>
+
+
+
+</div>
+
+
+
+<div class="footer-row">
+
+
+
+<span class="footer-icon">🤖</span>
+
+
+
+<span>Powered by OpenAI</span>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div id="dashboardView" class="view-section">
+
+
+
+<header class="dashboard-header" style="position: relative;">
+
+
+
+<div class="user-info">
+
+
+
+<img src="https://ui-avatars.com/api/?name=Yosef+Khalil&background=3b71f7&color=fff&rounded=true" alt="Profile" class="avatar">
+
+
+
+<div class="user-text">
+
+
+
+<h2>Welcome Back, Yosef</h2>
+
+
+
+<p>Junior Developer</p>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+<button id="menuBtn" class="icon-btn" style="cursor: pointer;">
+
+
+
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+
+
+
+</button>
+
+
+
+</header>
+
+
+
+
+
+
+
+<main class="dashboard-content">
+
+
+
+<div class="hero-section">
+
+
+
+<h1>Let's improve your chances of getting hired today.</h1>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="features-grid">
+
+
+
+<div class="feature-card">
+
+
+
+<div class="feature-icon">
+
+
+
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+
+
+
+</div>
+
+
+
+<h3>Portfolio Analyzer</h3>
+
+
+
+<p>Analyze GitHub projects and receive an AI score.</p>
+
+
+
+<button class="launch-btn" onclick="alert('Coming soon!')">Launch</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="feature-card">
+
+
+
+<div class="feature-icon">
+
+
+
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline>
+
+
+
+</div>
+
+
+
+<h3>Resume Checker</h3>
+
+
+
+<p>Upload your resume and receive instant AI feedback.</p>
+
+
+
+<button class="launch-btn" onclick="alert('Coming soon!')">Launch</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="feature-card">
+
+
+
+<div class="feature-icon">
+
+
+
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+
+
+
+</div>
+
+
+
+<h3>Interview Generator</h3>
+
+
+
+<p>Generate customized interview questions.</p>
+
+
+
+<button id="openInterviewBtn" class="launch-btn active-feature">Launch</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="feature-card">
+
+
+
+<div class="feature-icon">
+
+
+
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+
+
+
+</div>
+
+
+
+<h3>Assignment DB</h3>
+
+
+
+<p>Access real-world technical assignments.</p>
+
+
+
+<button class="launch-btn" onclick="alert('Coming soon!')">Launch</button>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+</main>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div id="interviewView" class="view-section hidden">
+
+
+
+<header class="app-header">
+
+
+
+<button id="backToHomeBtn" class="icon-btn">
+
+
+
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+
+
+
+</button>
+
+
+
+<h1>Interview Prep</h1>
+
+
+
+<div style="width: 24px;"></div>
+
+
+
+</header>
+
+
+
+
+
+
+
+<main class="app-content">
+
+
+
+<div class="card input-card">
+
+
+
+<label for="jobInput" class="card-label">Job Description</label>
+
+
+
+<textarea id="jobInput" placeholder="Paste the job description here..."></textarea>
+
+
+
+</div>
+
+
+
+
+
+
+
+<button id="generateBtn" class="primary-btn">Generate Questions</button>
+
+
+
+
+
+
+
+<div id="loading" class="hidden loading-screen">
+
+
+
+<div class="loader-circle"></div>
+
+
+
+<p>Analyzing Job Requirements...</p>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div id="errorBox" class="hidden error-box"></div>
+
+
+
+
+
+
+
+<div id="results" class="hidden results-container">
+
+
+
+<div class="score-header">
+
+
+
+<h2>AI Recommendations</h2>
+
+
+
+<p>Here are your customized questions.</p>
+
+
+
+</div>
+
+
+
+
+
+<div class="result-card">
+
+
+
+<h3>Technical Questions</h3>
+
+
+
+<ul id="techList" class="custom-list"></ul>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="result-card">
+
+
+
+<h3>Behavioral / HR</h3>
+
+
+
+<ul id="hrList" class="custom-list"></ul>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="result-card">
+
+
+
+<h3>Case Study</h3>
+
+
+
+<ul id="caseList" class="custom-list"></ul>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+</main>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div id="searchView" class="view-section hidden" style="padding: 20px; font-family: 'Inter', sans-serif; box-sizing: border-box; display: flex; flex-direction: column; height: 100%;">
+
+
+
+<h2 style="margin-top: 20px; color: #3b71f7; text-align: center;">Search Portal</h2>
+
+
+
+<p style="color: #666; margin-top: 5px; margin-bottom: 20px; text-align: center; font-size: 14px;">Find any job role, company, or tech skills in Israel.</p>
+
+
+
+
+
+<div style="display: flex; gap: 8px; margin-bottom: 15px; direction: ltr;">
+
+
+
+<input type="text" id="searchInput" placeholder="Search role, company (e.g. IT, Google, QA)..."
+
+
+
+style="flex: 1; padding: 12px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 14px; outline: none; background-color: #f8fafc; font-family: 'Inter', sans-serif;">
+
+
+
+<button id="searchSubmitBtn" style="padding: 12px 16px; background-color: #3b71f7; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 14px;">
+
+
+
+Search
+
+
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div id="kpiDashboard" class="hidden" style="margin-bottom: 15px; padding: 12px; background: #f0fdf4; border: 1px dashed #22c55e; border-radius: 12px; font-size: 12px; color: #166534; direction: ltr;">
+
+
+
+<div style="font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">📊 External Live Market Insights:</div>
+
+
+
+<div style="display: flex; justify-content: space-between; margin-top: 4px;">
+
+
+
+<span>Active Openings: <strong id="kpiCount">0</strong></span>
+
+
+
+<span>Est. Avg Salary: <strong id="kpiSalary">N/A</strong></span>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div id="searchResultsArea" style="margin-top: 10px;"></div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div id="notificationsView" class="view-section hidden" style="padding: 20px; text-align: center;">
+
+
+
+<h2 style="margin-top: 40px; color: #3b71f7;">Notifications</h2>
+
+
+
+<p style="color: #666; margin-top: 10px;">You have no new notifications at the moment.</p>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div id="profileView" class="view-section hidden profile-view-container">
+
+
+
+<div class="profile-header-wrapper">
+
+
+
+<h2 class="profile-main-title">Career Profile</h2>
+
+
+
+<button class="profile-edit-trigger" onclick="console.log('Edit profile clicked!')">
+
+
+
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+
+
+
+Edit
+
+
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+<div class="profile-scrollable-inner">
+
+
+
+<div style="background: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 20px; text-align: center; border: 1px solid #edf2f7;">
+
+
+
+<img src="https://ui-avatars.com/api/?name=Yosef+Khalil&background=3b71f7&color=fff&rounded=true&size=128" alt="Yosef Khalil" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 12px; border: 3px solid #e2e8f0;">
+
+
+
+<h3 style="margin: 0; color: #0f172a; font-size: 20px; font-weight: 600;">Yosef Khalil</h3>
+
+
+
+<p style="margin: 4px 0 0 0; color: #64748b; font-size: 14px; font-weight: 500;">Junior Developer</p>
+
+
+
+<div style="display: inline-block; background: #e0f2fe; color: #0369a1; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-top: 10px;">Active Student</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div id="profileCardsContainer"></div>
+
+
+
+
+
+<div class="profile-bottom-spacer"></div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div id="jobDetailModal" class="hidden" style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(15,23,42,0.7); z-index:9999; display: flex; align-items:flex-end;">
+
+
+
+<div style="background:#ffffff; width:100%; max-height:80%; border-top-left-radius:32px; border-top-right-radius:32px; padding:24px; box-sizing:border-box; overflow-y:auto; font-family:'Inter',sans-serif; display:flex; flex-direction:column;">
+
+
+
+<div style="width: 40px; height: 5px; background: #cbd5e1; border-radius: 10px; margin: 0 auto 15px auto; cursor: pointer;" id="modalBarClose"></div>
+
+
+
+<h3 id="modalJobTitle" style="color: #0f172a; font-size: 18px; font-weight:700; margin-bottom:4px;">Job Title</h3>
+
+
+
+<p id="modalJobCompany" style="color: #3b71f7; font-weight:600; font-size:14px; margin-bottom:16px;">Company Name</p>
+
+
+
+<div id="modalJobDetails" style="flex:1;"></div>
+
+
+
+<button id="closeModalBtn" class="primary-btn" style="margin-top:20px; background:#64748b; margin-bottom:0;">Close Details</button>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div id="virtualKeyboard" style="display: none; position: absolute; bottom: 70px; left: 8px; right: 8px; background-color: #f1f5f9; padding: 8px; border-radius: 16px; box-shadow: 0 -4px 10px rgba(0,0,0,0.1); direction: ltr; z-index: 2000;">
+
+
+
+<div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 6px;">
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Q</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">W</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">E</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">R</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">T</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Y</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">U</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">I</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">O</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">P</button>
+
+
+
+</div>
+
+
+
+<div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 6px; padding: 0 8px;">
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">A</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">S</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">D</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">F</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">G</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">H</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">J</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">K</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">L</button>
+
+
+
+</div>
+
+
+
+<div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 6px;">
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Z</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">X</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">C</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">V</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">B</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">N</button>
+
+
+
+<button class="key" style="flex: 1; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">M</button>
+
+
+
+<button id="keyDelete" style="flex: 1.5; padding: 12px 0; background-color: #cbd5e1; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Del</button>
+
+
+
+</div>
+
+
+
+<div style="display: flex; justify-content: center; gap: 4px;">
+
+
+
+<button id="keyClose" style="flex: 2; padding: 12px 0; background-color: #94a3b8; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px;">Done</button>
+
+
+
+<button id="keySpace" style="flex: 5; padding: 12px 0; background: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">Space</button>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<nav class="bottom-nav">
+
+
+
+<div class="nav-item active" data-target="home">
+
+
+
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+
+
+
+</div>
+
+
+
+<div class="nav-item" data-target="search">
+
+
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+
+
+</div>
+
+
+<div class="nav-item" data-target="notifications">
+
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+</div>
+<div class="nav-item" data-target="profile">
+
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+</div>
+</nav>
+
+
+</div>
+
+
+<script src="app.js"></script></body></html>
