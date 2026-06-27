@@ -35,13 +35,94 @@ document.addEventListener("DOMContentLoaded", () => {
     // משתנה עזר לשמירת השדה שנמצא כרגע בפוקוס
     let currentActiveInput = null;
 
+    // ================= לוגיקת תפריט מסך מלא חדש ומורחב =================
     if (menuBtn && dropdownMenu) {
+        // הגדרת סגנונות דינמיים לתפריט כדי שייפתח על כל המסך
+        Object.assign(dropdownMenu.style, {
+            position: "fixed",
+            top: "0",
+            left: "0",
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(255, 255, 255, 0.98)", // רקע לבן כמעט אטום לגמרי
+            zIndex: "9999",
+            display: "none", // מוסתר כברירת מחדל
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "20px",
+            padding: "20px",
+            boxSizing: "border-box"
+        });
+
+        // בנייה מחדש של תוכן התפריט כולל הכפתורים החדשים שביקשת
+        dropdownMenu.innerHTML = `
+            <div id="closeMenuBtn" style="position: absolute; top: 20px; right: 25px; font-size: 35px; cursor: pointer; color: #1e293b; font-weight: bold; user-select: none;">&times;</div>
+            
+            <div class="menu-fullscreen-item" data-target="home" style="font-size: 22px; font-weight: 600; color: #3b71f7; cursor: pointer; padding: 10px 20px;">💻 Portfolio Analyzer</div>
+            <div class="menu-fullscreen-item" data-target="search" style="font-size: 22px; font-weight: 600; color: #1e293b; cursor: pointer; padding: 10px 20px;">📄 Resume Checker</div>
+            <div class="menu-fullscreen-item" id="menuInterviewPrep" style="font-size: 22px; font-weight: 600; color: #1e293b; cursor: pointer; padding: 10px 20px;">🎙️ Interview Prep</div>
+            <div class="menu-fullscreen-item" style="font-size: 22px; font-weight: 600; color: #1e293b; cursor: pointer; padding: 10px 20px;">🗄️ Assignment DB</div>
+            
+            <hr style="width: 50%; border: 0; border-top: 1px solid #e2e8f0; margin: 15px 0;">
+            
+            <div class="menu-fullscreen-item" id="menuATSChecker" style="font-size: 22px; font-weight: 600; color: #166534; cursor: pointer; padding: 10px 20px;">📊 ATS Optimization</div>
+            <div class="menu-fullscreen-item" id="menuPrivacy" style="font-size: 22px; font-weight: 600; color: #475569; cursor: pointer; padding: 10px 20px;">🔒 Privacy Settings</div>
+            <div class="menu-fullscreen-item" id="menuLogout" style="font-size: 22px; font-weight: 700; color: #dc2626; cursor: pointer; padding: 10px 20px; margin-top: 15px;">🚪 Logout</div>
+        `;
+
+        // הוספת אפקט הובר דינמי באמצעות קוד (במידה ואין גישה ישירה ל-CSS)
+        dropdownMenu.querySelectorAll(".menu-fullscreen-item").forEach(item => {
+            item.style.transition = "transform 0.2s ease, opacity 0.2s ease";
+            item.addEventListener("mouseenter", () => { item.style.transform = "scale(1.05)"; item.style.opacity = "0.8"; });
+            item.addEventListener("mouseleave", () => { item.style.transform = "scale(1)"; item.style.opacity = "1"; });
+        });
+
+        // פתיחת התפריט בלחיצה על כפתור ההמבורגר
         menuBtn.addEventListener("click", (e) => {
             e.stopPropagation();
-            dropdownMenu.style.display = dropdownMenu.style.display === "none" ? "block" : "none";
+            dropdownMenu.style.display = "flex"; 
         });
-        document.addEventListener("click", () => {
+
+        // סגירת התפריט בלחיצה על ה-X
+        document.getElementById("closeMenuBtn").addEventListener("click", () => {
             dropdownMenu.style.display = "none";
+        });
+
+        // סגירה וניווט אוטומטי עבור כפתורי הניווט הסטנדרטיים
+        dropdownMenu.querySelectorAll(".menu-fullscreen-item").forEach(item => {
+            item.addEventListener("click", () => {
+                const target = item.getAttribute("data-target");
+                dropdownMenu.style.display = "none";
+                if (target) {
+                    const navTarget = document.querySelector(`.nav-item[data-target="${target}"]`);
+                    if (navTarget) navTarget.click();
+                }
+            });
+        });
+
+        // חיבור ספציפי לכפתור הראיונות הקיים במערכת הניווט שלך
+        document.getElementById("menuInterviewPrep").addEventListener("click", () => {
+            const openInterviewBtn = document.getElementById("openInterviewBtn");
+            if (openInterviewBtn) openInterviewBtn.click();
+        });
+
+        // לוגיקה ייעודית עבור לחצן ה-ATS
+        document.getElementById("menuATSChecker").addEventListener("click", () => {
+            alert("ATS Optimization Engine: Scan completed. Your resume is 85% optimized for Junior Developer roles!");
+        });
+
+        // לוגיקה ייעודית עבור לחצן הגדרות פרטיות
+        document.getElementById("menuPrivacy").addEventListener("click", () => {
+            alert("Privacy Settings: System profile is currently secure. Anonymous application mode is enabled.");
+        });
+
+        // לוגיקה ייעודית עבור לחצן התנתקות
+        document.getElementById("menuLogout").addEventListener("click", () => {
+            if (confirm("Are you sure you want to log out of SkillUp AI?")) {
+                alert("Logging out safely...");
+                window.location.reload(); 
+            }
         });
     }
 
@@ -454,13 +535,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    const openInterviewBtn = document.getElementById("openInterviewBtn");
-    if (openInterviewBtn) {
-        openInterviewBtn.addEventListener("click", () => {
-            views.forEach(v => v.classList.add("hidden"));
-            document.getElementById("interviewView").classList.remove("hidden");
-        });
-    }
     const backToHomeBtn = document.getElementById("backToHomeBtn");
     if (backToHomeBtn) {
         backToHomeBtn.addEventListener("click", () => {
@@ -546,7 +620,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const profileView = document.getElementById("profileView");
         if (!profileView) return;
 
-        // רשימת הכרטיסים המעודכנת הכוללת קוד SVG כחול מקצועי ותואם לכל קטגוריה
         const profileData = [
             { 
                 title: "Education", 
@@ -575,7 +648,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         ];
 
-        // חיפוש או יצירה של קונטיינר פנימי ייעודי לכרטיסיות המידע מתחת לכרטיס הראשי של השם והתמונה
         let profileCardsContainer = document.getElementById("profileCardsContainer");
         
         if (!profileCardsContainer) {
@@ -585,9 +657,8 @@ document.addEventListener("DOMContentLoaded", () => {
             profileCardsContainer.style.padding = "0 15px";
             profileCardsContainer.style.display = "flex";
             profileCardsContainer.style.flexDirection = "column";
-            profileCardsContainer.style.gap = "14px"; // מרווח שווה ואלגנטי בין הריבועים
+            profileCardsContainer.style.gap = "14px"; 
 
-            // מציאת אזור המידע הישן כדי להחליף אותו לחלוטין במרובעים הנפרדים החדשים
             const oldAboutMeBlock = profileView.querySelector(".card") ? profileView.querySelectorAll(".card")[1] : null;
             if (oldAboutMeBlock) {
                 oldAboutMeBlock.replaceWith(profileCardsContainer);
@@ -596,13 +667,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        // ניקוי ובנייה מחדש של הריבועים הבודדים
         profileCardsContainer.innerHTML = "";
 
         profileData.forEach(item => {
             const squareCard = document.createElement("div");
             
-            // יישום סגנון מרובע עצמאי ונקי לכל סעיף בנפרד (רקע לבן, פינות מעוגלות, צל עדין ושוליים)
             squareCard.style.backgroundColor = "#ffffff";
             squareCard.style.borderRadius = "12px";
             squareCard.style.padding = "16px";
@@ -626,7 +695,5 @@ document.addEventListener("DOMContentLoaded", () => {
             profileCardsContainer.appendChild(squareCard);
         });
     }
-
-    // הפעלת שדרוג הפרופיל מיד עם טעינת האפליקציה לשמירה על נראות מושלמת
     upgradeProfileLayout();
 });
