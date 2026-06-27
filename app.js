@@ -375,19 +375,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
      
-    // פונקציה שמייצרת את קארד המשרה עם תמונת הלוגו הרשמית והצבעונית של החברה במקום האותיות הכלליות!
+    // פונקציה שמייצרת את קארד המשרה עם תמונת הלוגו הרשמית והצבעונית של החברה (מתוקן ומיושר לפי image_dc94a5.jpg)
     function renderJobCards(jobs) {
         searchResultsArea.innerHTML = "";
         
-        // מילון מובנה שממפה את החברה ללוגו הרשמי והצבעוני שלה
+        // מילון מובנה שממפה את החברה ללוגו הרשמי והצבעוני שלה דרך השרת היציב של גוגל
         const companyAssets = {
-            "wix.com": { logo: "https://logo.clearbit.com/wix.com" },
-            "google": { logo: "https://logo.clearbit.com/google.com" },
-            "palo alto networks": { logo: "https://logo.clearbit.com/paloaltonetworks.com" },
-            "mobileye": { logo: "https://logo.clearbit.com/mobileye.com" },
-            "intel": { logo: "https://logo.clearbit.com/intel.com" },
-            "check point": { logo: "https://logo.clearbit.com/checkpoint.com" },
-            "cyberark": { logo: "https://logo.clearbit.com/cyberark.com" }
+            "wix.com": { logo: "https://www.google.com/s2/favicons?sz=64&domain=wix.com" },
+            "google": { logo: "https://www.google.com/s2/favicons?sz=64&domain=google.com" },
+            "palo alto networks": { logo: "https://www.google.com/s2/favicons?sz=64&domain=paloaltonetworks.com" },
+            "mobileye": { logo: "https://www.google.com/s2/favicons?sz=64&domain=mobileye.com" },
+            "intel": { logo: "https://www.google.com/s2/favicons?sz=64&domain=intel.com" },
+            "check point": { logo: "https://www.google.com/s2/favicons?sz=64&domain=checkpoint.com" },
+            "cyberark": { logo: "https://www.google.com/s2/favicons?sz=64&domain=cyberark.com" }
         };
         
         jobs.forEach((job) => {
@@ -407,18 +407,20 @@ document.addEventListener("DOMContentLoaded", () => {
             const compKey = companyName.toLowerCase().trim();
             const asset = companyAssets[compKey];
             
-            // ברירת מחדל של ראשי התיבות למקרה שאין תמונה
+            // ברירת מחדל של ראשי התיבות למקרה חירום בלבד
             let initials = companyName.substring(0, 2).toUpperCase();
-            let innerContent = `<span style="font-family: sans-serif; font-size: 13px; font-weight: 600; color: #94a3b8; letter-spacing: 0.3px;">${initials}</span>`;
-            
-            // עדכון קריטי: החלפת האותיות הכלליות בתמונת הלוגו הרשמית!
+            let finalLogoUrl = "";
+
             if (asset && asset.logo) {
-                innerContent = `<img src="${asset.logo}" alt="${companyName} Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: 4px;" onerror="this.replaceWith(document.createTextNode('${initials}'))">`;
+                finalLogoUrl = asset.logo;
             } else {
-                // תמיכה דינמית לחברות מחוץ למאגר - משיכת תמונה לפי שם הדומיין במידה וקיים
+                // יצירת קישור אוטומטי לכל חברה דינמית אחרת
                 const cleanDomain = compKey.replace(/\s+/g, '') + ".com";
-                innerContent = `<img src="https://logo.clearbit.com/${cleanDomain}" alt="${companyName} Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: 4px;" onerror="this.innerHTML='<span style=\'color:#94a3b8; font-weight:600;\'>${initials}</span>'">`;
+                finalLogoUrl = `https://www.google.com/s2/favicons?sz=64&domain=${cleanDomain}`;
             }
+            
+            // תוכן הריבוע הפנימי - תמונת לוגו רשמית בגודל מלא
+            let innerContent = `<img src="${finalLogoUrl}" alt="${companyName} Logo" style="width: 28px; height: 28px; object-fit: contain;" onerror="this.onerror=null; this.replaceWith(document.createTextNode('${initials}'))">`;
             
             let levelBadge = '';
             if (job.isJunior) {
@@ -428,15 +430,15 @@ document.addEventListener("DOMContentLoaded", () => {
             }
      
             card.innerHTML = `
-                <!-- הריבוע החיצוני המעוגל בדיוק כמו בצילום המסך image_dc8d3e.jpg -->
+                <!-- הריבוע החיצוני המעוגל כפול בדיוק לפי העיצוב -->
                 <div style="width: 54px; height: 54px; border: 1px solid #e2e8f0; border-radius: 14px; display: flex; justify-content: center; align-items: center; background: #ffffff; flex-shrink: 0;">
-                    <!-- הריבוע הפנימי שמציג כעת בגאווה את הלוגו/תמונת החברה הרשמית -->
-                    <div style="width: 38px; height: 38px; background: #f1f5f9; border-radius: 6px; display: flex; justify-content: center; align-items: center; overflow: hidden; padding: 2px; box-sizing: border-box;">
+                    <!-- הריבוע הפנימי שמציג כעת את התמונה הצבעונית האמיתית -->
+                    <div style="width: 38px; height: 38px; background: #f1f5f9; border-radius: 6px; display: flex; justify-content: center; align-items: center; overflow: hidden; box-sizing: border-box;">
                         ${innerContent}
                     </div>
                 </div>
 
-                <!-- תוכן המשרה המשובץ מימין לריבוע התמונה -->
+                <!-- תוכן המשרה מימין לריבוע התמונה -->
                 <div style="flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0;">
                     <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
                         <h3 style="margin: 0; color: #1e293b; font-size: 15px; font-weight: 700; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${job.title}</h3>
