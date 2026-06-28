@@ -679,7 +679,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
      
-    // ================= פירוק הפרופיל ל-4 מרובעים נפרדים מעוצבים עם תגיות מעוצבות לפי image_de01dc.jpg =================
+    // ================= פירוק הפרופיל ל-4 מרובעים נפרדים מעוצבים עם תגיות מעוצבות לפי image_17a238.png =================
     function upgradeProfileLayout() {
         const profileView = document.getElementById("profileView");
         if (!profileView) return;
@@ -687,7 +687,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // רשימת הכישורים המעוצבים כבאדג'ים
         const skills = ["Python", "SQL", "JavaScript", "Git", "HTML", "CSS", "Problem Solving"];
         
-        // יצירת מחרוזת ה-HTML עבור ה-Skills כבלונים מעוגלים זה לצד זה (בדיוק כמו בתמונה image_de01dc.jpg)
+        // יצירת מחרוזת ה-HTML עבור ה-Skills כבלונים מעוגלים זה לצד זה
         const skillsHTML = `
             <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px;">
                 ${skills.map(skill => `
@@ -706,7 +706,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <span style="color: #64748b; font-size: 12px;">University Student</span>
                        </div>`, 
                 icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5-10 5z"></path><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path></svg>`,
-                isEducation: true // דגל ייעודי להוספת ה-Current ירוק בצד
+                isEducation: true 
             },
             { 
                 title: "Background", 
@@ -730,7 +730,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!profileCardsContainer) {
             profileCardsContainer = document.createElement("div");
             profileCardsContainer.id = "profileCardsContainer";
-            profileCardsContainer.style.marginTop = "20px";
+            profileCardsContainer.style.marginTop = "15px";
             profileCardsContainer.style.padding = "0 15px";
             profileCardsContainer.style.display = "flex";
             profileCardsContainer.style.flexDirection = "column";
@@ -744,20 +744,56 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
      
+        // מחיקת התוכן הישן כדי לבנות את הכל מחדש בצורה מושלמת לפי המבנה של התמונה image_17a238.png
         profileCardsContainer.innerHTML = "";
      
+        // 1. יצירת ה-KPI Grid החדש (שורת הסטטיסטיקות העליונה בעלת 4 עמודות)
+        const statsGrid = document.createElement("div");
+        statsGrid.style.display = "grid";
+        statsGrid.style.gridTemplateColumns = "repeat(4, 1fr)";
+        statsGrid.style.gap = "10px";
+        statsGrid.style.backgroundColor = "#ffffff";
+        statsGrid.style.borderRadius = "12px";
+        statsGrid.style.padding = "14px 8px";
+        statsGrid.style.border = "1px solid #e2e8f0";
+        statsGrid.style.boxShadow = "0 4px 6px -1px rgba(0, 0, 0, 0.05)";
+        
+        const statsData = [
+            { value: "3/5", label: "Goals Set", color: "#10b981", bg: "#ecfdf5", icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="2"></circle></svg>` },
+            { value: "4", label: "Skills Added", color: "#8b5cf6", bg: "#f5f3ff", icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>` },
+            { value: "2", label: "Applications", color: "#f59e0b", bg: "#fffbeb", icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>` },
+            { value: "7", label: "Profile Views", color: "#3b82f6", bg: "#eff6ff", icon: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>` }
+        ];
+
+        statsData.forEach(stat => {
+            const statBox = document.createElement("div");
+            statBox.style.display = "flex";
+            statBox.style.flexDirection = "column";
+            statBox.style.alignItems = "center";
+            statBox.style.gap = "4px";
+            statBox.innerHTML = `
+                <div style="background-color: ${stat.bg}; color: ${stat.color}; width: 28px; height: 28px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+                    ${stat.icon}
+                </div>
+                <span style="font-size: 14px; font-weight: 700; color: #1e293b;">${stat.value}</span>
+                <span style="font-size: 10px; color: #64748b; white-space: nowrap;">${stat.label}</span>
+            `;
+            statsGrid.appendChild(statBox);
+        });
+        
+        profileCardsContainer.appendChild(statsGrid);
+
+        // 2. הוספת ארבעת כרטיסי המידע (Education, Background, Target Goal, Top Skills)
         profileData.forEach(item => {
             const squareCard = document.createElement("div");
-            
             squareCard.style.backgroundColor = "#ffffff";
             squareCard.style.borderRadius = "12px";
             squareCard.style.padding = "16px";
-            squareCard.style.boxShadow = "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)";
+            squareCard.style.boxShadow = "0 4px 6px -1px rgba(0, 0, 0, 0.05)";
             squareCard.style.border = "1px solid #e2e8f0";
             squareCard.style.textAlign = "left"; 
             squareCard.style.direction = "ltr";
             
-            // תגית Current ירוקה עבור כרטיסיית הלימודים
             const currentBadgeHTML = item.isEducation 
                 ? `<span style="font-size: 11px; background-color: #f0fdf4; color: #166534; padding: 3px 10px; border-radius: 12px; font-weight: bold; border: 1px solid #bbf7d0; margin-left: auto;">Current</span>` 
                 : '';
@@ -774,9 +810,75 @@ document.addEventListener("DOMContentLoaded", () => {
                     ${item.text}
                 </div>
             `;
-            
             profileCardsContainer.appendChild(squareCard);
         });
+
+        // 3. יצירת באנר הטיפ (Profile Tip) עם הכפתור הימני
+        const tipBanner = document.createElement("div");
+        tipBanner.style.backgroundColor = "#eff6ff";
+        tipBanner.style.borderRadius = "12px";
+        tipBanner.style.padding = "14px 16px";
+        tipBanner.style.border = "1px solid #bfdbfe";
+        tipBanner.style.display = "flex";
+        tipBanner.style.alignItems = "center";
+        tipBanner.style.justifyContent = "space-between";
+        tipBanner.style.gap = "12px";
+        tipBanner.style.direction = "ltr";
+        tipBanner.style.textAlign = "left";
+
+        tipBanner.innerHTML = `
+            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                <span style="color: #2563eb; font-size: 18px; margin-top: 1px;">✨</span>
+                <div style="display: flex; flex-direction: column;">
+                    <span style="font-size: 13px; font-weight: 700; color: #1e293b; font-family: sans-serif;">Profile Tip</span>
+                    <span style="font-size: 11px; color: #475569; font-family: sans-serif; line-height: 1.4; margin-top: 2px;">Add more projects and skills to increase your match rate with job opportunities.</span>
+                </div>
+            </div>
+            <button style="background-color: #ffffff; color: #2563eb; border: 1px solid #bfdbfe; font-size: 11px; font-weight: 700; padding: 7px 12px; border-radius: 8px; cursor: pointer; white-space: nowrap; font-family: sans-serif; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+                ↗ Improve Profile
+            </button>
+        `;
+        profileCardsContainer.appendChild(tipBanner);
+
+        // 4. יצירת בלוק פעילות אחרונה (Recent Activity)
+        const activityBlock = document.createElement("div");
+        activityBlock.style.backgroundColor = "#ffffff";
+        activityBlock.style.borderRadius = "12px";
+        activityBlock.style.padding = "16px";
+        activityBlock.style.border = "1px solid #e2e8f0";
+        activityBlock.style.boxShadow = "0 4px 6px -1px rgba(0, 0, 0, 0.05)";
+        activityBlock.style.display = "flex";
+        activityBlock.style.flexDirection = "column";
+        activityBlock.style.gap = "12px";
+        activityBlock.style.direction = "ltr";
+        activityBlock.style.textAlign = "left";
+
+        activityBlock.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <span style="font-size: 14px; font-weight: 700; color: #1e293b; font-family: sans-serif;">Recent Activity</span>
+                <span style="font-size: 12px; font-weight: 600; color: #2563eb; cursor: pointer; font-family: sans-serif;">View All</span>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 4px;">
+                <!-- פעילות 1 -->
+                <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="background-color: #e0f2fe; color: #0369a1; width: 24px; height: 24px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 12px;">✓</div>
+                        <span style="font-size: 13px; color: #334155; font-family: sans-serif;">Profile updated</span>
+                    </div>
+                    <span style="font-size: 11px; color: #94a3b8; font-family: sans-serif;">2 days ago</span>
+                </div>
+                <!-- פעילות 2 -->
+                <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="background-color: #f3e8ff; color: #6b21a8; width: 24px; height: 24px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 12px;">+</div>
+                        <span style="font-size: 13px; color: #334155; font-family: sans-serif;">Added new skill: JavaScript</span>
+                    </div>
+                    <span style="font-size: 11px; color: #94a3b8; font-family: sans-serif;">5 days ago</span>
+                </div>
+            </div>
+        `;
+        profileCardsContainer.appendChild(activityBlock);
     }
      
     upgradeProfileLayout();
