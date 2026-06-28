@@ -870,19 +870,32 @@ document.addEventListener("DOMContentLoaded", () => {
         notificationsView.style.height = "100%";
         notificationsView.style.overflowY = "auto";
         notificationsView.style.boxSizing = "border-box";
-        notificationsView.style.position = "relative"; // קריטי עבור מחוון הגרירה והרענון החדש
+        notificationsView.style.position = "relative"; 
         
-        // העלמת פסי הגלילה הגסים למראה טבעי וחלק של מובייל[cite: 1]
-        notificationsView.style.scrollbarWidth = "none"; 
-        notificationsView.style.msOverflowStyle = "none";
+        // הגדרת פס גלילה מותאם אישית ומעוגל בדיוק כמו ב-image_238e41.png במקום להעלים אותו[cite: 1]
+        notificationsView.style.scrollbarWidth = "thin";
+        notificationsView.style.scrollbarColor = "#7c7c7c transparent";
 
-        let styleSheet = document.getElementById("hide-scrollbars-style");
+        let styleSheet = document.getElementById("custom-scrollbar-style");
         if (!styleSheet) {
             styleSheet = document.createElement("style");
-            styleSheet.id = "hide-scrollbars-style";
+            styleSheet.id = "custom-scrollbar-style";
             styleSheet.innerText = `
-                #notificationsView::-webkit-scrollbar { display: none !important; }
-                #notificationsView div::-webkit-scrollbar { display: none !important; }
+                /* יצירת פס גלילה מעוגל בהשראת image_238e41.png */
+                #notificationsView::-webkit-scrollbar {
+                    width: 7px;
+                    display: block !important;
+                }
+                #notificationsView::-webkit-scrollbar-track {
+                    background: transparent;
+                }
+                #notificationsView::-webkit-scrollbar-thumb {
+                    background: #7c7c7c;
+                    border-radius: 20px;
+                }
+                #notificationsView::-webkit-scrollbar-thumb:hover {
+                    background: #606060;
+                }
                 .pull-indicator {
                     width: 100%;
                     height: 0px;
@@ -945,14 +958,14 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         notificationsView.appendChild(headerContainer);
 
-        // 2. סליידר סינון קטגוריות אופקי (Filter Tabs) - תוקן למניעת החיתוך מהעיצוב ב-image_23210c.png[cite: 1]
+        // 2. סליידר סינון קטגוריות אופקי (Filter Tabs)[cite: 1]
         const filtersContainer = document.createElement("div");
         filtersContainer.style.display = "flex";
         filtersContainer.style.gap = "8px";
         filtersContainer.style.overflowX = "auto";
         filtersContainer.style.overflowY = "hidden";
-        filtersContainer.style.height = "42px"; // גובה מקובע ומוגדר מראש למיכל
-        filtersContainer.style.alignItems = "center"; // מרכוז אנכי מושלם של כל הכפתורים
+        filtersContainer.style.height = "42px"; 
+        filtersContainer.style.alignItems = "center"; 
         filtersContainer.style.marginBottom = "20px";
         filtersContainer.style.direction = "ltr";
         filtersContainer.style.scrollbarWidth = "none"; 
@@ -967,7 +980,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         filters.forEach(filter => {
             const filterBtn = document.createElement("button");
-            filterBtn.style.padding = "6px 14px"; // פאדינג אופטימלי שלא חורג מהגובה
+            filterBtn.style.padding = "6px 14px"; 
             filterBtn.style.borderRadius = "20px";
             filterBtn.style.fontSize = "13px";
             filterBtn.style.fontWeight = "600";
@@ -977,9 +990,9 @@ document.addEventListener("DOMContentLoaded", () => {
             filterBtn.style.display = "flex";
             filterBtn.style.alignItems = "center";
             filterBtn.style.justifyContent = "center";
-            filterBtn.style.lineHeight = "1"; // ביטול ירושת גבהים של שורות שדוחפים למטה
+            filterBtn.style.lineHeight = "1"; 
             filterBtn.style.gap = "6px";
-            filterBtn.style.height = "32px"; // גובה קבוע לכל כפתור בנפרד למניעת חיתוך
+            filterBtn.style.height = "32px"; 
 
             if (filter.active) {
                 filterBtn.style.backgroundColor = "#3b71f7";
@@ -1119,7 +1132,6 @@ document.addEventListener("DOMContentLoaded", () => {
         let currentY = 0;
         let isPulling = false;
 
-        // הגדרת פונקציית רענון חלקה
         function triggerNotificationRefresh() {
             pullIndicator.classList.add("active-pull");
             
@@ -1129,14 +1141,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 1500); 
         }
 
-        // חיבור כפתור ה-Check ללוגיקת הגרירה המרעננת
         const checkUpdatesBtn = document.getElementById("refreshNotificationsBtn");
         if (checkUpdatesBtn) {
             checkUpdatesBtn.addEventListener("click", triggerNotificationRefresh);
         }
 
         notificationsView.addEventListener("touchstart", (e) => {
-            // מאפשר גרירה רק אם המשתמש נמצא בטופ של גלילת האלמנט
             if (notificationsView.scrollTop === 0) {
                 startY = e.touches[0].pageY;
                 isPulling = true;
@@ -1148,7 +1158,6 @@ document.addEventListener("DOMContentLoaded", () => {
             currentY = e.touches[0].pageY;
             let pullDistance = currentY - startY;
 
-            // אם המשתמש מושך כלפי מטה בצורה מובהקת
             if (pullDistance > 50) {
                 pullIndicator.classList.add("active-pull");
             }
@@ -1157,7 +1166,6 @@ document.addEventListener("DOMContentLoaded", () => {
         notificationsView.addEventListener("touchend", () => {
             if (isPulling) {
                 isPulling = false;
-                // במידה והמחוון הפך פעיל, נבצע את הטעינה הסימולטיבית
                 if (pullIndicator.classList.contains("active-pull")) {
                     triggerNotificationRefresh();
                 }
