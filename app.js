@@ -870,78 +870,36 @@ document.addEventListener("DOMContentLoaded", () => {
         notificationsView.style.height = "100%";
         notificationsView.style.overflowY = "auto";
         notificationsView.style.boxSizing = "border-box";
-        notificationsView.style.position = "relative"; 
         
-        // הגדרת פס גלילה מותאם אישית ומעוגל בדיוק כמו ב-image_238e41.png
-        notificationsView.style.scrollbarWidth = "thin";
-        notificationsView.style.scrollbarColor = "#7c7c7c transparent";
+        // העלמת פסי הגלילה האנכיים הראשיים למראה נקי
+        notificationsView.style.scrollbarWidth = "none"; 
+        notificationsView.style.msOverflowStyle = "none";
 
-        let styleSheet = document.getElementById("custom-scrollbar-style");
+        let styleSheet = document.getElementById("hide-scrollbars-style");
         if (!styleSheet) {
             styleSheet = document.createElement("style");
-            styleSheet.id = "custom-scrollbar-style";
+            styleSheet.id = "hide-scrollbars-style";
+            styleSheet.innerText = `
+                #notificationsView::-webkit-scrollbar { display: none !important; }
+                
+                /* עיצוב פס הגלילה האופקי של כפתורי הסינון שיראה כמו שאר האפליקציה */
+                .custom-scroll-container::-webkit-scrollbar {
+                    height: 4px;
+                }
+                .custom-scroll-container::-webkit-scrollbar-track {
+                    background: #f1f5f9;
+                    border-radius: 10px;
+                }
+                .custom-scroll-container::-webkit-scrollbar-thumb {
+                    background: #cbd5e1;
+                    border-radius: 10px;
+                }
+                .custom-scroll-container::-webkit-scrollbar-thumb:hover {
+                    background: #94a3b8;
+                }
+            `;
             document.head.appendChild(styleSheet);
         }
-        
-        // עדכון ה-CSS בשביל לקצר ולעשות את קו הגלילה מעוגל ואלגנטי יותר (בעזרת border שקוף וקטימת רקע)
-        styleSheet.innerText = `
-            #notificationsView::-webkit-scrollbar {
-                width: 7px;
-                display: block !important;
-            }
-            #notificationsView::-webkit-scrollbar-track {
-                background: transparent;
-            }
-            #notificationsView::-webkit-scrollbar-thumb {
-                background-color: #7c7c7c;
-                background-clip: padding-box;
-                border-radius: 20px;
-                /* הוספת שוליים שקופים שמקצרים את אורך ה-Thumb הויזואלי */
-                border-top: 40px solid transparent;
-                border-bottom: 40px solid transparent;
-            }
-            #notificationsView::-webkit-scrollbar-thumb:hover {
-                background-color: #606060;
-            }
-            .pull-indicator {
-                width: 100%;
-                height: 0px;
-                overflow: hidden;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background-color: #f8fafc;
-                transition: height 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-                border-radius: 12px;
-                margin-bottom: 0px;
-            }
-            .pull-indicator.active-pull {
-                height: 50px;
-                margin-bottom: 15px;
-            }
-            .spinner-pull {
-                width: 18px;
-                height: 18px;
-                border: 2px solid #e2e8f0;
-                border-top-color: #3b71f7;
-                border-radius: 50%;
-                animation: spin-pull 0.8s linear infinite;
-            }
-            @keyframes spin-pull {
-                to { transform: rotate(360deg); }
-            }
-        `;
-
-        // יצירת אלמנט ויזואלי של מחוון משיכה/רענון (Pull-to-refresh Indicator)
-        const pullIndicator = document.createElement("div");
-        pullIndicator.className = "pull-indicator";
-        pullIndicator.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <div class="spinner-pull"></div>
-                <span style="font-size: 12px; color: #64748b; font-family: sans-serif; font-weight: 500;">Refreshing alerts...</span>
-            </div>
-        `;
-        notificationsView.appendChild(pullIndicator);
 
         // 1. כותרת עליונה, תיאור וכפתור גלגל שיניים
         const headerContainer = document.createElement("div");
@@ -963,18 +921,17 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         notificationsView.appendChild(headerContainer);
 
-        // 2. סליידר סינון קטגוריות אופקי (Filter Tabs)
+        // 2. סליידר סינון קטגוריות אופקי (Filter Tabs) עם פס גלילה מעוצב
         const filtersContainer = document.createElement("div");
+        filtersContainer.className = "custom-scroll-container"; // קלאס ייעודי לפס הגלילה המעוצב[cite: 1]
         filtersContainer.style.display = "flex";
         filtersContainer.style.gap = "8px";
         filtersContainer.style.overflowX = "auto";
         filtersContainer.style.overflowY = "hidden";
-        filtersContainer.style.height = "42px"; 
-        filtersContainer.style.alignItems = "center"; 
+        filtersContainer.style.height = "46px"; 
+        filtersContainer.style.alignItems = "flex-start"; 
         filtersContainer.style.marginBottom = "20px";
         filtersContainer.style.direction = "ltr";
-        filtersContainer.style.scrollbarWidth = "none"; 
-        filtersContainer.style.msOverflowStyle = "none";
         
         const filters = [
             { name: "All", count: true, active: true },
@@ -1045,7 +1002,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <h2 style="margin: 0; font-size: 18px; font-weight: 700; color: #111827; font-family: sans-serif;">You're all caught up!</h2>
             <p style="margin: 6px 0 20px 0; font-size: 13px; color: #6b7280; font-family: sans-serif;">You have no new notifications at the moment.</p>
             
-            <button id="refreshNotificationsBtn" style="background: #3b71f7; color: #ffffff; border: none; border-radius: 10px; padding: 12px 24px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(59, 113, 247, 0.15); font-family: sans-serif;">
+            <button style="background: #3b71f7; color: #ffffff; border: none; border-radius: 10px; padding: 12px 24px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(59, 113, 247, 0.15); font-family: sans-serif;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
                 Check for updates
             </button>
@@ -1131,51 +1088,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         
         notificationsView.appendChild(preferencesRow);
-
-        // ================= לוגיקת גרירה למטה לרענון (Pull-to-Refresh) למסך ההודעות =================
-        let startY = 0;
-        let currentY = 0;
-        let isPulling = false;
-
-        function triggerNotificationRefresh() {
-            pullIndicator.classList.add("active-pull");
-            
-            setTimeout(() => {
-                pullIndicator.classList.remove("active-pull");
-                console.log("Notifications ecosystem synchronized successfully.");
-            }, 1500); 
-        }
-
-        const checkUpdatesBtn = document.getElementById("refreshNotificationsBtn");
-        if (checkUpdatesBtn) {
-            checkUpdatesBtn.addEventListener("click", triggerNotificationRefresh);
-        }
-
-        notificationsView.addEventListener("touchstart", (e) => {
-            if (notificationsView.scrollTop === 0) {
-                startY = e.touches[0].pageY;
-                isPulling = true;
-            }
-        }, { passive: true });
-
-        notificationsView.addEventListener("touchmove", (e) => {
-            if (!isPulling) return;
-            currentY = e.touches[0].pageY;
-            let pullDistance = currentY - startY;
-
-            if (pullDistance > 50) {
-                pullIndicator.classList.add("active-pull");
-            }
-        }, { passive: true });
-
-        notificationsView.addEventListener("touchend", () => {
-            if (isPulling) {
-                isPulling = false;
-                if (pullIndicator.classList.contains("active-pull")) {
-                    triggerNotificationRefresh();
-                }
-            }
-        }, { passive: true });
     }
      
     upgradeNotificationsLayout();
