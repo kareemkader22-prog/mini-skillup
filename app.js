@@ -36,6 +36,56 @@ document.addEventListener("DOMContentLoaded", () => {
      
     // משתנה עזר לשמירת השדה שנמצא כרגע בפוקוס
     let currentActiveInput = null;
+
+    // ================= הזרקת עיצוב פסי גלילה גלובלי לכל הדפים והחלונות המודליים =================
+    let globalScrollbarStyle = document.getElementById("global-scrollbars-style");
+    if (!globalScrollbarStyle) {
+        globalScrollbarStyle = document.createElement("style");
+        globalScrollbarStyle.id = "global-scrollbars-style";
+        globalScrollbarStyle.innerText = `
+            /* החלת קו הגלילה המעוגל והאפרפר על כל הדפים ועל חלון פרטי המשרה */
+            .view-section::-webkit-scrollbar,
+            #modalJobDetails::-webkit-scrollbar,
+            div[style*="overflow-y:auto"]::-webkit-scrollbar,
+            div[style*="overflow-y: auto"]::-webkit-scrollbar {
+                width: 5px; /* רוחב דק ועדין בדיוק כמו בתמונה image_23fe66.png */
+            }
+            .view-section::-webkit-scrollbar-track,
+            #modalJobDetails::-webkit-scrollbar-track,
+            div[style*="overflow-y:auto"]::-webkit-scrollbar-track,
+            div[style*="overflow-y: auto"]::-webkit-scrollbar-track {
+                background: transparent; /* רקע שקוף למראה נקי וצף */
+            }
+            .view-section::-webkit-scrollbar-thumb,
+            #modalJobDetails::-webkit-scrollbar-thumb,
+            div[style*="overflow-y:auto"]::-webkit-scrollbar-thumb,
+            div[style*="overflow-y: auto"]::-webkit-scrollbar-thumb {
+                background: #94a3b8; /* גוון אפרפר מעוצב מהתמונה */
+                border-radius: 10px; /* קצוות מעוגלים בצורת קפסולה */
+            }
+            .view-section::-webkit-scrollbar-thumb:hover,
+            #modalJobDetails::-webkit-scrollbar-thumb:hover {
+                background: #64748b;
+            }
+            
+            /* עיצוב פס הגלילה האופקי של כפתורי הסינון */
+            .custom-scroll-container::-webkit-scrollbar {
+                height: 4px;
+            }
+            .custom-scroll-container::-webkit-scrollbar-track {
+                background: #f1f5f9;
+                border-radius: 10px;
+            }
+            .custom-scroll-container::-webkit-scrollbar-thumb {
+                background: #cbd5e1;
+                border-radius: 10px;
+            }
+            .custom-scroll-container::-webkit-scrollbar-thumb:hover {
+                background: #94a3b8;
+            }
+        `;
+        document.head.appendChild(globalScrollbarStyle);
+    }
      
     // ================= ניהול תפריט המגירה הצדדי (Sidebar) והתפריט העליון =================
     function openSidebar() {
@@ -140,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
      
-    // מאגר משרות מלא המשלב משרות ג'וניור ומשרות מנוסים
+    // מאגר משרות מלא
     const fallbackJobs = [
         { 
             title: "Junior Full Stack Developer", 
@@ -460,7 +510,7 @@ document.addEventListener("DOMContentLoaded", () => {
      
         modalJobDetails.innerHTML = `
             <p style="margin-bottom: 12px; font-size:13px; color:#475569; text-align: left;"><strong>Location:</strong> ${job.location?.display_name || "Israel"}</p>
-            <div style="font-size: 13px; color: #334155; line-height: 1.6; margin-bottom: 20px; max-height:260px; overflow-y:auto; padding-right:5px; text-align: left;">
+            <div id="modalJobDetailsText" style="font-size: 13px; color: #334155; line-height: 1.6; margin-bottom: 20px; max-height:260px; overflow-y:auto; padding-right:5px; text-align: left;">
                 ${job.description}
             </div>
             ${externalLinkBtn}
@@ -859,7 +909,7 @@ document.addEventListener("DOMContentLoaded", () => {
         profileCardsContainer.appendChild(activityBlock);
     }
      
-    // ================= שדרוג דף הודעות (NOTIFICATIONS VIEW) המלא לפי העיצוב בתמונה =================
+    // ================= שדרוג דף הודעות (NOTIFICATIONS VIEW) =================
     function upgradeNotificationsLayout() {
         const notificationsView = document.getElementById("notificationsView");
         if (!notificationsView) return;
@@ -870,46 +920,6 @@ document.addEventListener("DOMContentLoaded", () => {
         notificationsView.style.height = "100%";
         notificationsView.style.overflowY = "auto";
         notificationsView.style.boxSizing = "border-box";
-
-        // יצירת עיצוב לפס גלילה מותאם (Custom Scrollbar) אנכי לדף, בדיוק כמו שמופיע בתמונה image_23fe66.png
-        let styleSheet = document.getElementById("custom-scrollbars-style");
-        if (!styleSheet) {
-            styleSheet = document.createElement("style");
-            styleSheet.id = "custom-scrollbars-style";
-            styleSheet.innerText = `
-                /* התאמת סגנון הגלילה של דף ההודעות למראה שמופיע בתמונה image_23fe66.png */
-                #notificationsView::-webkit-scrollbar {
-                    width: 5px; /* רוחב דק ועדין */
-                }
-                #notificationsView::-webkit-scrollbar-track {
-                    background: transparent; /* רקע שקוף למראה נקי */
-                }
-                #notificationsView::-webkit-scrollbar-thumb {
-                    background: #94a3b8; /* צבע אפרפר המשתלב בעיצוב */
-                    border-radius: 10px; /* קצוות מעוגלים כמו בתמונה */
-                }
-                #notificationsView::-webkit-scrollbar-thumb:hover {
-                    background: #64748b;
-                }
-                
-                /* עיצוב פס הגלילה האופקי של כפתורי הסינון שיראה כמו שאר האפליקציה */
-                .custom-scroll-container::-webkit-scrollbar {
-                    height: 4px;
-                }
-                .custom-scroll-container::-webkit-scrollbar-track {
-                    background: #f1f5f9;
-                    border-radius: 10px;
-                }
-                .custom-scroll-container::-webkit-scrollbar-thumb {
-                    background: #cbd5e1;
-                    border-radius: 10px;
-                }
-                .custom-scroll-container::-webkit-scrollbar-thumb:hover {
-                    background: #94a3b8;
-                }
-            `;
-            document.head.appendChild(styleSheet);
-        }
 
         // 1. כותרת עליונה, תיאור וכפתור גלגל שיניים
         const headerContainer = document.createElement("div");
@@ -931,7 +941,7 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         notificationsView.appendChild(headerContainer);
 
-        // 2. סליידר סינון קטגוריות אופקי (Filter Tabs) עם פס גלילה מעוצב
+        // 2. סליידר סינון קטגוריות אופקי
         const filtersContainer = document.createElement("div");
         filtersContainer.className = "custom-scroll-container"; 
         filtersContainer.style.display = "flex";
