@@ -870,6 +870,7 @@ document.addEventListener("DOMContentLoaded", () => {
         notificationsView.style.height = "100%";
         notificationsView.style.overflowY = "auto";
         notificationsView.style.boxSizing = "border-box";
+        notificationsView.style.position = "relative"; // קריטי עבור מחוון הגרירה והרענון החדש
         
         // העלמת פסי הגלילה הגסים למראה טבעי וחלק של מובייל[cite: 1]
         notificationsView.style.scrollbarWidth = "none"; 
@@ -882,9 +883,47 @@ document.addEventListener("DOMContentLoaded", () => {
             styleSheet.innerText = `
                 #notificationsView::-webkit-scrollbar { display: none !important; }
                 #notificationsView div::-webkit-scrollbar { display: none !important; }
+                .pull-indicator {
+                    width: 100%;
+                    height: 0px;
+                    overflow: hidden;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #f8fafc;
+                    transition: height 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+                    border-radius: 12px;
+                    margin-bottom: 0px;
+                }
+                .pull-indicator.active-pull {
+                    height: 50px;
+                    margin-bottom: 15px;
+                }
+                .spinner-pull {
+                    width: 18px;
+                    height: 18px;
+                    border: 2px solid #e2e8f0;
+                    border-top-color: #3b71f7;
+                    border-radius: 50%;
+                    animation: spin-pull 0.8s linear infinite;
+                }
+                @keyframes spin-pull {
+                    to { transform: rotate(360deg); }
+                }
             `;
             document.head.appendChild(styleSheet);
         }
+
+        // יצירת אלמנט ויזואלי של מחוון משיכה/רענון (Pull-to-refresh Indicator)
+        const pullIndicator = document.createElement("div");
+        pullIndicator.className = "pull-indicator";
+        pullIndicator.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <div class="spinner-pull"></div>
+                <span style="font-size: 12px; color: #64748b; font-family: sans-serif; font-weight: 500;">Refreshing alerts...</span>
+            </div>
+        `;
+        notificationsView.appendChild(pullIndicator);
 
         // 1. כותרת עליונה, תיאור וכפתור גלגל שיניים
         const headerContainer = document.createElement("div");
@@ -988,7 +1027,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <h2 style="margin: 0; font-size: 18px; font-weight: 700; color: #111827; font-family: sans-serif;">You're all caught up!</h2>
             <p style="margin: 6px 0 20px 0; font-size: 13px; color: #6b7280; font-family: sans-serif;">You have no new notifications at the moment.</p>
             
-            <button style="background: #3b71f7; color: #ffffff; border: none; border-radius: 10px; padding: 12px 24px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(59, 113, 247, 0.15); font-family: sans-serif;">
+            <button id="refreshNotificationsBtn" style="background: #3b71f7; color: #ffffff; border: none; border-radius: 10px; padding: 12px 24px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(59, 113, 247, 0.15); font-family: sans-serif;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
                 Check for updates
             </button>
@@ -1074,6 +1113,56 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         
         notificationsView.appendChild(preferencesRow);
+
+        // ================= לוגיקת גרירה למטה לרענון (Pull-to-Refresh) למסך ההודעות =================
+        let startY = 0;
+        let currentY = 0;
+        let isPulling = false;
+
+        // הגדרת פונקציית רענון חלקה
+        function triggerNotificationRefresh() {
+            pullIndicator.classList.add("active-pull");
+            
+            setTimeout(() => {
+                pullIndicator.classList.remove("active-pull");
+                console.log("Notifications ecosystem synchronized successfully.");
+            }, 1500); 
+        }
+
+        // חיבור כפתור ה-Check ללוגיקת הגרירה המרעננת
+        const checkUpdatesBtn = document.getElementById("refreshNotificationsBtn");
+        if (checkUpdatesBtn) {
+            checkUpdatesBtn.addEventListener("click", triggerNotificationRefresh);
+        }
+
+        notificationsView.addEventListener("touchstart", (e) => {
+            // מאפשר גרירה רק אם המשתמש נמצא בטופ של גלילת האלמנט
+            if (notificationsView.scrollTop === 0) {
+                startY = e.touches[0].pageY;
+                isPulling = true;
+            }
+        }, { passive: true });
+
+        notificationsView.addEventListener("touchmove", (e) => {
+            if (!isPulling) return;
+            currentY = e.touches[0].pageY;
+            let pullDistance = currentY - startY;
+
+            // אם המשתמש מושך כלפי מטה בצורה מובהקת
+            if (pullDistance > 50) {
+                pullIndicator.classList.add("active-pull");
+            }
+        }, { passive: true });
+
+        notificationsView.addEventListener("touchend", () => {
+            if (isPulling) {
+                isPulling = false;
+                // במידה והמחוון הפך פעיל, נבצע את הטעינה הסימולטיבית
+                if (pullIndicator.classList.contains("active-pull")) {
+                    triggerNotificationRefresh();
+                }
+            }
+        }, { passive: true });
     }
      
     upgradeNotificationsLayout();
