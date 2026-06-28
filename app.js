@@ -870,17 +870,27 @@ document.addEventListener("DOMContentLoaded", () => {
         notificationsView.style.height = "100%";
         notificationsView.style.overflowY = "auto";
         notificationsView.style.boxSizing = "border-box";
-        
-        // העלמת פסי הגלילה האנכיים הראשיים למראה נקי
-        notificationsView.style.scrollbarWidth = "none"; 
-        notificationsView.style.msOverflowStyle = "none";
 
-        let styleSheet = document.getElementById("hide-scrollbars-style");
+        // יצירת עיצוב לפס גלילה מותאם (Custom Scrollbar) אנכי לדף, בדיוק כמו שמופיע בתמונה image_23fe66.png
+        let styleSheet = document.getElementById("custom-scrollbars-style");
         if (!styleSheet) {
             styleSheet = document.createElement("style");
-            styleSheet.id = "hide-scrollbars-style";
+            styleSheet.id = "custom-scrollbars-style";
             styleSheet.innerText = `
-                #notificationsView::-webkit-scrollbar { display: none !important; }
+                /* התאמת סגנון הגלילה של דף ההודעות למראה שמופיע בתמונה image_23fe66.png */
+                #notificationsView::-webkit-scrollbar {
+                    width: 5px; /* רוחב דק ועדין */
+                }
+                #notificationsView::-webkit-scrollbar-track {
+                    background: transparent; /* רקע שקוף למראה נקי */
+                }
+                #notificationsView::-webkit-scrollbar-thumb {
+                    background: #94a3b8; /* צבע אפרפר המשתלב בעיצוב */
+                    border-radius: 10px; /* קצוות מעוגלים כמו בתמונה */
+                }
+                #notificationsView::-webkit-scrollbar-thumb:hover {
+                    background: #64748b;
+                }
                 
                 /* עיצוב פס הגלילה האופקי של כפתורי הסינון שיראה כמו שאר האפליקציה */
                 .custom-scroll-container::-webkit-scrollbar {
@@ -923,7 +933,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // 2. סליידר סינון קטגוריות אופקי (Filter Tabs) עם פס גלילה מעוצב
         const filtersContainer = document.createElement("div");
-        filtersContainer.className = "custom-scroll-container"; // קלאס ייעודי לפס הגלילה המעוצב[cite: 1]
+        filtersContainer.className = "custom-scroll-container"; 
         filtersContainer.style.display = "flex";
         filtersContainer.style.gap = "8px";
         filtersContainer.style.overflowX = "auto";
