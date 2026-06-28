@@ -872,7 +872,7 @@ document.addEventListener("DOMContentLoaded", () => {
         notificationsView.style.boxSizing = "border-box";
         notificationsView.style.position = "relative"; 
         
-        // הגדרת פס גלילה מותאם אישית ומעוגל בדיוק כמו ב-image_238e41.png במקום להעלים אותו[cite: 1]
+        // הגדרת פס גלילה מותאם אישית ומעוגל בדיוק כמו ב-image_238e41.png
         notificationsView.style.scrollbarWidth = "thin";
         notificationsView.style.scrollbarColor = "#7c7c7c transparent";
 
@@ -880,52 +880,57 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!styleSheet) {
             styleSheet = document.createElement("style");
             styleSheet.id = "custom-scrollbar-style";
-            styleSheet.innerText = `
-                /* יצירת פס גלילה מעוגל בהשראת image_238e41.png */
-                #notificationsView::-webkit-scrollbar {
-                    width: 7px;
-                    display: block !important;
-                }
-                #notificationsView::-webkit-scrollbar-track {
-                    background: transparent;
-                }
-                #notificationsView::-webkit-scrollbar-thumb {
-                    background: #7c7c7c;
-                    border-radius: 20px;
-                }
-                #notificationsView::-webkit-scrollbar-thumb:hover {
-                    background: #606060;
-                }
-                .pull-indicator {
-                    width: 100%;
-                    height: 0px;
-                    overflow: hidden;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    background-color: #f8fafc;
-                    transition: height 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-                    border-radius: 12px;
-                    margin-bottom: 0px;
-                }
-                .pull-indicator.active-pull {
-                    height: 50px;
-                    margin-bottom: 15px;
-                }
-                .spinner-pull {
-                    width: 18px;
-                    height: 18px;
-                    border: 2px solid #e2e8f0;
-                    border-top-color: #3b71f7;
-                    border-radius: 50%;
-                    animation: spin-pull 0.8s linear infinite;
-                }
-                @keyframes spin-pull {
-                    to { transform: rotate(360deg); }
-                }
-            `;
             document.head.appendChild(styleSheet);
         }
+        
+        // עדכון ה-CSS בשביל לקצר ולעשות את קו הגלילה מעוגל ואלגנטי יותר (בעזרת border שקוף וקטימת רקע)
+        styleSheet.innerText = `
+            #notificationsView::-webkit-scrollbar {
+                width: 7px;
+                display: block !important;
+            }
+            #notificationsView::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            #notificationsView::-webkit-scrollbar-thumb {
+                background-color: #7c7c7c;
+                background-clip: padding-box;
+                border-radius: 20px;
+                /* הוספת שוליים שקופים שמקצרים את אורך ה-Thumb הויזואלי */
+                border-top: 40px solid transparent;
+                border-bottom: 40px solid transparent;
+            }
+            #notificationsView::-webkit-scrollbar-thumb:hover {
+                background-color: #606060;
+            }
+            .pull-indicator {
+                width: 100%;
+                height: 0px;
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #f8fafc;
+                transition: height 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+                border-radius: 12px;
+                margin-bottom: 0px;
+            }
+            .pull-indicator.active-pull {
+                height: 50px;
+                margin-bottom: 15px;
+            }
+            .spinner-pull {
+                width: 18px;
+                height: 18px;
+                border: 2px solid #e2e8f0;
+                border-top-color: #3b71f7;
+                border-radius: 50%;
+                animation: spin-pull 0.8s linear infinite;
+            }
+            @keyframes spin-pull {
+                to { transform: rotate(360deg); }
+            }
+        `;
 
         // יצירת אלמנט ויזואלי של מחוון משיכה/רענון (Pull-to-refresh Indicator)
         const pullIndicator = document.createElement("div");
@@ -958,7 +963,7 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         notificationsView.appendChild(headerContainer);
 
-        // 2. סליידר סינון קטגוריות אופקי (Filter Tabs)[cite: 1]
+        // 2. סליידר סינון קטגוריות אופקי (Filter Tabs)
         const filtersContainer = document.createElement("div");
         filtersContainer.style.display = "flex";
         filtersContainer.style.gap = "8px";
