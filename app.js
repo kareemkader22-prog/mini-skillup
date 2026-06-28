@@ -379,7 +379,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderJobCards(jobs) {
         searchResultsArea.innerHTML = "";
         
-        // מילון מובנה שממפה את החברה ללוגו הרשמי והצבעוני שלה דרך השרת היציב של גוגל
         const companyAssets = {
             "wix.com": { logo: "https://www.google.com/s2/favicons?sz=64&domain=wix.com" },
             "google": { logo: "https://www.google.com/s2/favicons?sz=64&domain=google.com" },
@@ -407,19 +406,16 @@ document.addEventListener("DOMContentLoaded", () => {
             const compKey = companyName.toLowerCase().trim();
             const asset = companyAssets[compKey];
             
-            // ברירת מחדל של ראשי התיבות למקרה חירום בלבד
             let initials = companyName.substring(0, 2).toUpperCase();
             let finalLogoUrl = "";
 
             if (asset && asset.logo) {
                 finalLogoUrl = asset.logo;
             } else {
-                // יצירת קישור אוטומטי לכל חברה דינמית אחרת
                 const cleanDomain = compKey.replace(/\s+/g, '') + ".com";
                 finalLogoUrl = `https://www.google.com/s2/favicons?sz=64&domain=${cleanDomain}`;
             }
             
-            // תוכן הריבוע הפנימי - תמונת לוגו רשמית בגודל מלא
             let innerContent = `<img src="${finalLogoUrl}" alt="${companyName} Logo" style="width: 28px; height: 28px; object-fit: contain;" onerror="this.onerror=null; this.replaceWith(document.createTextNode('${initials}'))">`;
             
             let levelBadge = '';
@@ -430,15 +426,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }
      
             card.innerHTML = `
-                <!-- הריבוע החיצוני המעוגל כפול בדיוק לפי העיצוב -->
                 <div style="width: 54px; height: 54px; border: 1px solid #e2e8f0; border-radius: 14px; display: flex; justify-content: center; align-items: center; background: #ffffff; flex-shrink: 0;">
-                    <!-- הריבוע הפנימי שמציג כעת את התמונה הצבעונית האמיתית -->
                     <div style="width: 38px; height: 38px; background: #f1f5f9; border-radius: 6px; display: flex; justify-content: center; align-items: center; overflow: hidden; box-sizing: border-box;">
                         ${innerContent}
                     </div>
                 </div>
-
-                <!-- תוכן המשרה מימין לריבוע התמונה -->
                 <div style="flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0;">
                     <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
                         <h3 style="margin: 0; color: #1e293b; font-size: 15px; font-weight: 700; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${job.title}</h3>
@@ -679,15 +671,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
      
-    // ================= פירוק הפרופיל ל-4 מרובעים נפרדים מעוצבים עם תגיות מעוצבות לפי image_17a238.png =================
+    // ================= פירוק הפרופיל ל-4 מרובעים נפרדים מעוצבים =================
     function upgradeProfileLayout() {
         const profileView = document.getElementById("profileView");
         if (!profileView) return;
      
-        // רשימת הכישורים המעוצבים כבאדג'ים
         const skills = ["Python", "SQL", "JavaScript", "Git", "HTML", "CSS", "Problem Solving"];
         
-        // יצירת מחרוזת ה-HTML עבור ה-Skills כבלונים מעוגלים זה לצד זה
         const skillsHTML = `
             <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px;">
                 ${skills.map(skill => `
@@ -744,10 +734,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
      
-        // מחיקת התוכן הישן כדי לבנות את הכל מחדש בצורה מושלמת לפי המבנה של התמונה image_17a238.png
         profileCardsContainer.innerHTML = "";
      
-        // 1. יצירת ה-KPI Grid החדש (שורת הסטטיסטיקות העליונה בעלת 4 עמודות)
         const statsGrid = document.createElement("div");
         statsGrid.style.display = "grid";
         statsGrid.style.gridTemplateColumns = "repeat(4, 1fr)";
@@ -783,7 +771,6 @@ document.addEventListener("DOMContentLoaded", () => {
         
         profileCardsContainer.appendChild(statsGrid);
 
-        // 2. הוספת ארבעת כרטיסי המידע (Education, Background, Target Goal, Top Skills)
         profileData.forEach(item => {
             const squareCard = document.createElement("div");
             squareCard.style.backgroundColor = "#ffffff";
@@ -813,7 +800,6 @@ document.addEventListener("DOMContentLoaded", () => {
             profileCardsContainer.appendChild(squareCard);
         });
 
-        // 3. יצירת באנר הטיפ (Profile Tip) עם הכפתור הימני
         const tipBanner = document.createElement("div");
         tipBanner.style.backgroundColor = "#eff6ff";
         tipBanner.style.borderRadius = "12px";
@@ -840,7 +826,6 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         profileCardsContainer.appendChild(tipBanner);
 
-        // 4. יצירת בלוק פעילות אחרונה (Recent Activity)
         const activityBlock = document.createElement("div");
         activityBlock.style.backgroundColor = "#ffffff";
         activityBlock.style.borderRadius = "12px";
@@ -858,9 +843,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <span style="font-size: 14px; font-weight: 700; color: #1e293b; font-family: sans-serif;">Recent Activity</span>
                 <span style="font-size: 12px; font-weight: 600; color: #2563eb; cursor: pointer; font-family: sans-serif;">View All</span>
             </div>
-            
             <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 4px;">
-                <!-- פעילות 1 -->
                 <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <div style="background-color: #e0f2fe; color: #0369a1; width: 24px; height: 24px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 12px;">✓</div>
@@ -868,7 +851,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                     <span style="font-size: 11px; color: #94a3b8; font-family: sans-serif;">2 days ago</span>
                 </div>
-                <!-- פעילות 2 -->
                 <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <div style="background-color: #f3e8ff; color: #6b21a8; width: 24px; height: 24px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 12px;">+</div>
@@ -881,6 +863,204 @@ document.addEventListener("DOMContentLoaded", () => {
         profileCardsContainer.appendChild(activityBlock);
     }
      
-    upgradeProfileLayout();
+    // ================= שדרוג דף הודעות (NOTIFICATIONS VIEW) המלא לפי העיצוב בתמונה =================
+    function upgradeNotificationsLayout() {
+        const notificationsView = document.getElementById("notificationsView");
+        if (!notificationsView) return;
+
+        // בניית מבנה ה-HTML מחדש בסגנון האפליקציה המקורי והחלק
+        notificationsView.innerHTML = "";
+        notificationsView.style.padding = "24px 20px 100px 20px";
+        notificationsView.style.backgroundColor = "#fdfeff";
+        notificationsView.style.height = "100%";
+        notificationsView.style.overflowY = "auto";
+        notificationsView.style.boxSizing = "border-box";
+
+        // 1. כותרת עליונה, תיאור וכפתור גלגל שיניים (Header Area)
+        const headerContainer = document.createElement("div");
+        headerContainer.style.display = "flex";
+        headerContainer.style.justifyContent = "space-between";
+        headerContainer.style.alignItems = "flex-start";
+        headerContainer.style.marginBottom = "20px";
+        headerContainer.style.direction = "ltr";
+        headerContainer.style.textAlign = "left";
+
+        headerContainer.innerHTML = `
+            <div>
+                <h1 style="margin: 0; font-size: 24px; font-weight: 800; color: #111827; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">Notifications</h1>
+                <p style="margin: 4px 0 0 0; font-size: 13px; color: #6b7280; font-family: -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.4;">Stay updated with your important alerts and activity.</p>
+            </div>
+            <button style="background: #eff6ff; border: none; border-radius: 8px; width: 34px; height: 34px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            </button>
+        `;
+        notificationsView.appendChild(headerContainer);
+
+        // 2. סליידר סינון קטגוריות אופקי (Filter Tabs)
+        const filtersContainer = document.createElement("div");
+        filtersContainer.style.display = "flex";
+        filtersContainer.style.gap = "8px";
+        filtersContainer.style.overflowX = "auto";
+        filtersContainer.style.paddingBottom = "6px";
+        filtersContainer.style.marginBottom = "20px";
+        filtersContainer.style.direction = "ltr";
+        filtersContainer.style.scrollbarWidth = "none"; 
+        
+        const filters = [
+            { name: "All", count: true, active: true },
+            { name: "Updates", count: false, active: false },
+            { name: "Opportunities", count: false, active: false },
+            { name: "System", count: false, active: false }
+        ];
+
+        filters.forEach(filter => {
+            const filterBtn = document.createElement("button");
+            filterBtn.style.padding = "8px 16px";
+            filterBtn.style.borderRadius = "20px";
+            filterBtn.style.fontSize = "13px";
+            filterBtn.style.fontWeight = "600";
+            filterBtn.style.cursor = "pointer";
+            filterBtn.style.whiteSpace = "nowrap";
+            filterBtn.style.fontFamily = "sans-serif";
+            filterBtn.style.display = "flex";
+            filterBtn.style.alignItems = "center";
+            filterBtn.style.gap = "6px";
+
+            if (filter.active) {
+                filterBtn.style.backgroundColor = "#3b71f7";
+                filterBtn.style.color = "#ffffff";
+                filterBtn.style.border = "none";
+            } else {
+                filterBtn.style.backgroundColor = "#f3f4f6";
+                filterBtn.style.color = "#4b5563";
+                filterBtn.style.border = "none";
+            }
+
+            if (filter.count) {
+                filterBtn.innerHTML = `<span style="font-size:12px;">🔔</span> ${filter.name}`;
+            } else {
+                filterBtn.textContent = filter.name;
+            }
+
+            filtersContainer.appendChild(filterBtn);
+        });
+        notificationsView.appendChild(filtersContainer);
+
+        // 3. כרטיס Empty State מרכזי עם אייקון פעמון מעוצב (Caught Up Section)
+        const emptyStateCard = document.createElement("div");
+        emptyStateCard.style.backgroundColor = "#ffffff";
+        emptyStateCard.style.borderRadius = "20px";
+        emptyStateCard.style.padding = "36px 24px";
+        emptyStateCard.style.textAlign = "center";
+        emptyStateCard.style.border = "1px solid #f3f4f6";
+        emptyStateCard.style.boxShadow = "0 10px 15px -3px rgba(0, 0, 0, 0.02)";
+        emptyStateCard.style.marginBottom = "24px";
+        emptyStateCard.style.display = "flex";
+        emptyStateCard.style.flexDirection = "column";
+        emptyStateCard.style.alignItems = "center";
+        emptyStateCard.style.direction = "ltr";
+
+        emptyStateCard.innerHTML = `
+            <div style="position: relative; width: 90px; height: 90px; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; background: #f3f8ff; border-radius: 50%;">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#3b71f7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+                <div style="position: absolute; top: 16px; right: 16px; background: #3b71f7; color: white; border: 2.5px solid #ffffff; width: 20px; height: 20px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 11px; font-weight: bold;">✓</div>
+            </div>
+            
+            <h2 style="margin: 0; font-size: 18px; font-weight: 700; color: #111827; font-family: sans-serif;">You're all caught up!</h2>
+            <p style="margin: 6px 0 20px 0; font-size: 13px; color: #6b7280; font-family: sans-serif;">You have no new notifications at the moment.</p>
+            
+            <button style="background: #3b71f7; color: #ffffff; border: none; border-radius: 10px; padding: 12px 24px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(59, 113, 247, 0.15); font-family: sans-serif;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+                Check for updates
+            </button>
+        `;
+        notificationsView.appendChild(emptyStateCard);
+
+        // 4. בלוק המלצות קבועות (Stay in the loop)
+        const loopCard = document.createElement("div");
+        loopCard.style.backgroundColor = "#ffffff";
+        loopCard.style.borderRadius = "20px";
+        loopCard.style.padding = "24px 20px";
+        loopCard.style.border = "1px solid #f3f4f6";
+        loopCard.style.boxShadow = "0 10px 15px -3px rgba(0, 0, 0, 0.02)";
+        loopCard.style.marginBottom = "20px";
+        loopCard.style.direction = "ltr";
+        loopCard.style.textAlign = "left";
+
+        loopCard.innerHTML = `
+            <h3 style="margin: 0 0 20px 0; font-size: 15px; font-weight: 700; color: #111827; font-family: sans-serif;">Stay in the loop</h3>
+            
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                <div style="display: flex; align-items: flex-start; gap: 14px;">
+                    <div style="background: #eff6ff; color: #3b71f7; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; flex-shrink: 0;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 3px;">
+                        <span style="font-size: 14px; font-weight: 700; color: #111827; font-family: sans-serif;">New Job Matches</span>
+                        <span style="font-size: 12px; color: #6b7280; font-family: sans-serif; line-height: 1.4;">We'll notify you when new opportunities match your profile.</span>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: flex-start; gap: 14px;">
+                    <div style="background: #f0fdf4; color: #15803d; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; flex-shrink: 0;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 3px;">
+                        <span style="font-size: 14px; font-weight: 700; color: #111827; font-family: sans-serif;">Market Updates</span>
+                        <span style="font-size: 12px; color: #6b7280; font-family: sans-serif; line-height: 1.4;">Get insights about salary trends and in-demand skills.</span>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: flex-start; gap: 14px;">
+                    <div style="background: #f5f3ff; color: #6d28d9; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; flex-shrink: 0;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 3px;">
+                        <span style="font-size: 14px; font-weight: 700; color: #111827; font-family: sans-serif;">Profile Tips</span>
+                        <span style="font-size: 12px; color: #6b7280; font-family: sans-serif; line-height: 1.4;">Receive personalized tips to improve your profile.</span>
+                    </div>
+                </div>
+            </div>
+        `;
+        notificationsView.appendChild(loopCard);
+
+        // 5. ניהול העדפות התראות בתחתית הדף (Manage preferences)
+        const preferencesRow = document.createElement("div");
+        preferencesRow.style.backgroundColor = "#ffffff";
+        preferencesRow.style.borderRadius = "14px";
+        preferencesRow.style.padding = "16px";
+        preferencesRow.style.border = "1px solid #f3f4f6";
+        preferencesRow.style.display = "flex";
+        preferencesRow.style.alignItems = "center";
+        preferencesRow.style.justifyContent = "space-between";
+        preferencesRow.style.cursor = "pointer";
+        preferencesRow.style.direction = "ltr";
+        preferencesRow.style.textAlign = "left";
+
+        preferencesRow.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 14px;">
+                <div style="background: #eff6ff; color: #3b71f7; width: 36px; height: 36px; border-radius: 8px; display: flex; justify-content: center; align-items: center; flex-shrink: 0;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <span style="font-size: 14px; font-weight: 700; color: #111827; font-family: sans-serif;">Manage your preferences</span>
+                    <span style="font-size: 12px; color: #6b7280; font-family: sans-serif; margin-top: 2px;">Customize which notifications you want to receive.</span>
+                </div>
+            </div>
+            <div style="color: #9ca3af; font-weight: bold; font-size: 16px;">&gt;</div>
+        `;
+        
+        preferencesRow.addEventListener("click", () => {
+            alert("Notification Settings coming soon!");
+        });
+        
+        notificationsView.appendChild(preferencesRow);
+    }
      
+    // הפעלה ראשונית מובנית של העמוד המעוצב
+    upgradeNotificationsLayout();
+    upgradeProfileLayout();
 });
