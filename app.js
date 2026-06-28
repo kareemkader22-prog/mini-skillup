@@ -142,7 +142,6 @@ document.addEventListener("DOMContentLoaded", () => {
      
     // מאגר משרות מלא המשלב משרות ג'וניור ומשרות מנוסים
     const fallbackJobs = [
-        // --- משרות ג'וניור ומתחילים ---
         { 
             title: "Junior Full Stack Developer", 
             company: { display_name: "Wix.com" }, 
@@ -207,8 +206,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 • Solid comprehension of OOP principles, Data Structures, and Java syntax.<br>
                 • Academic or independent project portfolio written in Java/Spring Boot.`
         },
-     
-        // --- משרות מתקדמות ובכירים ---
         { 
             title: "Senior Java Software Architect", 
             company: { display_name: "Intel" }, 
@@ -375,7 +372,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
      
-    // פונקציה שמייצרת את קארד המשרה עם תמונת הלוגו הרשמית והצבעונית של החברה
     function renderJobCards(jobs) {
         searchResultsArea.innerHTML = "";
         
@@ -868,15 +864,29 @@ document.addEventListener("DOMContentLoaded", () => {
         const notificationsView = document.getElementById("notificationsView");
         if (!notificationsView) return;
 
-        // בניית מבנה ה-HTML מחדש בסגנון האפליקציה המקורי והחלק
         notificationsView.innerHTML = "";
         notificationsView.style.padding = "24px 20px 100px 20px";
         notificationsView.style.backgroundColor = "#fdfeff";
         notificationsView.style.height = "100%";
         notificationsView.style.overflowY = "auto";
         notificationsView.style.boxSizing = "border-box";
+        
+        // העלמת פסי הגלילה הגסים למראה טבעי וחלק של מובייל[cite: 1]
+        notificationsView.style.scrollbarWidth = "none"; 
+        notificationsView.style.msOverflowStyle = "none";
 
-        // 1. כותרת עליונה, תיאור וכפתור גלגל שיניים (Header Area)
+        let styleSheet = document.getElementById("hide-scrollbars-style");
+        if (!styleSheet) {
+            styleSheet = document.createElement("style");
+            styleSheet.id = "hide-scrollbars-style";
+            styleSheet.innerText = `
+                #notificationsView::-webkit-scrollbar { display: none !important; }
+                #notificationsView div::-webkit-scrollbar { display: none !important; }
+            `;
+            document.head.appendChild(styleSheet);
+        }
+
+        // 1. כותרת עליונה, תיאור וכפתור גלגל שיניים
         const headerContainer = document.createElement("div");
         headerContainer.style.display = "flex";
         headerContainer.style.justifyContent = "space-between";
@@ -896,21 +906,18 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         notificationsView.appendChild(headerContainer);
 
-        // 2. סליידר סינון קטגוריות אופקי (Filter Tabs) - תוקן כדי למנוע את חיתוך הכפתורים
+        // 2. סליידר סינון קטגוריות אופקי (Filter Tabs) - תוקן למניעת החיתוך מהעיצוב ב-image_23210c.png[cite: 1]
         const filtersContainer = document.createElement("div");
         filtersContainer.style.display = "flex";
         filtersContainer.style.gap = "8px";
         filtersContainer.style.overflowX = "auto";
-        filtersContainer.style.paddingBottom = "12px"; // שונה מ-6px ל-12px כדי לתת מרווח נשימה לכפתורים מלמטה
+        filtersContainer.style.overflowY = "hidden";
+        filtersContainer.style.height = "42px"; // גובה מקובע ומוגדר מראש למיכל
+        filtersContainer.style.alignItems = "center"; // מרכוז אנכי מושלם של כל הכפתורים
         filtersContainer.style.marginBottom = "20px";
         filtersContainer.style.direction = "ltr";
-        
-        // הזרקת סגנון להסתרת פסי גלילה בדפדפנים שונים כדי שהעיצוב יישאר חלק לחלוטין
         filtersContainer.style.scrollbarWidth = "none"; 
         filtersContainer.style.msOverflowStyle = "none";
-        const styleSheet = document.createElement("style");
-        styleSheet.innerText = `#notificationsView div::-webkit-scrollbar { display: none; }`;
-        document.head.appendChild(styleSheet);
         
         const filters = [
             { name: "All", count: true, active: true },
@@ -921,7 +928,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         filters.forEach(filter => {
             const filterBtn = document.createElement("button");
-            filterBtn.style.padding = "8px 16px";
+            filterBtn.style.padding = "6px 14px"; // פאדינג אופטימלי שלא חורג מהגובה
             filterBtn.style.borderRadius = "20px";
             filterBtn.style.fontSize = "13px";
             filterBtn.style.fontWeight = "600";
@@ -930,7 +937,10 @@ document.addEventListener("DOMContentLoaded", () => {
             filterBtn.style.fontFamily = "sans-serif";
             filterBtn.style.display = "flex";
             filterBtn.style.alignItems = "center";
+            filterBtn.style.justifyContent = "center";
+            filterBtn.style.lineHeight = "1"; // ביטול ירושת גבהים של שורות שדוחפים למטה
             filterBtn.style.gap = "6px";
+            filterBtn.style.height = "32px"; // גובה קבוע לכל כפתור בנפרד למניעת חיתוך
 
             if (filter.active) {
                 filterBtn.style.backgroundColor = "#3b71f7";
@@ -943,7 +953,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             if (filter.count) {
-                filterBtn.innerHTML = `<span style="font-size:12px;">🔔</span> ${filter.name}`;
+                filterBtn.innerHTML = `<span style="font-size:12px; line-height:1;">🔔</span><span>${filter.name}</span>`;
             } else {
                 filterBtn.textContent = filter.name;
             }
@@ -952,7 +962,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         notificationsView.appendChild(filtersContainer);
 
-        // 3. כרטיס Empty State מרכזי עם אייקון פעמון מעוצב (Caught Up Section)
+        // 3. כרטיס Empty State מרכזי
         const emptyStateCard = document.createElement("div");
         emptyStateCard.style.backgroundColor = "#ffffff";
         emptyStateCard.style.borderRadius = "20px";
@@ -1033,7 +1043,7 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         notificationsView.appendChild(loopCard);
 
-        // 5. ניהול העדפות התראות בתחתית הדף (Manage preferences)
+        // 5. ניהול העדפות התראות בתחתית הדף
         const preferencesRow = document.createElement("div");
         preferencesRow.style.backgroundColor = "#ffffff";
         preferencesRow.style.borderRadius = "14px";
@@ -1066,7 +1076,6 @@ document.addEventListener("DOMContentLoaded", () => {
         notificationsView.appendChild(preferencesRow);
     }
      
-    // הפעלה ראשונית מובנית של העמוד המעוצב
     upgradeNotificationsLayout();
     upgradeProfileLayout();
 });
