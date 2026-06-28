@@ -896,15 +896,21 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         notificationsView.appendChild(headerContainer);
 
-        // 2. סליידר סינון קטגוריות אופקי (Filter Tabs)
+        // 2. סליידר סינון קטגוריות אופקי (Filter Tabs) - תוקן כדי למנוע את חיתוך הכפתורים
         const filtersContainer = document.createElement("div");
         filtersContainer.style.display = "flex";
         filtersContainer.style.gap = "8px";
         filtersContainer.style.overflowX = "auto";
-        filtersContainer.style.paddingBottom = "6px";
+        filtersContainer.style.paddingBottom = "12px"; // שונה מ-6px ל-12px כדי לתת מרווח נשימה לכפתורים מלמטה
         filtersContainer.style.marginBottom = "20px";
         filtersContainer.style.direction = "ltr";
+        
+        // הזרקת סגנון להסתרת פסי גלילה בדפדפנים שונים כדי שהעיצוב יישאר חלק לחלוטין
         filtersContainer.style.scrollbarWidth = "none"; 
+        filtersContainer.style.msOverflowStyle = "none";
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = `#notificationsView div::-webkit-scrollbar { display: none; }`;
+        document.head.appendChild(styleSheet);
         
         const filters = [
             { name: "All", count: true, active: true },
